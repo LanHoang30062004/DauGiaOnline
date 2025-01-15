@@ -38,7 +38,6 @@ function MyProfile () {
           </div>
 
           <div className="profile-picture-section">
-            <div className="profile-picture-label">Profile Picture</div>
             <div className="profile-picture">
               <img src="647bc024abc775992cd6.png" alt="Profile Picture" />
               <button>Select Picture</button>
