@@ -1,9 +1,3 @@
-body {  
-    background-color: #ffffff;
-    background-image: url("../../uploads/image.jpg");
-    background-size: cover;
-    background-position-y: -120px;
-}
 .register-box {
     margin-top: 50px;
     background: #E9F1F8;
