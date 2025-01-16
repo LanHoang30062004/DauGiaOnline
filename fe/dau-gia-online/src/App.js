@@ -5,6 +5,7 @@ import Footer from './default/Footer';
 import MyProfile from './component/MyProfile';
 import Register from './component/Register';
 import HelpContact from './component/HelpContact';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
