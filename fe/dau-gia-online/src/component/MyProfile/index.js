@@ -6,7 +6,6 @@ function MyProfile () {
     return (
         <>
            <Header/>
-     
            <div className="container">
                 <h1>My Profile</h1>
                 <p>Manage profile information to keep your account secure</p>

@@ -5,7 +5,6 @@ function HelpContact() {
             <div className="title">Help & Contact</div>
             <div className="main-box">
                 <div className="box1">
-                    <div className="line"></div>
                     <div className="ques1">HOW CAN WE HELP YOU TODAY?</div>
                 </div>
                 <div className="box2">
