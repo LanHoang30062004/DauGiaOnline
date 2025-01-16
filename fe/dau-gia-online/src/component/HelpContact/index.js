@@ -1,4 +1,4 @@
-import "./style.css"
+import "./helpContact.css"
 function HelpContact() {
     return (
         <>

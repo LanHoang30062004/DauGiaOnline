@@ -2,7 +2,7 @@ import { IoIosCall } from "react-icons/io";
 import { IoCart } from "react-icons/io5";
 import { FaWallet } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import "./style.scss"
+import "./default.scss"
 function Header() {
     return (
         <>
