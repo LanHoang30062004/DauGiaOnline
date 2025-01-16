@@ -1,6 +1,6 @@
 body {  
     background-color: #ffffff;
-    background-image: url(images/image.jpg);
+    background-image: url("../../uploads/image.jpg");
     background-size: cover;
     background-position-y: -120px;
 }

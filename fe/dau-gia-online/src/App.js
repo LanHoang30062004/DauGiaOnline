@@ -9,7 +9,7 @@ import HelpContact from './component/HelpContact';
 function App() {
   return (
     <>
-     <HelpContact/>
+     <Register/>
     </>
   );
 }
