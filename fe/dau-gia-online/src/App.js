@@ -4,7 +4,6 @@ import MyProfile from './component/MyProfile';
 function App() {
   return (
     <>
-      <MyProfile/>
     </>
   )
 }
