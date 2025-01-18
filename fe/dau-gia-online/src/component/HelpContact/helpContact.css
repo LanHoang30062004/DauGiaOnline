@@ -107,7 +107,7 @@ body {
 .box3-frame {
     box-sizing: border-box;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1050px;
     margin: 0 auto;
     padding-top: 30px;
     padding-bottom: 20px;
@@ -115,43 +115,48 @@ body {
 }
 
 .text1 {
-    font-size: 27px;
+    font-size: 29px;
     text-align: center;
-    padding: 20px;
+    padding: 0 20px;
     font-weight: bold;
 }
 
 .text2 {
     font-size: 20px;
-    padding: 20px;
-    padding-top: 10px;
+    padding: 0 10px   ;
     text-decoration: none;
+}
+.text22 {
+    font-size: 20px;
+    padding: 0 10px   ;
+    text-decoration: none;
+    margin-top: 14px;
 }
 
 .text3 {
-    padding-left: 20px;
+    padding-left: 10px;
     font-size: 20px;
     font-weight: bold;
 }
 
 .helpacc2 {
-    border: 4px solid green;
-    padding-top: 20px;
+    border: 2px solid #2DB558;
+    
     border-radius: 5px;
-    margin-top: 10px;
+    margin: 20px 0;
 }
 
 .helpitem2 {
-    padding-top: 20px;
-    border: 4px solid green;
+    
+    border: 2px solid #2DB558;
     border-radius: 5px;
-    margin-top: 10px;
+    margin: 20px 0;
 
 }
 
 .helpacc {
     box-sizing: border-box;
-    padding-right: 10px;
+    margin-right: 10px;
 }
 
 .helpitem {

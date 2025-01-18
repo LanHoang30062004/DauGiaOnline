@@ -21,7 +21,7 @@ function HelpContact() {
                             <div className="helpacc">
                                 <div className="helpacc1">
                                     <div className="text1">Get help with a hacked account</div>
-                                    <div className="text2">If you think someone is trying to hack your account—or already has—we’ll work with you to secure it. For your protection, we may place a temporary hold on your account.</div>
+                                    <div className="text22">If you think someone is trying to hack your account—or already has—we’ll work with you to secure it. For your protection, we may place a temporary hold on your account.</div>
                                 </div>
                                 <div className="helpacc2">
                                     <div className="text3">Quick tip</div>
