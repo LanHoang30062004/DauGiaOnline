@@ -5,7 +5,8 @@ import "./myProfile.css"
 function MyProfile () {
     return (
         <>
-          <div className="container">
+            <Header/>
+            <div className="container">
                 <h1>My Profile</h1>
                 <p>Manage profile information to keep your account secure</p>
                 <div className="line"></div>
