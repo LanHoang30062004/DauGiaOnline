@@ -5,7 +5,6 @@ import "./myProfile.css"
 function MyProfile () {
     return (
         <>
-            <Header/>
             <div className="container">
                 <h1>My Profile</h1>
                 <p>Manage profile information to keep your account secure</p>
@@ -48,7 +47,6 @@ function MyProfile () {
                     <button type="submit" className="btn-change">Change</button>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }

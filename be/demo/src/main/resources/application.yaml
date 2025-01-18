@@ -20,3 +20,6 @@ api:
   prefix: /api/v1
 server:
   port: 8081
+jwt:
+  expiration: 2592000
+  secretKey: bBmCgwRv2hC/424s0xvsQu3kI2fECuhjtziAysvD51s=
