@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.ResponseData;
-import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
