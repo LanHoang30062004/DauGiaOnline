@@ -3,6 +3,12 @@ import './register.css';
 function Register() {
   return (
     <div class="background-image">
+        <header>
+                    <div className="header-content">
+                        <img src="/Logo.jpg" alt="Logo" className="header-logo"/>
+                            <h1 className="header-title">Register</h1>
+                    </div>
+                </header>
       <div className="d-flex align-items-center">
       <div className="container">
         <div className="row justify-content-center" style={{ margin: '20px' }}>
