@@ -1,5 +1,6 @@
 package com.example.demo.dto.request;
 
+import com.example.demo.util.anotations.ValidTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.validation.constraints.NotBlank;
@@ -19,22 +20,21 @@ import java.util.List;
 @Setter
 @Builder
 public class ProductDTO {
+    private Long id;
+
     @NotBlank(message = "name must be not blank")
     private String name;
 
     @NotBlank(message = "startingPrice must be not blank")
     private String startingPrice;
 
-    @NotNull(message = "dateOfBirth must be not null")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
-    private Date auctionTime;
+    @NotBlank(message = "startingPrice must be not blank")
+    @ValidTimeFormat(message = "Auction time is incorrect format")
+    private String auctionTime;
 
     @NotBlank(message = "category must be not blank")
     private String category;
 
     private List<String> urlResources = new ArrayList<>();
-
-
 
 }

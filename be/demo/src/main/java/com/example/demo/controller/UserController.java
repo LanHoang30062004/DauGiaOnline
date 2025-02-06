@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.request.UserChangeDTO;
 import com.example.demo.dto.request.UserDTO;
 import com.example.demo.dto.response.ResponseData;
 import com.example.demo.service.UserService;
@@ -8,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
@@ -41,6 +39,18 @@ public class UserController {
 
         } catch (Exception e) {
             log.error("Can not register : {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseData<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserChangeDTO userChangeDTO) {
+        try {
+            this.userService.updateUser(id, userChangeDTO);
+            log.info("User updated successful with id : {}", id);
+            return new ResponseData<>(HttpStatus.OK.value(), "User updated successfully with id : " + id);
+        } catch (Exception e) {
+            log.error("Can not update user : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
         }
     }

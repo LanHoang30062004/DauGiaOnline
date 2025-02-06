@@ -25,7 +25,7 @@ public class Product extends BaseEntity {
     private String startingPrice;
 
     @Column(name = "auction_time")
-    private Date auctionTime;
+    private String auctionTime;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
@@ -36,13 +36,17 @@ public class Product extends BaseEntity {
     private List<ProductImage> productImages;
 
     @JsonBackReference
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "cart",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"product_id"})
     )
     private List<User> users;
+
+    @OneToOne(mappedBy = "product")
+    private Inventory inventory  ;
     public void addUser(ProductImage productImage) {
         if (productImages == null) {
             this.productImages = new ArrayList<>();

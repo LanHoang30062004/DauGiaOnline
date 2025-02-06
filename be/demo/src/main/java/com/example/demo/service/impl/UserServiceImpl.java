@@ -1,6 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.request.UserChangeDTO;
 import com.example.demo.dto.request.UserDTO;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
@@ -41,6 +43,17 @@ public class UserServiceImpl implements UserService {
                 .dateOfBirth(userDTO.getDateOfBirth())
                 .build();
         this.userRepository.save(newUser);
+    }
+
+    @Override
+    public void updateUser(Long userId , UserChangeDTO userDTO) throws Exception {
+        User user = this.userRepository.findById(userId).orElseThrow(()-> new NotFoundException("User not found with id :" + userId ));
+        user.setFullName(userDTO.getFullName());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
+        user.setEmail(userDTO.getEmail());
+        user.setAddress(userDTO.getAddress());
+        user.setBalance(user.getBalance());
+        this.userRepository.save(user);
     }
 
     @Override

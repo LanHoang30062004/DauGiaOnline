@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.ResponseData;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Product;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -24,4 +25,6 @@ public interface ProductService {
     ProductDTO getProductById(Long id) throws Exception;
     void updateProduct(Long id , ProductDTO productDTO) throws Exception;
     void deleteProduct(Long id) throws Exception;
+    void addProductToCart(Long userId , Long productId) throws NotFoundException;
+    void payment (Long userId , Long productId , String amount) throws Exception;
 }

@@ -2,12 +2,15 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Category;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductImage;
+import com.example.demo.model.User;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ProductImageRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
@@ -28,6 +31,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -42,11 +46,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ProductImageRepository productImageRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<ProductDTO> findAll() {
         return this.productRepository.findAll().stream().map((product -> {
             return ProductDTO.builder()
+                    .id(product.getId())
                     .name(product.getName())
                     .category(product.getCategory().getName())
                     .startingPrice(product.getStartingPrice())
@@ -91,6 +97,7 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> products = productRepository.findAll(spec, pageable);
         List<ProductDTO> productDTOS = products.getContent().stream().map((p) -> {
             return ProductDTO.builder()
+                    .id(p.getId())
                     .urlResources(this.handleUrlResource(p.getProductImages()))
                     .name(p.getName())
                     .category(p.getCategory().getName())
@@ -102,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
         return PageResponse.builder()
                 .items(productDTOS)
                 .totalPages(products.getTotalPages())
-                .pageNo(page)
+                .pageNo(page + 1)
                 .pageSize(products.getSize())
                 .build();
     }
@@ -134,6 +141,7 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> products = productRepository.findAll(spec, pageable);
         List<ProductDTO> productDTOS = products.getContent().stream().map((p) -> {
             return ProductDTO.builder()
+                    .id(p.getId())
                     .urlResources(this.handleUrlResource(p.getProductImages()))
                     .name(p.getName())
                     .category(p.getCategory().getName())
@@ -144,7 +152,7 @@ public class ProductServiceImpl implements ProductService {
         return PageResponse.builder()
                 .items(productDTOS)
                 .totalPages(products.getTotalPages())
-                .pageNo(page)
+                .pageNo(page + 1)
                 .pageSize(products.getSize())
                 .build();
     }
@@ -248,6 +256,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO getProductById(Long id) throws Exception {
         Product product = this.productRepository.findById(id).orElseThrow(() -> new Exception("Can not find product by id " + id));
         return ProductDTO.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .startingPrice(product.getStartingPrice())
                 .auctionTime(product.getAuctionTime())
@@ -268,6 +277,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) throws Exception {
         Product product = this.productRepository.findById(id).orElseThrow(() -> new Exception("Can not find product by id " + id));
+        for (User user : product.getUsers()) {
+            user.getProducts().remove(product);
+        }
+        product.getUsers().clear();
         product.getProductImages().stream().forEach((i) -> {
             Path path = Paths.get("uploads/" + i.getUrl());
             try {
@@ -277,6 +290,35 @@ public class ProductServiceImpl implements ProductService {
             }
         });
         this.productRepository.delete(product);
+    }
+
+    @Override
+    public void addProductToCart(Long userId, Long productId) throws NotFoundException {
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Can not find user with id :" + userId));
+        Product product = this.productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Can not find product with id :" + productId));
+        if (user.getProducts() == null) user.setProducts(Arrays.asList(product));
+        else user.getProducts().add(product);
+        if (product.getUsers() == null) product.setUsers(Arrays.asList(user));
+        else product.getUsers().add(user);
+        this.productRepository.save(product);
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public void payment(Long userId, Long productId, String amount) throws Exception {
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Can not find user with id :" + userId));
+        Product product = this.productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Can not find product with id :" + productId));
+        int balance = Integer.parseInt(user.getBalance());
+        int newAmount = Integer.parseInt(amount);
+        if (user.getProducts().contains(product)) {
+            if (balance >= newAmount)  {
+                user.setBalance(String.valueOf(balance - newAmount));
+                this.userRepository.save(user);
+                this.deleteProduct(productId);
+            }
+            else throw new Exception("Not enough balance");
+        }
+        else throw new Exception("User don't have this product with id :" + productId);
     }
 
 }

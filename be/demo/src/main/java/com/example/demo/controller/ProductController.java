@@ -4,7 +4,9 @@ import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.ResponseData;
 import com.example.demo.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,7 @@ public class ProductController {
     public ResponseData<?> getAllProductsByCategory(@RequestParam(name = "page") int page,
                                                     @RequestParam(name = "size") int size,
                                                     @RequestParam(required = false) String sort,
-                                                    @RequestParam(name = "category") String category
+                                                    @RequestParam(required = false) String category
     ) {
         try {
             log.info("Get all products by category successfully");
@@ -61,7 +63,7 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseData<?> addNewProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseData<?> addNewProduct(@Valid @RequestBody ProductDTO productDTO) {
         try {
             ProductDTO product = this.productService.addNewProduct(productDTO);
             log.info("Add new product : {}", product);
@@ -71,6 +73,7 @@ public class ProductController {
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Add new product failed", null);
         }
     }
+
     @PostMapping(value = "/uploads/{id}" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseData<?> uploadProductImage(@PathVariable("id") Long id, @RequestParam("files") List<MultipartFile> file) {
         try {
@@ -83,6 +86,7 @@ public class ProductController {
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
+
     @GetMapping("/images/{imageName}")
     public ResponseEntity<?> getImageByImageName(@PathVariable("imageName") String imageName) {
         try {
@@ -97,6 +101,7 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/{id}")
     public ResponseData<?> getProductById(@PathVariable("id") Long id) {
         try {
@@ -110,8 +115,9 @@ public class ProductController {
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get product failed by id : " + id, null);
         }
     }
+
     @PutMapping("/{id}")
-    public ResponseData<?> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseData<?> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productDTO) {
         try {
             this.productService.updateProduct(id , productDTO);
             log.info("Update product successful with id :" + id);
@@ -133,6 +139,32 @@ public class ProductController {
         catch (Exception e) {
             log.error("Delete product failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
+    }
+
+    @PostMapping("/cart/{user}/{product}")
+    public ResponseData<?> addProductToCart(@PathVariable("user") Long user , @PathVariable("product") Long product) {
+        try {
+            this.productService.addProductToCart(user , product);
+            log.info("Add product to cart successful with user id :" + user);
+            return new ResponseData<>(HttpStatus.OK.value(), "Add product to cart successful with user id : " + user);
+        }
+        catch (Exception e) {
+            log.error("Add product to cart failed : {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.OK.value(), "Add product to cart failed");
+        }
+    }
+
+    @DeleteMapping("/payment/{user}/{product}")
+    public ResponseData<?> payment(@PathVariable("user") Long user , @PathVariable("product") Long product , @RequestParam String amount ) {
+        try {
+            this.productService.payment(user, product, amount);
+            log.info("Payment successful with user id :" + user);
+            return new ResponseData<>(HttpStatus.OK.value(), "Payment successful") ;
+        }
+        catch (Exception e) {
+            log.error("Payment failed with user id :" + user);
+            return new ResponseData<>(HttpStatus.OK.value(), "Payment failed because : " + e.getMessage()) ;
         }
     }
 
