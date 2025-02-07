@@ -2,9 +2,12 @@ import "./helpContact.css"
 import { IoSearch } from "react-icons/io5";
 import { BiLike } from "react-icons/bi";
 import { BiDislike } from "react-icons/bi";
+import Header from './../../default/Header';
+import Footer from './../../default/Footer';
 function HelpContact() {
     return (
         <>
+            <Header />
             <div className="mb">
                 <div className="title">Help & Contact</div>
                 <div className="main-box">
@@ -56,6 +59,8 @@ function HelpContact() {
                     </div>
                 </div>
             </div>
+            <Footer />
+
         </>
     )
 }

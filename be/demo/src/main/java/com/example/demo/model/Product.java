@@ -47,6 +47,10 @@ public class Product extends BaseEntity {
 
     @OneToOne(mappedBy = "product")
     private Inventory inventory  ;
+
+    @Column(name = "auctioned", columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean auctioned;
+
     public void addUser(ProductImage productImage) {
         if (productImages == null) {
             this.productImages = new ArrayList<>();

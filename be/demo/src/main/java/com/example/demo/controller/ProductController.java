@@ -6,7 +6,6 @@ import com.example.demo.dto.response.ResponseData;
 import com.example.demo.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -30,6 +29,7 @@ public class ProductController {
     public ResponseData<?> getAllProducts() {
         return new ResponseData<>(HttpStatus.OK.value(), "Get all products", this.productService.findAll());
     }
+
     @GetMapping("/by-search")
     public ResponseData<?> getAllProductsBySearch(@RequestParam(name = "page") int page,
                                                   @RequestParam(name = "size") int size,
@@ -62,26 +62,49 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/by-auction")
+    public ResponseData<?> getAllProductsByAuction() {
+        try {
+            List<ProductDTO> result = this.productService.findAllByAuction() ;
+            log.info("Get all products by auction successfully");
+            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by auction successfully" , result);
+        } catch (Exception e) {
+            log.error("Get all products by auction failed : {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by auction failed :" + e.getMessage());
+        }
+    }
+
+    @GetMapping("/by-inventory")
+    public ResponseData<?> getAllProductsByAuctioned() {
+        try {
+            List<ProductDTO> result = this.productService.findAllByInventory() ;
+            log.info("Get all products by inventory successfully");
+            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by inventory successfully", result);
+        } catch (Exception e) {
+            log.error("Get all products by inventory failed : {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by inventory failed :" + e.getMessage());
+        }
+    }
+
     @PostMapping("")
     public ResponseData<?> addNewProduct(@Valid @RequestBody ProductDTO productDTO) {
         try {
             ProductDTO product = this.productService.addNewProduct(productDTO);
             log.info("Add new product : {}", product);
-            return new ResponseData<>(HttpStatus.OK.value(), "Add new product successful",product);
+            return new ResponseData<>(HttpStatus.OK.value(), "Add new product successful", product);
         } catch (Exception e) {
             log.error("Add new product failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Add new product failed", null);
         }
     }
 
-    @PostMapping(value = "/uploads/{id}" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/uploads/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseData<?> uploadProductImage(@PathVariable("id") Long id, @RequestParam("files") List<MultipartFile> file) {
         try {
-            this.productService.handleUploadImage(file , id);
+            this.productService.handleUploadImage(file, id);
             log.info("Upload product image successful with id :" + id);
             return new ResponseData<>(HttpStatus.OK.value(), "Upload product image sucessful");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Upload product image failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
@@ -90,13 +113,12 @@ public class ProductController {
     @GetMapping("/images/{imageName}")
     public ResponseEntity<?> getImageByImageName(@PathVariable("imageName") String imageName) {
         try {
-            UrlResource resource = this.productService.getImageByImageName(imageName) ;
+            UrlResource resource = this.productService.getImageByImageName(imageName);
             log.info("Get image by image name successful");
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Get product image failed : {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
@@ -105,12 +127,11 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseData<?> getProductById(@PathVariable("id") Long id) {
         try {
-            ProductDTO productDTO = this.productService.getProductById(id) ;
+            ProductDTO productDTO = this.productService.getProductById(id);
             log.info("Get product successful with id :" + id);
-            return new ResponseData<>(HttpStatus.OK.value(), "Get product successful by id : " + id , productDTO);
+            return new ResponseData<>(HttpStatus.OK.value(), "Get product successful by id : " + id, productDTO);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Get product failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get product failed by id : " + id, null);
         }
@@ -119,11 +140,10 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseData<?> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productDTO) {
         try {
-            this.productService.updateProduct(id , productDTO);
+            this.productService.updateProduct(id, productDTO);
             log.info("Update product successful with id :" + id);
-            return new ResponseData<>(HttpStatus.OK.value(),"Update product successful with id : " + id);
-        }
-        catch (Exception e) {
+            return new ResponseData<>(HttpStatus.OK.value(), "Update product successful with id : " + id);
+        } catch (Exception e) {
             log.error("Update product failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
@@ -134,37 +154,34 @@ public class ProductController {
         try {
             this.productService.deleteProduct(id);
             log.info("Delete product successful with id :" + id);
-            return new ResponseData<>(HttpStatus.OK.value(),"Delete product successful with id : " + id);
-        }
-        catch (Exception e) {
+            return new ResponseData<>(HttpStatus.OK.value(), "Delete product successful with id : " + id);
+        } catch (Exception e) {
             log.error("Delete product failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
 
     @PostMapping("/cart/{user}/{product}")
-    public ResponseData<?> addProductToCart(@PathVariable("user") Long user , @PathVariable("product") Long product) {
+    public ResponseData<?> addProductToCart(@PathVariable("user") Long user, @PathVariable("product") Long product) {
         try {
-            this.productService.addProductToCart(user , product);
+            this.productService.addProductToCart(user, product);
             log.info("Add product to cart successful with user id :" + user);
             return new ResponseData<>(HttpStatus.OK.value(), "Add product to cart successful with user id : " + user);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Add product to cart failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.OK.value(), "Add product to cart failed");
         }
     }
 
     @DeleteMapping("/payment/{user}/{product}")
-    public ResponseData<?> payment(@PathVariable("user") Long user , @PathVariable("product") Long product , @RequestParam String amount ) {
+    public ResponseData<?> payment(@PathVariable("user") Long user, @PathVariable("product") Long product, @RequestParam String amount) {
         try {
             this.productService.payment(user, product, amount);
             log.info("Payment successful with user id :" + user);
-            return new ResponseData<>(HttpStatus.OK.value(), "Payment successful") ;
-        }
-        catch (Exception e) {
+            return new ResponseData<>(HttpStatus.OK.value(), "Payment successful");
+        } catch (Exception e) {
             log.error("Payment failed with user id :" + user);
-            return new ResponseData<>(HttpStatus.OK.value(), "Payment failed because : " + e.getMessage()) ;
+            return new ResponseData<>(HttpStatus.OK.value(), "Payment failed because : " + e.getMessage());
         }
     }
 

@@ -42,7 +42,7 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role ;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "users")
     private List<Product> products ;
 
     @Override

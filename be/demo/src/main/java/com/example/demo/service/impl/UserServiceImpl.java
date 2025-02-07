@@ -1,8 +1,10 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.request.UserChangeDTO;
 import com.example.demo.dto.request.UserDTO;
 import com.example.demo.exception.NotFoundException;
+import com.example.demo.model.ProductImage;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
@@ -17,6 +19,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -69,5 +74,28 @@ public class UserServiceImpl implements UserService {
         this.authenticationManager.authenticate(authenticationToken);
         String token = this.jwtToken.generateToken(user) ;
         return token;
+    }
+
+    private List<String> handleUrlResource(List<ProductImage> productImages) {
+        List<String> resources = new ArrayList<>();
+        for (ProductImage productImage : productImages) {
+            resources.add(productImage.getUrl());
+        }
+        return resources;
+    }
+
+    @Override
+    public List<ProductDTO> getProductsInCart(Long userId) throws NotFoundException {
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Can not find user with id :" + userId)) ;
+        List<ProductDTO> list = user.getProducts().stream().map((product -> {
+            return ProductDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .startingPrice(product.getStartingPrice())
+                    .urlResources(this.handleUrlResource(product.getProductImages()))
+                    .category(product.getCategory().getName())
+                    .build() ;
+        })).toList() ;
+        return list;
     }
 }

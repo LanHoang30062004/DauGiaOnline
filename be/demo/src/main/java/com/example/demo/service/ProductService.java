@@ -27,4 +27,8 @@ public interface ProductService {
     void deleteProduct(Long id) throws Exception;
     void addProductToCart(Long userId , Long productId) throws NotFoundException;
     void payment (Long userId , Long productId , String amount) throws Exception;
+
+    List<ProductDTO> findAllByAuction();
+    List<ProductDTO> findAllByInventory();
+
 }

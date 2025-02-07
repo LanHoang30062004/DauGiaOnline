@@ -321,4 +321,34 @@ public class ProductServiceImpl implements ProductService {
         else throw new Exception("User don't have this product with id :" + productId);
     }
 
+    @Override
+    public  List<ProductDTO> findAllByAuction() {
+       List<ProductDTO> products = this.productRepository.findByAuction().stream().map(product -> {
+           return ProductDTO.builder()
+                   .id(product.getId())
+                   .name(product.getName())
+                   .startingPrice(product.getStartingPrice())
+                   .auctionTime(product.getAuctionTime())
+                   .category(product.getCategory().getName())
+                   .urlResources(this.handleUrlResource(product.getProductImages()))
+                   .build() ;
+       }).toList();
+       return products;
+    }
+
+    @Override
+    public  List<ProductDTO> findAllByInventory() {
+        List<ProductDTO> products = this.productRepository.findByInventory().stream().map(product -> {
+            return ProductDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .startingPrice(product.getStartingPrice())
+                    .auctionTime(product.getAuctionTime())
+                    .category(product.getCategory().getName())
+                    .urlResources(this.handleUrlResource(product.getProductImages()))
+                    .build() ;
+        }).toList();
+        return products;
+    }
+
 }
