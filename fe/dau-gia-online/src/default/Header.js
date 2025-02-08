@@ -43,7 +43,7 @@ function Header() {
             <div className="header__below">
                 <div className="below__content">
                     <div className="below__image">
-                        <img src={process.env.PUBLIC_URL + "/logo192.png"} alt="Logo" />
+                        <img src={process.env.PUBLIC_URL + "/Logo.jpg"} alt="Logo" />
                     </div>
                     <div className="below__search">
                         <div className="below__magnifying"><FaMagnifyingGlass /></div>
