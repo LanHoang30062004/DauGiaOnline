@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public interface ProductService {
     List<ProductDTO> findAll() ;
+    PageResponse<?> findAllByFilter(int page , int size , String sort , String category , Boolean type) ;
     PageResponse<?> findAllBySearch(int page , int size , String sort , String search);
     PageResponse<?> findProductByCategory(int page , int size , String sort , String name) throws Exception;
     ProductDTO addNewProduct(ProductDTO productDTO) throws Exception;

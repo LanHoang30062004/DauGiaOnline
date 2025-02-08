@@ -30,6 +30,24 @@ public class ProductController {
         return new ResponseData<>(HttpStatus.OK.value(), "Get all products", this.productService.findAll());
     }
 
+    // by filter
+    @GetMapping("/by-filter")
+    public ResponseData<?> getAllProductsByFilter(@RequestParam(name = "page") int page,
+                                                  @RequestParam(name = "size") int size,
+                                                  @RequestParam(required = false) String sort,
+                                                  @RequestParam(required = false) String category,
+                                                  @RequestParam(required = false) Boolean type
+    ) {
+        try {
+            PageResponse pageResponse = this.productService.findAllByFilter(page, size, sort, category, type);
+            log.info("Get all products by filter successfully");
+            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by filter successfully", pageResponse);
+        } catch (Exception e) {
+            log.error("Get all products by filter failed : {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by filter failed", null);
+        }
+    }
+
     @GetMapping("/by-search")
     public ResponseData<?> getAllProductsBySearch(@RequestParam(name = "page") int page,
                                                   @RequestParam(name = "size") int size,
@@ -65,9 +83,9 @@ public class ProductController {
     @GetMapping("/by-auction")
     public ResponseData<?> getAllProductsByAuction() {
         try {
-            List<ProductDTO> result = this.productService.findAllByAuction() ;
+            List<ProductDTO> result = this.productService.findAllByAuction();
             log.info("Get all products by auction successfully");
-            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by auction successfully" , result);
+            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by auction successfully", result);
         } catch (Exception e) {
             log.error("Get all products by auction failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by auction failed :" + e.getMessage());
@@ -77,7 +95,7 @@ public class ProductController {
     @GetMapping("/by-inventory")
     public ResponseData<?> getAllProductsByAuctioned() {
         try {
-            List<ProductDTO> result = this.productService.findAllByInventory() ;
+            List<ProductDTO> result = this.productService.findAllByInventory();
             log.info("Get all products by inventory successfully");
             return new ResponseData<>(HttpStatus.OK.value(), "Get all products by inventory successfully", result);
         } catch (Exception e) {

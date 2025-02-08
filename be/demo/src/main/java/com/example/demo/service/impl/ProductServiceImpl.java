@@ -48,6 +48,14 @@ public class ProductServiceImpl implements ProductService {
     private final ProductImageRepository productImageRepository;
     private final UserRepository userRepository;
 
+    private List<String> handleUrlResource(List<ProductImage> productImages) {
+        List<String> resources = new ArrayList<>();
+        for (ProductImage productImage : productImages) {
+            resources.add(productImage.getUrl());
+        }
+        return resources;
+    }
+
     @Override
     public List<ProductDTO> findAll() {
         return this.productRepository.findAll().stream().map((product -> {
@@ -61,13 +69,53 @@ public class ProductServiceImpl implements ProductService {
         })).toList();
     }
 
-    private List<String> handleUrlResource(List<ProductImage> productImages) {
-        List<String> resources = new ArrayList<>();
-        for (ProductImage productImage : productImages) {
-            resources.add(productImage.getUrl());
+    @Override
+    public PageResponse<?> findAllByFilter(int page, int size, String sort, String category, Boolean type) {
+        if (page > 0) page = page - 1;
+        List<Sort.Order> orders = new ArrayList<>();
+        if (sort != null && !sort.equals("")) {
+            Pattern patter = Pattern.compile("(\\w+?)(:)(.*)");
+            Matcher matcher = patter.matcher(sort);
+            if (matcher.find()) {
+                if (matcher.group(3).equalsIgnoreCase("asc")) {
+                    orders.add(new Sort.Order(Sort.Direction.ASC, matcher.group(1)));
+                } else {
+                    orders.add(new Sort.Order(Sort.Direction.DESC, matcher.group(1)));
+                }
+            }
         }
-        return resources;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
+
+        Specification<Product> spec = Specification.where(null);
+
+        if (category != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("name"), category.toLowerCase()));
+        }
+
+        if (type != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("auctioned"), type));
+        }
+        Page<Product> products = this.productRepository.findAll(spec, pageable);
+        List<ProductDTO> productDTOS = products.getContent().stream().map((p) -> {
+            return ProductDTO.builder()
+                    .id(p.getId())
+                    .urlResources(this.handleUrlResource(p.getProductImages()))
+                    .name(p.getName())
+                    .category(p.getCategory().getName())
+                    .startingPrice(p.getStartingPrice())
+                    .auctionTime(p.getAuctionTime())
+                    .build();
+        }).toList();
+
+        return PageResponse.builder()
+                .items(productDTOS)
+                .totalPages(products.getTotalPages())
+                .pageNo(page + 1)
+                .pageSize(products.getSize())
+                .build();
+
     }
+
 
     @Override
     public PageResponse<?> findAllBySearch(int page, int size, String sort, String search) {
@@ -165,6 +213,7 @@ public class ProductServiceImpl implements ProductService {
                 .startingPrice(productDTO.getStartingPrice())
                 .auctionTime(productDTO.getAuctionTime())
                 .category(category)
+                .auctioned(false)
                 .build();
         this.productRepository.save(product);
         return productDTO;
@@ -311,33 +360,31 @@ public class ProductServiceImpl implements ProductService {
         int balance = Integer.parseInt(user.getBalance());
         int newAmount = Integer.parseInt(amount);
         if (user.getProducts().contains(product)) {
-            if (balance >= newAmount)  {
+            if (balance >= newAmount) {
                 user.setBalance(String.valueOf(balance - newAmount));
                 this.userRepository.save(user);
                 this.deleteProduct(productId);
-            }
-            else throw new Exception("Not enough balance");
-        }
-        else throw new Exception("User don't have this product with id :" + productId);
+            } else throw new Exception("Not enough balance");
+        } else throw new Exception("User don't have this product with id :" + productId);
     }
 
     @Override
-    public  List<ProductDTO> findAllByAuction() {
-       List<ProductDTO> products = this.productRepository.findByAuction().stream().map(product -> {
-           return ProductDTO.builder()
-                   .id(product.getId())
-                   .name(product.getName())
-                   .startingPrice(product.getStartingPrice())
-                   .auctionTime(product.getAuctionTime())
-                   .category(product.getCategory().getName())
-                   .urlResources(this.handleUrlResource(product.getProductImages()))
-                   .build() ;
-       }).toList();
-       return products;
+    public List<ProductDTO> findAllByAuction() {
+        List<ProductDTO> products = this.productRepository.findByAuction().stream().map(product -> {
+            return ProductDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .startingPrice(product.getStartingPrice())
+                    .auctionTime(product.getAuctionTime())
+                    .category(product.getCategory().getName())
+                    .urlResources(this.handleUrlResource(product.getProductImages()))
+                    .build();
+        }).toList();
+        return products;
     }
 
     @Override
-    public  List<ProductDTO> findAllByInventory() {
+    public List<ProductDTO> findAllByInventory() {
         List<ProductDTO> products = this.productRepository.findByInventory().stream().map(product -> {
             return ProductDTO.builder()
                     .id(product.getId())
@@ -346,7 +393,7 @@ public class ProductServiceImpl implements ProductService {
                     .auctionTime(product.getAuctionTime())
                     .category(product.getCategory().getName())
                     .urlResources(this.handleUrlResource(product.getProductImages()))
-                    .build() ;
+                    .build();
         }).toList();
         return products;
     }

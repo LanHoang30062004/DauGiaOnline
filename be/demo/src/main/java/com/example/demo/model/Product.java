@@ -22,7 +22,7 @@ public class Product extends BaseEntity {
     private String name;
 
     @Column(name = "starting_price")
-    private String startingPrice;
+    private Long startingPrice;
 
     @Column(name = "auction_time")
     private String auctionTime;

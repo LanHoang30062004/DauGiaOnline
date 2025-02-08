@@ -25,8 +25,7 @@ public class ProductDTO {
     @NotBlank(message = "name must be not blank")
     private String name;
 
-    @NotBlank(message = "startingPrice must be not blank")
-    private String startingPrice;
+    private Long startingPrice;
 
     @NotBlank(message = "startingPrice must be not blank")
     @ValidTimeFormat(message = "Auction time is incorrect format")
