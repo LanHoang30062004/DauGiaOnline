@@ -2,7 +2,7 @@ import "./style.css"
 import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
-const AddUser = () => {
+const UpdateUser = () => {
     const [user, setUser] = useState({
         name: 'Megan Fox',
         email: 'meganfox69@example.com',
@@ -44,7 +44,7 @@ const AddUser = () => {
                     </li>
                 </ul>
                 <div className="sidebar-user">
-                    <img src="/megan-fox-avatar.jpg" alt="User Avatar" className="avatar" />
+                    <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
                     <p className="username">Megan Fox</p>
                 </div>
             </div>
@@ -73,4 +73,4 @@ const AddUser = () => {
         </div>
     );
 };
-export default AddUser; 
+export default UpdateUser; 
