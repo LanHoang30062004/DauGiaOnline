@@ -3,8 +3,7 @@ import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import { BiSolidInbox } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
-import { IoMdAdd } from "react-icons/io";
-function AdminProduct() {
+function AdminUser() {
     return (
         <>
             <div>
@@ -14,11 +13,11 @@ function AdminProduct() {
                             <h1>ADMIN</h1>
                         </div>
                         <ul className="menu">
-                            <li className="menu-item">
+                            <li className="menu-item active">
                                 <span className="icon"><FaUsers /></span>
                                 <span className="text">Users</span>
                             </li>
-                            <li className="menu-item active">
+                            <li className="menu-item">
                                 <span className="icon"><FaBoxArchive /></span>
                                 <span className="text">Products</span>
                             </li>
@@ -30,87 +29,108 @@ function AdminProduct() {
                     </div>
                     <div className="main-content">
                         <div className="header">
-                            <h1>PRODUCTS</h1>
+                            <h1>USERS</h1>
                         </div>
                         <div className="stats">
                             <div className="stat">
-                                <h1>100</h1>
-                                <h1>Total Products</h1>
+                                <h1>9</h1>
+                                <h1>Total Users</h1>
+                            </div>
+                            <div className="stat">
+                                <h1>2</h1>
+                                <h1>Admin</h1>
                             </div>
                         </div>
-                        
-                            <div class="search-bar">
-                                <input type="text" placeholder="Search Products"/>
-                                <button class="add-product-icon"><IoMdAdd /></button>
-                            </div>
-                    
+                        <div className="search-bar">
+                            <input type="text" placeholder="Search by Name or Email" />
+                        </div>
                         <div className="scrollable-div">
                             <table className="user-table">
                                 <thead>
                                     <tr>
                                         <th>NAME</th>
-                                        <th>CATEGORIES</th>
-                                        <th>PRICE</th>
-                                        <th>TIME</th>
+                                        <th>EMAIL</th>
+                                        <th>ACCOUNT BALANCE</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Pinner Qing Dynasty</td>
-                                        <td>Antique</td>
-                                        <td>83.000.000.000 VND</td>
-                                        <td>03:04</td>
+                                        <td>Megan Fox</td>
+                                        <td>meganfox69@example.com</td>
+                                        <td>8.420.030.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Cheristie</td>
-                                        <td>Antique</td>
-                                        <td>23.000.000.000 VND</td>
-                                        <td>15:12</td>
+                                        <td>Black Jack</td>
+                                        <td>jack@well.com</td>
+                                        <td>50.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Ming Dynasty water vase</td>
-                                        <td>Antique</td>
-                                        <td>12.000.000.000 VND</td>
-                                        <td>21:13</td>
+                                        <td>Kyrie Irving</td>
+                                        <td>kyrie@gmail.com</td>
+                                        <td>3.240.000.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Himalaya Crocodile Retourné Kelly</td>
-                                        <td>Bag</td>
-                                        <td>10.000.000.000 VND</td>
-                                        <td>15:02</td>
+                                        <td>Gordon Buda</td>
+                                        <td>budahaha@gmail.com</td>
+                                        <td>200.500.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Hermès Sellier Mosaique Kelly</td>
-                                        <td>Bag</td>
-                                        <td>8.600.000.000  VND</td>
-                                        <td>15:02</td>
+                                        <td>Connor McDavid</td>
+                                        <td>connor@well.com</td>
+                                        <td>1.400.000.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Faubourg Birkin</td>
-                                        <td>Bag</td>
-                                        <td>7.800.000.000  VND</td>
-                                        <td>02:08</td>
+                                        <td>Mary Jane</td>
+                                        <td>auroido@example.com</td>
+                                        <td>3.000.000.000 VND</td>
+                                        <td>
+                                            <button className="edit"><BiSolidInbox /></button>
+                                            <button className="delete"><FaTrash /></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kyyyy</td>
+                                        <td>Kyyyy@example.com</td>
+                                        <td>3.000.000.000 VND</td>
+                                        <td>
+                                            <button className="edit"><BiSolidInbox /></button>
+                                            <button className="delete"><FaTrash /></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Naruto</td>
+                                        <td>Naruto@example.com</td>
+                                        <td>3.000.000.000 VND</td>
+                                        <td>
+                                            <button className="edit"><BiSolidInbox /></button>
+                                            <button className="delete"><FaTrash /></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sasuke</td>
+                                        <td>Sasuke@example.com</td>
+                                        <td>3.000.000.000 VND</td>
                                         <td>
                                             <button className="edit"><BiSolidInbox /></button>
                                             <button className="delete"><FaTrash /></button>
@@ -125,4 +145,4 @@ function AdminProduct() {
         </>
     )
 }
-export default AdminProduct;
+export default AdminUser;

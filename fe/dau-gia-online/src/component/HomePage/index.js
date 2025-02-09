@@ -4,7 +4,6 @@ import Footer from './../../default/Footer';
 function HomePage() {
     return (
         <>
-            <Header />
             <div className="ui">
                 <div className="header-box">
                     <div className="image-header"></div>
@@ -118,7 +117,6 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

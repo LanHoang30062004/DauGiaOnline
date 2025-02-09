@@ -5,7 +5,6 @@ import "./myProfile.css"
 function MyProfile () {
     return (
         <>
-        <Header/>
             <div className="container">
                 <h1>My Profile</h1>
                 <p>Manage profile information to keep your account secure</p>
@@ -38,8 +37,11 @@ function MyProfile () {
 
                     <div className="profile-picture-section">
                         <div className="profile-picture">
-                        <img src={process.env.PUBLIC_URL + "/Anh-dai-dien-tam.png"} alt="Profile Picture" />
-                            <button>Select Picture</button>
+                            <img src={process.env.PUBLIC_URL + "/GuestImage.jpg"} alt="Profile Picture" />
+                            <div className="Custom-file-upload">
+                                <input type="file" id="file-upload" class="custom-file-input" />
+                                <button class="btn-select">Select Picture</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +50,6 @@ function MyProfile () {
                     <button type="submit" className="btn-change">Change</button>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }
