@@ -1,24 +1,30 @@
 import "./style.css"
-import AddUser from './../AddUser/index';
-import { FaUsers } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaUsers } from "react-icons/fa";
+import { FaBoxArchive } from "react-icons/fa6";
+import React, { useState } from "react";
 function AddProduct() {
     return (
         <>
             <div className="ui">
-                <div className="sel-box">
+                <div className="sidebar">
                     <div className="logo">
-                        <img src={process.env.PUBLIC_URL + "/logo-admin.png"} alt="" />
+                        <h1>ADMIN</h1>
                     </div>
-                    <div className="user-box">
-                        <a className="user-sel" href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online"><a className="icon"><FaUsers /></a>Users</a>
-                    </div>
-                    <div className="product-box">
-                        <a className="product-sel" href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online"> <a className="icon"><MdInventory2 /></a>  Products</a>
-                    </div>
-                    <div className="profile-box">
-                        <a className="profile" href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online"><img src={process.env.PUBLIC_URL + "/megan-fox-avatar.jpg"} alt="" />Megan Fox</a>
+                    <ul className="menu">
+                        <li className="menu-item active">
+                            <span className="icon"><FaUsers /></span>
+                            <span className="text">Users</span>
+                        </li>
+                        <li className="menu-item">
+                            <span className="icon"><FaBoxArchive /></span>
+                            <span className="text">Products</span>
+                        </li>
+                    </ul>
+                    <div className="sidebar-user">
+                        <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
+                        <p className="username">Megan Fox</p>
                     </div>
                 </div>
                 <div className="main-box">

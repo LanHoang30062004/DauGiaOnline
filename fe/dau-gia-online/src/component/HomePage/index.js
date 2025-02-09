@@ -24,7 +24,7 @@ function HomePage() {
                             <a href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" className="name">Sneakers</a>
                         </div>
                         <div className="cate-4 rt">
-                            <a href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" className="image-4 cate-img"><img src={process.env.PUBLIC_URL + "/antique.png    "} alt="" /></a>
+                            <a href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" className="image-4 cate-img"><img src={process.env.PUBLIC_URL + "/antique.png"} alt="" /></a>
                             <a href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" className="name">Antique</a>
                         </div>
                     </div>
