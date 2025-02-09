@@ -23,7 +23,7 @@ function AdminUser() {
                             </li>
                         </ul>
                         <div className="sidebar-user">
-                            <img src="/megan-fox-avatar.jpg" alt="User Avatar" className="avatar" />
+                            <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
                             <p className="username">Megan Fox</p>
                         </div>
                     </div>
