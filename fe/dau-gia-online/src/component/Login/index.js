@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./login.css"
+import styles from "./login.module.css"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { url } from "../../util/Url";
@@ -27,25 +27,25 @@ function Login() {
     return (
         <>
             <div>
-                <div className="background">
+                <div className={styles.background}>
                     <header>
-                        <div className="header-content">
-                            <img src="/Logo.jpg" alt="Logo" className="header-logo" />
-                            <h1 className="header-title">Login</h1>
+                        <div className={styles.headerContent}>
+                            <img src="/Logo.jpg" alt="Logo" className={styles.headerLogo} />
+                            <h1 className={styles.headerTitle}>Login</h1>
                         </div>
                     </header>
-                    <div className="container">
+                    <div className={styles.container}>
                         <h1>Login</h1>
                         <form onSubmit={handleSubmit} className="post">
-                            <div className="khung">
-                                <input type="email" className="Email" required
+                            <div className={styles.khung}>
+                                <input type="email" required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-                                <span></span>   
+                                <span></span>
                                 <label>Email</label>
                             </div>
-                            <div className="khung">
+                            <div className={styles.khung}>
                                 <input type="password" required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -54,7 +54,7 @@ function Login() {
                                 <label>Password</label>
                             </div>
                             <input type="submit" value="Login" />
-                            <div className="signup_link">
+                            <div className={styles.signupLink}>
                                 Not a member? <a href="#">Signup</a>
                             </div>
                         </form>

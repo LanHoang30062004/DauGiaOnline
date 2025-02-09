@@ -1,8 +1,11 @@
-import "./style.css"
+import "./shoppingCart.css"
 import { CiDeliveryTruck } from "react-icons/ci";
-function ShoppingCart () {
+import Header from './../../default/Header';
+import Footer from './../../default/Footer';
+function ShoppingCart() {
     return (
         <>
+            <Header />
             <div className="container">
                 <div className="background-cart">
                     <div className="shopping-cart">
@@ -17,7 +20,7 @@ function ShoppingCart () {
                             <div className="No-product">
                                 <div className="cart-item">
                                     <div className="product-info">
-                                        <img src={process.env.PUBLIC_URL + "/MainImage.jpg"} alt="Air Force 1 Low x Louis Vuitton"/>
+                                        <img src={process.env.PUBLIC_URL + "/MainImage.jpg"} alt="Air Force 1 Low x Louis Vuitton" />
                                         <p>Air Force 1 Low x Louis Vuitton ‘Metallic Gold’</p>
                                     </div>
                                     <div className="price">725.000.000 VND</div>
@@ -28,7 +31,7 @@ function ShoppingCart () {
                                 </div>
 
                                 <div className="shipping-fee">
-                                    <div className="icon"><CiDeliveryTruck/></div>
+                                    <div className="icon"><CiDeliveryTruck /></div>
                                     <span>Shipping fee 50.000 VND</span>
                                 </div>
                             </div>
@@ -36,7 +39,7 @@ function ShoppingCart () {
                             <div className="No-product">
                                 <div className="cart-item">
                                     <div className="product-info">
-                                    <img src={process.env.PUBLIC_URL + "/prod-5.png"} alt="Cheristie"/>
+                                        <img src={process.env.PUBLIC_URL + "/prod-5.png"} alt="Cheristie" />
                                         <p>Cheristie</p>
                                     </div>
                                     <div className="price">23.000.000.000 VND</div>
@@ -47,7 +50,7 @@ function ShoppingCart () {
                                 </div>
 
                                 <div className="shipping-fee">
-                                    <div className="icon"><CiDeliveryTruck/></div>
+                                    <div className="icon"><CiDeliveryTruck /></div>
                                     <span>Shipping fee 50.000 VND</span>
                                 </div>
                             </div>
@@ -55,7 +58,8 @@ function ShoppingCart () {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
-export default ShoppingCart ; 
+export default ShoppingCart; 
