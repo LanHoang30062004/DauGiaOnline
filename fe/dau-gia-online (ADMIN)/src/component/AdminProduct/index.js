@@ -41,7 +41,7 @@ function AdminProduct() {
                         
                             <div class="search-bar">
                                 <input type="text" placeholder="Search Products"/>
-                                <button class="add-product-icon"><IoMdAdd /></button>
+                                <button className="add-product-icon"><IoMdAdd /></button>
                             </div>
                     
                         <div className="scrollable-div">
