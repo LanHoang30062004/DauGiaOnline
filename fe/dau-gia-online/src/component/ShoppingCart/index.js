@@ -1,4 +1,4 @@
-import "./ShoppingCart.css"
+import "./style.css"
 import { CiDeliveryTruck } from "react-icons/ci";
 function ShoppingCart () {
     return (
