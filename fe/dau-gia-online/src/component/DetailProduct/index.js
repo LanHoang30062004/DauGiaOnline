@@ -1,7 +1,4 @@
 import "./DetailProduct.css"
-import Header from './../../default/Header';
-import Footer from './../../default/Footer';
-
 function DetailProduct() {
     return (
         <>
@@ -35,7 +32,7 @@ function DetailProduct() {
                         <button class="bid"><span class="amount">700.000.000</span> <span>VND</span></button>
                     </div>
 
-                    <input type="text" placeholder="675.000.000 or up" className="bid-input"/>
+                    <input htmlFor="text" placeholder="675.000.000 or up" className="bid-input"/>
 
                     <div class="button-group">
                         <button class="place-bid">Place Bid</button>
