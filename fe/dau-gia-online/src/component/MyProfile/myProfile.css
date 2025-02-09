@@ -4,14 +4,9 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-}
 
 .container {
+    font-family: 'Roboto', sans-serif;
     max-width: 900px;
     margin: 50px auto;
     padding: 40px;
@@ -159,3 +154,34 @@ p {
 }
 
 
+.Custom-file-upload {
+    position: relative;
+    display: inline-block;
+}
+
+.Custom-file-upload .btn-select {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #acadac;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.Custom-file-upload .btn-select:hover {
+    background-color: #606161;
+}
+
+.Custom-file-upload .custom-file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+
+}
