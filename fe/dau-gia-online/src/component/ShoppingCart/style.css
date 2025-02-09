@@ -1,13 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 
+
 .container {
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     padding: 20px 0;
+
+}
+
+.background-cart{
+    display: contents;
+    background-color: #555;
+    border: solid 100px black;
+}
+
+.background-product{
+    background-color: #f8f7f7;
+    padding: 15px;
+}
+
+.cart-header div:first-child{
+    margin-left: 30px;
+}
+
+.cart-header div:nth-child(2){
+    margin-left: 20px;
+}
+
+.cart-header div:nth-child(3){
+    margin-left: -10px;
 }
 
 .shopping-cart {
@@ -20,6 +46,17 @@
     text-align: center;
     font-size: 30px;
     margin-bottom: 20px;
+
+}
+
+.No-product:first-child{
+    margin-bottom: 60px;
+}
+
+.cart-header{
+    background-color: white;
+    border: solid 1px rgb(220, 214, 214);
+    margin-bottom: 15px;
 }
 
 .cart-header, .cart-item {
@@ -33,11 +70,14 @@
 .cart-header {
     font-weight: bold;
     font-size: 20px;
-    color: #555;
+    color: #000000;
 }
 
 .cart-item {
     grid-template-columns: 4fr 2fr 1fr 1fr;
+    border: solid 1px rgb(196, 195, 195);
+    padding: 10px;
+    background-color: white;
 }
 
 .cart-item img {
@@ -54,12 +94,16 @@
 }
 
 .product-info img{
-    height: 120px;
-    width: 115px;
+    height: 105px;
+    width: 110px;
 }
 
 .product-info p {
     margin: 0;
+}
+
+.cart-item:hover{
+    background-color: aliceblue;
 }
 
 .cart-item .price {
@@ -81,7 +125,7 @@
     color: white;
     border: none;
     border-radius: 4px;
-    margin-right: 70px;
+    margin-right: 40px;
     height: 30px;
     width: 30px;
     cursor: pointer;
@@ -98,10 +142,14 @@
     margin-top: 10px;
     font-size: 14px;
     color: #555;
+    border: solid 1px rgb(196, 195, 195);
+    background-color: white;
+    margin-bottom: 15px;
+    margin-top: 2px;
 }
 
 .icon{
-    color: rgb(26, 218, 154);
+    color: rgb(23, 186, 132);
     font-size: 30px;
     margin-top: -10px;
     padding-right: 10px;
