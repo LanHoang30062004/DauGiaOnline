@@ -53,21 +53,68 @@ const UpdateUser = () => {
                     <h1>UPDATE USERS</h1>
                 </div>
                 <div className="user-update">
-                    <div className="user-details">
-                        <div className="user-column">
-                            <input type="text" name="name" value={user.name} onChange={handleChange} />
-                            <input type="email" name="email" value={user.email} onChange={handleChange} />
-                            <input type="text" name="date" value={user.date} onChange={handleChange} />
+                    <form onSubmit={handleUpdate}>
+                        <div className="user-details">
+                            <div className="user-column">
+                                <div className="form-group">
+                                    <label htmlFor="name">Full Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={user.name}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="address">Address</label>
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        name="address"
+                                        value={user.address}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="user-column">
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={user.email}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="balance">Balance</label>
+                                    <input
+                                        type="text"
+                                        id="balance"
+                                        name="balance"
+                                        value={user.balance}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="date">Date of Birth</label>
+                                    <input
+                                        type="text"
+                                        id="date"
+                                        name="date"
+                                        value={user.date}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="user-column">
-                            <input type="text" name="address" value={user.address} onChange={handleChange} />
-                            <input type="text" name="balance" value={user.balance} onChange={handleChange} />
+                        <div className="user-actions">
+                            <button onClick={handleCancel}>Cancel</button>
+                            <button onClick={handleUpdate}>Update</button>
                         </div>
-                    </div>
-                    <div className="user-actions">
-                        <button onClick={handleCancel}>Cancel</button>
-                        <button onClick={handleUpdate}>Update</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
