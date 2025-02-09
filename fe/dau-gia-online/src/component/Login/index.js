@@ -2,17 +2,28 @@ import { useState } from "react";
 import "./login.css"
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { url } from "../../util/Url";
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login } = useAuth();
+    const {login} = useAuth() ; 
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const token = "fake";
-        login(token);
-        navigate("/home");
+        axios.post(url + "users/login" , {
+            "email" : email , 
+            "password" : password 
+        })
+        .then((res) => {
+            console.log(res) ; 
+            console.log(res.data.data)
+            navigate("/home") ; 
+        })
+        .catch((err) => console.log(err))
+      
+
     }
 
     return (

@@ -1,53 +1,23 @@
-// src/context/AuthContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState } from 'react';
+import { setToken ,getToken ,removeToken } from '../service/AuthService';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [role, setRole] = useState(null);
-  const navigate = useNavigate();
-
-  const parseJwt = (token) => {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
-          .join('')
-      );
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      console.error('Invalid token', error);
-      return null;
-    }
-  };
+  const [authToken, setAuthToken] = useState(getToken());
 
   const login = (token) => {
-    localStorage.setItem('jwtToken', token);
-    const decodedToken = parseJwt(token);
-    const userRole = decodedToken?.role;
-    setRole(userRole);
-
-    if (userRole === 'ADMIN') {
-      navigate('/dashboard');
-    } else if (userRole === 'USER') {
-      navigate('/home');
-    }
+    setToken(token);
+    setAuthToken(token);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
-    if (token) {
-      const decodedToken = parseJwt(token);
-      setRole(decodedToken?.role || null);
-    }
-  }, []);
+  const logout = () => {
+    removeToken();
+    setAuthToken(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ role, login }}>
+    <AuthContext.Provider value={{ authToken, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

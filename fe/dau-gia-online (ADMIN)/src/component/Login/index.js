@@ -1,5 +1,17 @@
+import { useState } from "react";
 import "./login.css"
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 function Login() {
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        login("sds");
+        navigate("/home")
+    }
     return (
         <>
             <div>
@@ -14,12 +26,18 @@ function Login() {
                         <h1>Login</h1>
                         <form className="post">
                             <div className="khung">
-                                <input type="email" className="Email" required />
+                                <input type="email" className="Email" required
+                                    name={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                                 <span></span>
                                 <label>Email</label>
                             </div>
                             <div className="khung">
-                                <input type="password" required />
+                                <input type="password" required
+                                    name={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                                 <span></span>
                                 <label>Password</label>
                             </div>
