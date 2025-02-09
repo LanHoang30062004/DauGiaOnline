@@ -11,43 +11,45 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const token = "fake";
-        login(token) ; 
-        navigate("/home") ; 
+        login(token);
+        navigate("/home");
     }
 
     return (
         <>
             <div>
-                <header>
-                    <div className="header-content">
-                        <img src="/Logo.jpg" alt="Logo" className="header-logo" />
-                        <h1 className="header-title">Login</h1>
+                <div className="background">
+                    <header>
+                        <div className="header-content">
+                            <img src="/Logo.jpg" alt="Logo" className="header-logo" />
+                            <h1 className="header-title">Login</h1>
+                        </div>
+                    </header>
+                    <div className="container">
+                        <h1>Login</h1>
+                        <form onSubmit={handleSubmit} className="post">
+                            <div className="khung">
+                                <input type="email" className="Email" required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <span></span>
+                                <label>Email</label>
+                            </div>
+                            <div className="khung">
+                                <input type="password" required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <span></span>
+                                <label>Password</label>
+                            </div>
+                            <input type="submit" value="Login" />
+                            <div className="signup_link">
+                                Not a member? <a href="#">Signup</a>
+                            </div>
+                        </form>
                     </div>
-                </header>
-                <div className="container">
-                    <h1>Login</h1>
-                    <form onSubmit={handleSubmit} className="post">
-                        <div className="khung">
-                            <input type="email" className="Email" required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <span></span>
-                            <label>Email</label>
-                        </div>
-                        <div className="khung">
-                            <input type="password" required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <span></span>
-                            <label>Password</label>
-                        </div>
-                        <input type="submit" value="Login" />
-                        <div className="signup_link">
-                            Not a member? <a href="#">Signup</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </>
