@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-
-    font-family: 'Roboto', sans-serif;
-}
-
 .header-box {
     border-bottom: 1px solid #C9C8C8;
     width: 100%;
@@ -60,6 +51,11 @@ a {
 
 .cate-img {
     text-align: center;
+}
+
+.cate-img:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
 }
 
 .rt {
@@ -118,6 +114,11 @@ a {
 .pro-img {
     height: 65%;
     
+}
+
+.pro-img:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
 }
 
 .pro-name,

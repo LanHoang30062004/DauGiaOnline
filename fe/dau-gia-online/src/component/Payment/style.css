@@ -2,7 +2,7 @@
 :root {
     --mar-left: 30px;
 }
-body {
+.ui {
     font-family: 'Roboto', sans-serif;
     background-color: #F2F2F2;
 }
@@ -15,10 +15,6 @@ body {
     padding: 15px 0;
     background-color: white; 
     font-weight: bold;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 .frame {
