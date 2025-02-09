@@ -13,3 +13,6 @@ body {
 code {
   font-family: 'Roboto', sans-serif
 }
+p {
+  margin-bottom: 0;
+}

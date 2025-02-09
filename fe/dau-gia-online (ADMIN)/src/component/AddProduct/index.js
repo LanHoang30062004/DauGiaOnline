@@ -1,4 +1,5 @@
-import "./style.css"
+import "./style.css";
+import { FaUsers } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaUsers } from "react-icons/fa";

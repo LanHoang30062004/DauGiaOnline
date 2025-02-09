@@ -4,6 +4,8 @@ import { IoCart } from "react-icons/io5";
 import { FaWallet } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
+import { HiSortAscending , HiSortDescending  } from "react-icons/hi";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 import "./default.scss";
 
 function Header() {
@@ -53,11 +55,28 @@ function Header() {
                         </div>
                         {isDropdownOpen && (
                             <div className="dropdown-list">
-                                <ul>
-                                    <li>Option 1</li>
-                                    <li>Option 2</li>
-                                    <li>Option 3</li>
-                                </ul>
+                               <div className="dropdown-list__left">
+                                <p>Phân loại</p>
+                                <select>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                </select>
+                               </div>
+                               <div className="dropdown-list__center">
+                               <p>Loại hàng</p>
+                                <select>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
+                                </select>
+                               </div>
+                               <div className="dropdown-list__right">
+                                <button className="dropdown-list__img"><HiSortAscending /></button>
+                                <button className="dropdown-list__img"><HiSortDescending /></button>
+                                <button className="dropdown-list__img"><RiDeleteBin2Fill /></button>
+
+                               </div>
                             </div>
                         )}
                     </div>
