@@ -1,4 +1,4 @@
-import "./style.css"
+import styles from "./adminUser.module.css"
 import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import { BiSolidInbox } from "react-icons/bi";
@@ -7,45 +7,45 @@ function AdminUser() {
     return (
         <>
             <div>
-                <div className="app">
-                    <div className="sidebar">
-                        <div className="logo">
+                <div className={styles.app}>
+                    <div className={styles.sidebar}>
+                        <div className={styles.logo}>
                             <h1>ADMIN</h1>
                         </div>
-                        <ul className="menu">
-                            <li className="menu-item active">
-                                <span className="icon"><FaUsers /></span>
-                                <span className="text">Users</span>
+                        <ul className={styles.menu}>
+                            <li className={styles.menuItem +" "+ styles.active}>
+                                <span className={styles.icon}><FaUsers /></span>
+                                <span className={styles.text}>Users</span>
                             </li>
-                            <li className="menu-item">
-                                <span className="icon"><FaBoxArchive /></span>
-                                <span className="text">Products</span>
+                            <li className={styles.menuItem}>
+                                <span className={styles.icon}><FaBoxArchive /></span>
+                                <span className={styles.text}>Products</span>
                             </li>
                         </ul>
-                        <div className="sidebar-user">
-                            <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
-                            <p className="username">Megan Fox</p>
+                        <div className={styles.sidebarUser}>
+                            <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
+                            <p className={styles.username}>Megan Fox</p>
                         </div>
                     </div>
-                    <div className="main-content">
-                        <div className="header">
+                    <div className={styles.mainContent}>
+                        <div className={styles.header}>
                             <h1>USERS</h1>
                         </div>
-                        <div className="stats">
-                            <div className="stat">
+                        <div className={styles.stats}>
+                            <div className={styles.stat}>
                                 <h1>9</h1>
                                 <h1>Total Users</h1>
                             </div>
-                            <div className="stat">
+                            <div className={styles.stat}>
                                 <h1>2</h1>
                                 <h1>Admin</h1>
                             </div>
                         </div>
-                        <div className="search-bar">
+                        <div className={styles.searchBar}>
                             <input type="text" placeholder="Search by Name or Email" />
                         </div>
-                        <div className="scrollable-div">
-                            <table className="user-table">
+                        <div className={styles.scrollableDiv}>
+                            <table className={styles.userTable}>
                                 <thead>
                                     <tr>
                                         <th>NAME</th>
@@ -60,8 +60,8 @@ function AdminUser() {
                                         <td>meganfox69@example.com</td>
                                         <td>8.420.030.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -69,8 +69,8 @@ function AdminUser() {
                                         <td>jack@well.com</td>
                                         <td>50.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -78,8 +78,8 @@ function AdminUser() {
                                         <td>kyrie@gmail.com</td>
                                         <td>3.240.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -87,8 +87,8 @@ function AdminUser() {
                                         <td>budahaha@gmail.com</td>
                                         <td>200.500.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -96,8 +96,8 @@ function AdminUser() {
                                         <td>connor@well.com</td>
                                         <td>1.400.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -105,8 +105,8 @@ function AdminUser() {
                                         <td>auroido@example.com</td>
                                         <td>3.000.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -114,8 +114,8 @@ function AdminUser() {
                                         <td>Kyyyy@example.com</td>
                                         <td>3.000.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -123,8 +123,8 @@ function AdminUser() {
                                         <td>Naruto@example.com</td>
                                         <td>3.000.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -132,8 +132,8 @@ function AdminUser() {
                                         <td>Sasuke@example.com</td>
                                         <td>3.000.000.000 VND</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                 </tbody>
