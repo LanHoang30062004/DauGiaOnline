@@ -5,7 +5,7 @@ function LayoutDefault () {
     return (
         <>
            <Header/>
-           <Outlet/>
+            <Outlet/>
            <Footer/>
 
         </>

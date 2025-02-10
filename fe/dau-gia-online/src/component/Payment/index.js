@@ -1,11 +1,9 @@
-import "./style.css"
-import Header from './../../default/Header';
-import Footer from './../../default/Footer';
+import "./payment.css"
+
 import { FaTruck } from "react-icons/fa";
 function Payment() {
     return (
         <>
-            <Header />
             <div className="ui">
                 <div className=" text-center">
                     <div className="title">PAYMENT</div>
@@ -78,7 +76,6 @@ function Payment() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

@@ -1,5 +1,4 @@
-import "./DetailProduct.css"
-
+import "./detailProduc.css"
 function DetailProduct() {
     return (
         <>

@@ -1,7 +1,23 @@
-*{
-    margin: 0;
+  header{
+    background-color: white;
     padding: 0;
-    box-sizing: border-box;
+    height: auto;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+  }
+  .headerContent{
+    display: flex;
+    align-items: center;
+  }
+  .headerLogo{
+    width: 80px;
+    height: 60px;
+  }
+  .headerTitle{
+    font-size: 24px;
+    margin-left: 15px;
+    font-weight: auto;
   }
   .background {
     width: 100%;
@@ -12,33 +28,6 @@
     background-repeat: no-repeat;
     overflow: hidden;
   } 
-  header{
-    background-color: white;
-    padding: 0;
-    height: auto;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-  }
-  .header-content{
-    display: flex;
-    align-items: center;
-  }
-  .header-logo{
-    width: 80px;
-    height: 60px;
-  }
-  .header-title{
-    font-size: 24px;
-    margin-left: 15px;
-    font-weight: auto;
-  }
-  body{
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-  }
   .container{
     position: absolute;
     top: 50%;
@@ -122,17 +111,17 @@
     border-color: #2691d9;
     transition: .5s;
   }
-  .signup_link{
+  .signupLink{
     margin: 30px 0;
     text-align: center;
     font-size: 16px;
     color: #666666;
   }
-  .signup_link a{
+  .signupLink a{
     color: #2691d9;
     text-decoration: none;
   }
-  .signup_link a:hover{
+  .signupLink a:hover{
     text-decoration: underline;
   }
   

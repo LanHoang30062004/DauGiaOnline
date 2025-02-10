@@ -18,7 +18,7 @@
 }
 
 .frame {
-    max-width: 1450px;
+    width: 80%;
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -35,7 +35,7 @@
 .box2 {
     width: 37%; 
     background-color: white;
-    margin-bottom: 200px;
+    margin-bottom: 150px;
     padding: 0;
 }
 
@@ -109,7 +109,7 @@
 .space {
     width: 100%;
     height: 20px;
-    background-color: #D9D9D9;
+    background-color: #F2F2F2;
 }
 
 .btn-group .btn {
@@ -118,6 +118,11 @@
     color: white;
     border: none;
     height: 40px;
+}
+
+.btn-group .btn:hover {
+    background-color: #B32A33;
+    color: white;
 }
 
 .box-title  {
@@ -157,7 +162,7 @@
 }
 
 .font-3 {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 
     text-align: right;
@@ -182,7 +187,7 @@ a{
 }
 
 .total-amount {
-    font-size: 25px;
+    font-size: 20px;
     margin-left: var(--mar-left);
     font-weight: bold;
 }
@@ -196,12 +201,17 @@ a{
 }
 
 .agree-btn {
-    padding: 3px 150px;
+    padding: 3px 100px;
     border-radius: 10px;
     background-color: #B32A33;
     color: white;
     font-size: 25px;
     border: none;
+}
+
+.agree-btn:hover {
+    background-color: #4E000D;
+    color: white;
 }
 
 .infor-box {
