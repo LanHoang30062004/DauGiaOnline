@@ -1,3 +1,4 @@
+import Header from "../../default/Header";
 import styles from "./homePage.module.css";
 function HomePage() {
     return (

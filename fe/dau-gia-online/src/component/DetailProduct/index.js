@@ -1,3 +1,4 @@
+
 import styles from "./detailProduct.module.css"
 function DetailProduct() {
     return (

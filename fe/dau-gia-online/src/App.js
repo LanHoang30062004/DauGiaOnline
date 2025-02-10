@@ -1,26 +1,45 @@
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { Navigate, Route, Router, Routes } from 'react-router-dom';
 import Login from './component/Login/index';
-import Register from './component/Register/index';
+import LayoutDefault from './LayoutDefault';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import HomePage from './component/HomePage/index';
+import Register from './component/Register/index';
 import HelpContact from './component/HelpContact/index';
 import MyProfile from './component/MyProfile/index';
 import Payment from './component/Payment/index';
 import ShoppingCart from './component/ShoppingCart/index';
 import DetailProduct from './component/DetailProduct/index';
+const PrivateRoute = ({ children }) => {
+  const { authToken } = useAuth();
+  return authToken ? children : <Navigate to="/" />;
+};
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/help-contact" element={<HelpContact />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/shopping-cart" element={<ShoppingCart />} />
-        <Route path="/detail-product" element={<DetailProduct />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <LayoutDefault />
+              </PrivateRoute>
+            }
+          >
+            <Route path="home" element={<HomePage />} />
+            <Route path="help-contact" element={<HelpContact />} />
+            <Route path="my-profile" element={<MyProfile />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="shopping-cart" element={<ShoppingCart />} />
+            <Route path="detail-product" element={<DetailProduct />} />
+
+          
+          </Route>
+        </Routes>
+      </AuthProvider>
     </>
   )
 }

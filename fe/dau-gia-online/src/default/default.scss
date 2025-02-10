@@ -19,6 +19,9 @@
                 padding: 5px 10px;
 
             }
+            &__default:hover {
+                 cursor: pointer;
+            }
 
             &__image {
                 border-radius: 50%;
@@ -28,6 +31,7 @@
                 align-items: center;
                 justify-content: center;
                 margin-left: 10px;
+                position: relative;
 
                 img {
                     height: 100%;
@@ -86,7 +90,6 @@
 
             &__filter:hover {
                 background-color: rgba(168, 169, 175, 0.6);
-                /* Màu nền giống như button, nhưng mờ hơn */
                 cursor: pointer;
             }
 
@@ -95,7 +98,6 @@
                 height: 50px;
                 border-radius: 20px;
                 background-color: #a8a9af;
-                /* Màu nền ban đầu */
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -104,7 +106,6 @@
 
             &__button:hover {
                 background-color: rgba(168, 169, 175, 0.6);
-                /* Màu nền giống như button, nhưng mờ hơn */
                 color: black;
                 cursor: pointer;
             }
@@ -211,5 +212,6 @@
         color: #a8a9af;
     }
 
-
 }
+
+  

@@ -11,6 +11,8 @@
     padding-top: 60px;
     padding-bottom: 60px;
     justify-content: center;
+    position: relative;
+    left: 17%;
 }
 
 .imageSection {

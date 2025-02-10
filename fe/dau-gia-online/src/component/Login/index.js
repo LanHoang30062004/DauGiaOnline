@@ -1,27 +1,44 @@
 import { useState } from "react";
 import styles from "./login.module.css"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../util/Url";
-import axios  from 'axios';
+import axios from 'axios';
+import { useAuth } from "../../context/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(url + "users/login" , {
-            "email" : email , 
-            "password" : password 
+        axios.post(url + "users/login", {
+            email,
+            password
         })
-        .then((res) => {
-            console.log(res) ; 
-            console.log(res.data.data)
-            navigate("/home") ; 
-        })
-        .catch((err) => console.log(err))
-      
-
+            .then((res) => {
+                console.log(res);
+                const token = res.data.data;
+                if (token) {
+                    login(token);
+                    navigate("/home");
+                } else {
+                    setError(true);
+                    toast.error("Sai thông tin đăng nhập!", {
+                       
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setError(true);
+                toast.error("Sai thông tin đăng nhập!", {
+                     position: "bottom-right"
+                });
+            });
     }
 
     return (
@@ -55,10 +72,11 @@ function Login() {
                             </div>
                             <input type="submit" value="Login" />
                             <div className={styles.signupLink}>
-                                Not a member? <a href="#">Signup</a>
+                                Not a member? <Link to="/register">Signup</Link>
                             </div>
                         </form>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </>

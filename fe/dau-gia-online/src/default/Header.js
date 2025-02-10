@@ -4,7 +4,7 @@ import { IoCart } from "react-icons/io5";
 import { FaWallet } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
-import { HiSortAscending , HiSortDescending  } from "react-icons/hi";
+import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import "./default.scss";
 
@@ -14,6 +14,8 @@ function Header() {
     const handleFilterClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
+
+  
 
     return (
         <div className="header">
@@ -35,8 +37,8 @@ function Header() {
                             </div>
                         </li>
                         <li>
-                            <div className="above__image above__default">
-                                <img src={process.env.PUBLIC_URL + "/logo192.png"} alt="Logo" />
+                            <div className="above__image above__default" >
+                                <img src={process.env.PUBLIC_URL + "/user.png"} alt="Logo" />
                             </div>
                         </li>
                     </ul>
@@ -75,7 +77,6 @@ function Header() {
                                 <button className="dropdown-list__img"><HiSortAscending /></button>
                                 <button className="dropdown-list__img"><HiSortDescending /></button>
                                 <button className="dropdown-list__img"><RiDeleteBin2Fill /></button>
-
                                </div>
                             </div>
                         )}
