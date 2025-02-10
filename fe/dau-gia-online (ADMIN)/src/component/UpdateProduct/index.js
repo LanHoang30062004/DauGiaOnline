@@ -24,13 +24,13 @@ function AddProduct() {
                     </ul>
                     <div className={styles.sidebarUser}>
                         <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
-                        <a href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" className={styles.username}>Megan Fox</a>
+                        <div  className={styles.username}>Megan Fox</div>
                     </div>
                 </div>
                 <div className={styles.mainBox}>
                     <div className={styles.title}>UPDATE PRODUCTS</div>
                     <div className={styles.contentBox}>
-                        <form type="text" action="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" method="POST">
+                        <form type="text" action="" method="POST">
                             <div className={styles.inforBox}>
                                 <div className={styles.field}>
                                     <input type="text" id="name" name="name" value="Cheristie" />
@@ -56,7 +56,7 @@ function AddProduct() {
                         </form>
                         <div className={styles.imageBox}>
                             <div className={styles.imgArea}>
-                                <form action="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online" method="POST">
+                                <form action="" method="POST">
                                     <label className={styles.fileUpload}>
                                         +
                                         <input className={styles.uploadImg} type="file" id="fileInput"/>
@@ -67,8 +67,8 @@ function AddProduct() {
                         </div>
                     </div>
                     <div className={styles.btn}>
-                        <a className={styles.cancelBtn} href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online">Cancel</a>
-                        <a className={styles.uploadBtn} href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online">Upload</a>
+                        <a className={styles.cancelBtn} >Cancel</a>
+                        <a className={styles.uploadBtn} >Upload</a>
                     </div>
                 </div>
             </div>

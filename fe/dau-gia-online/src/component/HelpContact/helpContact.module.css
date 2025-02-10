@@ -179,6 +179,7 @@ a {
     margin: 0 15px;
     padding: 10px;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 .hf .icon:hover {
