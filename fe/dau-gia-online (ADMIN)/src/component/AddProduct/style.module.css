@@ -13,10 +13,14 @@ a {
 .ui {
     display: flex;
     height: 100%;
-}
-.main-box {
+    font-family: 'Times New Roman', Times, serif;
     background-color: #FCFAFA;
-    width: 78%;
+
+}
+
+.mainBox {
+    background-color: #FCFAFA;
+    width: 80%;
 }
 
 .title {
@@ -34,7 +38,6 @@ a {
 form {
     width: 70%;
 }
-
 
 .profile {
     width: 100%;
@@ -54,8 +57,7 @@ form {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
-    border: 1px solid white;    
-
+    border: 1px solid white;
 }
 
 .icon {
@@ -65,12 +67,8 @@ form {
     color: black;
 }
 
-.main-box {
-    width: 100%;
 
-}
-
-.infor-box {
+.inforBox {
     display: flex;
     flex-direction: column;
     gap: 70px;
@@ -79,9 +77,7 @@ form {
     width: 60%;
 }
 
-
-
-.image-box {
+.imageBox {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -91,20 +87,20 @@ form {
     align-items: center;
 }
 
-.field >input{
+.field>input {
     width: 100%;
     height: 50px;
     border: none;
     border-bottom: 1px solid #C9C3C3;
     border-radius: 3px;
 }
-.field>input:focus{
+
+.field>input:focus {
     padding-left: 20px;
     transition: padding-left 0.2s ease-in-out;
 }
 
-
-.img-area {
+.imgArea {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,23 +109,23 @@ form {
     height: 300px;
 }
 
-.content-box {
+.contentBox {
     display: flex;
 }
-.cate{
+
+.cateField {
     font-size: 20px;
 }
 
-#cate {
+.cateSelect {
     margin-left: 20px;
-    width: 65%;
-    height: 50px;
+    width: 75%;
+    height: 40px;
     border: none;
     border-bottom: 1px solid #C9C3C3;
-
 }
 
-.upload-img {
+.uploadImg {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,15 +135,14 @@ form {
     border-radius: 10px;
     color: white;
     font-size: 70px;
-    
 }
 
-.upload-img:hover {
+.uploadImg:hover {
     background-color: white;
     color: #676565;
 }
 
-.refre-btn {
+.refreBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,13 +156,13 @@ form {
     margin-top: 20px;
 }
 
-.refre-btn:hover {
+.refreBtn:hover {
     background-color: #676565;
     transition: all 0.3s ease;
     transform: scale(1);
 }
+
 .btn {
-    
     display: flex;
     max-width: 50%;
     height: 60px;
@@ -176,7 +171,8 @@ form {
     margin-top: 50px;
 }
 
-.cancel-btn , .upload-btn {
+.cancelBtn,
+.uploadBtn {
     display: flex;
     height: 100%;
     width: 30%;
@@ -188,7 +184,8 @@ form {
     color: white;
 }
 
-.cancel-btn:hover, .upload-btn:hover {
+.cancelBtn:hover,
+.uploadBtn:hover {
     background-color: #676565;
     color: white;
     transition: all 0.3s ease;
@@ -202,74 +199,77 @@ form {
     height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-  }
-  
-  .logo {
+}
+
+.logo {
     text-align: center;
     margin-bottom: 30px;
     cursor: pointer;
     border-bottom: 1px solid #34495e;
+}
 
-  }
-  
-  .menu {
+.menu {
     list-style: none;
     padding: 0;
-  }
-  
-  .menu-item {
+}
+
+.menuItem {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
     cursor: pointer;
-  }
-  
-  .menu-item.active,
-  .menu-item:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.menuItem.active,
+.menuItem:hover {
     background-color: #34495e;
-  }
-  
-  .icon {
+}
+
+.icon {
     margin-right: 10px;
-  }
-  
-  .sidebar-user {
+    font-size: 20px;
+    color: white;
+}
+
+.sidebarUser {
     display: flex;
     align-items: center;
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 220px;
+    width: 250px;
+    height: 60px;
     background-color: #2c3e50;
-  }
-  
-  .avatar {
+}
+
+.avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin: 10px;
     cursor: pointer;
-  }
-  
-  .username {
+}
+
+.username {
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #fff;
     margin: 20px;
-  }
+}
 
-  .img-area>form {
+.imgArea>form {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     content: "+";
-  }
+}
 
-  .file-upload {
+.fileUpload {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,11 +284,11 @@ form {
     position: relative;
 }
 
-.file-upload:hover {
+.fileUpload:hover {
     background-color: rgba(0, 123, 255, 0.1);
 }
 
-.file-upload input {
+.fileUpload input {
     position: absolute;
     width: 100%;
     height: 100%;

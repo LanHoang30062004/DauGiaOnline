@@ -1,75 +1,76 @@
-import "./payment.css"
+import styles from "./payment.module.css"
 
 import { FaTruck } from "react-icons/fa";
 function Payment() {
     return (
         <>
-            <div className="ui">
-                <div className=" text-center">
-                    <div className="title">PAYMENT</div>
+            <div className={styles.ui}>
+                <div className={styles.textCenter}>
+                    <div className={styles.title}>PAYMENT</div>
                 </div>
-                <div className="frame">
-                    <div className="box1">
-                        <div className="addr-box">
-                            <div className="box-name">
+                <div className={styles.frame}>
+                    <div className={styles.box1}>
+                        <div className={styles.addrBox}>
+                            <div className={styles.boxName}>
                                 ORDER INFORMATION
                             </div>
-                            <input className="input-addr" type="text" placeholder="Address" />
+                            <input className={styles.inputAddr} type="text" placeholder="Address" />
                         </div>
-                        <div className="space"></div>
-                        <div className="form-box">
-                            <div className="deliv-box">
-                                <div className="form-title">Form of delivery</div>
-                                <div className="deliv-content"><a className="icon"><FaTruck /></a> Delivered to your location</div>
+                        <div className={styles.space}></div>
+                        <div className={styles.formBox}>
+                            <div className={styles.delivBox}>
+                                <div className={styles.formTitle}>Form of delivery</div>
+                                <div className={styles.delivContent}><a className={styles.icon}><FaTruck /></a> Delivered to your location</div>
                             </div>
-                            <div className="ship-box ">
-                                <div className="form-title">Shipping by</div>
-                                <div className="btn-group d-flex justify-content-center" role="group">
-                                    <input type="radio" className="btn-check" name="shipping" id="motorbike" />
-                                    <label className="btn btn-outline-secondary mx-2" for="motorbike">Motorbike</label>
+                            <div className={styles.shipBox}>
+                                <div className={styles.formTitle}>Shipping by</div>
+                                <div className={styles.btnGroup + " " + styles.dFlex + " " + styles.justifyContentCenter} role="group">
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="motorbike" />
+                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="motorbike">Motorbike</label>
 
-                                    <input type="radio" className="btn-check" name="shipping" id="plane" />
-                                    <label className="btn btn-outline-secondary mx-2" for="plane">Plane</label>
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="plane" />
+                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="plane">Plane</label>
 
-                                    <input type="radio" className="btn-check" name="shipping" id="van" />
-                                    <label className="btn btn-outline-secondary mx-2" for="van">Van</label>
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="van" />
+                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="van">Van</label>
+
                                 </div>
 
                             </div>
-                            <div className="date-box">
-                                <div className="form-title">Delivery date</div>
-                                <div className="date-select">15/01/2025</div>
+                            <div className={styles.dateBox}>
+                                <div className={styles.formTitle}>Delivery date</div>
+                                <div className={styles.dateSelect}>15/01/2025</div>
                             </div>
                         </div>
                     </div>
-                    <div className="box2">
-                        <div className="box-title">
+                    <div className={styles.box2}>
+                        <div className={styles.boxTitle}>
                             ORDERS
                         </div>
-                        <div className="product-name">
+                        <div className={styles.productName}>
                             Air Force 1 Low x Louis Vuitton 'Metallic Gold'
                         </div>
-                        <div className="infor-box">
-                            <div className="price-box">
-                                <div className="price-item font-1">Price of the item: </div>
-                                <div className="price font-2">725.000.000 VND</div>
+                        <div className={styles.inforBox}>
+                            <div className={styles.priceBox}>
+                                <div className={styles.priceItem + " " + styles.font1}>Price of the item: </div>
+                                <div className={styles.price + " " + styles.font2}>725.000.000 VND</div>
                             </div>
-                            <div className="fee-box">
-                                <div className="ship-fee font-1">Shipping fee: </div>
-                                <div className="fee font-2">50.000 VND</div>
+                            <div className={styles.feeBox}>
+                                <div className={styles.shipFee + " " + styles.font1}>Shipping fee: </div>
+                                <div className={styles.fee + " " + styles.font2}>50.000 VND</div>
                             </div>
-                            <div className="pilici">
-                                <input className="tick" type="checkbox" />
-                                <span className="poli-agree">I agree to all <a href="#" target="_blank" className="poli-link">operating policies</a></span>
+                            <div className={styles.pilici}>
+                                <input className={styles.tick} type="checkbox" />
+                                <span className={styles.poliAgree}>I agree to all <a href="#" target="_blank" className={styles.poliLink}>operating policies</a></span>
                             </div>
                         </div>
-                        <div className="box-final">
-                            <div className="final-infor">
-                                <div className="total-amount">Total Amount</div>
-                                <div className="total-price font-3">725.050.000 VND</div>
+                        <div className={styles.boxFinal}>
+                            <div className={styles.finalInfor}>
+                                <div className={styles.totalAmount}>Total Amount</div>
+                                <div className={styles.totalPrice + " " + styles.font3}>725.050.000 VND</div>
                             </div>
-                            <div className="btn">
-                                <button className="agree-btn">Agree to ship</button>
+                            <div className={styles.btn}>
+                                <button className={styles.agreeBtn}>Agree to ship</button>
                             </div>
                         </div>
 
@@ -79,4 +80,4 @@ function Payment() {
         </>
     )
 }
-export default Payment; 
+export default Payment;
