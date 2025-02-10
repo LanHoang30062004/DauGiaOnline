@@ -1,22 +1,22 @@
-import './register.css';
+import styles from './register.module.css';
 function Register() {
   return (
-    <div class="background-image">
+    <div className={styles.backgroundImage}>
       <header>
-        <div className="header-content">
-          <img src="/Logo.jpg" alt="Logo" className="header-logo" />
-          <h1 className="header-title">Register</h1>
+        <div className={styles.headerContent}>
+          <img src="/Logo.jpg" alt="Logo" className={styles.headerLogo} />
+          <h1 className={styles.headerTitle}>Register</h1>
         </div>
       </header>
       <div className="d-flex align-items-center">
         <div className="container">
           <div className="row justify-content-center" style={{ margin: '20px' }}>
-            <div className="col-lg-6 col-md-8 register-box">
-              <div className="col-lg-12 register-title">
+            <div className={`col-lg-6 col-md-8 ${styles.registerBox}`}>
+              <div className={`col-lg-12 ${styles.registerTitle}`}>
                 Register
-                <div className="register-line"></div>
+                <div className={styles.registerLine}></div>
               </div>
-              <div className="col-lg-12 register-form">
+              <div className={`col-lg-12 ${styles.registerForm}`}>
                 <form>
                   <div className="row">
                     {/* Bên trái */}
@@ -44,12 +44,12 @@ function Register() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-12 login-btm login-button justify-content-center d-flex">
-                    <button type="submit" className="btn-outline-primary">
+                  <div className={`col-12 ${styles.loginBtm} ${styles.loginButton} justify-content-center d-flex`}>
+                    <button type="submit" className={styles.btnOutlinePrimary}>
                       Register
                     </button>
                   </div>
-                  <div className="login-link text-center mt-3">
+                  <div className={`${styles.loginLink} text-center mt-3`}>
                     <p>
                       Back to Login? <a href="#"> Login </a>
                     </p>
@@ -65,4 +65,3 @@ function Register() {
 }
 
 export default Register;
-
