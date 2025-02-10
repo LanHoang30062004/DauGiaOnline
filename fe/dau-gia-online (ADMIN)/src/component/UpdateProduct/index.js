@@ -4,7 +4,7 @@ import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
-function AddProduct() {
+function UpdateProduct() {
     return (
         <>
             <div className="ui">
@@ -75,4 +75,4 @@ function AddProduct() {
         </>
     )
 }
-export default AddProduct;
+export default UpdateProduct;
