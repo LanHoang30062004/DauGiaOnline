@@ -21,26 +21,26 @@ function Register() {
                   <div className="row">
                     {/* Bên trái */}
                     <div className="col-md-6">
-                      <div className="form-group">
-                        <input type="email" className="form-control" placeholder="Email" />
+                      <div className={styles.formGroup}>
+                        <input type="email" className={`form-control ${styles.inputEmail}`} placeholder="Email" />
                       </div>
-                      <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Password" />
+                      <div className={styles.formGroup}>
+                        <input type="password" className={`form-control ${styles.inputPassword}`} placeholder="Password" />
                       </div>
-                      <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Re-enter your password" />
+                      <div className={styles.formGroup}>
+                        <input type="password" className={`form-control ${styles.inputRepassword}`} placeholder="Re-enter your password" />
                       </div>
                     </div>
                     {/* Bên phải */}
                     <div className="col-md-6">
-                      <div className="form-group">
-                        <input type="fullname" className="form-control" placeholder="Full name" />
+                      <div className={styles.formGroup}>
+                        <input type="text" className={`form-control ${styles.inputFullname}`} placeholder="Full name" />
                       </div>
-                      <div className="form-group">
-                        <input type="date" className="form-control" placeholder="Date" />
+                      <div className={styles.formGroup}>
+                        <input type="date" className={`form-control ${styles.inputDate}`} placeholder="Date" />
                       </div>
-                      <div className="form-group">
-                        <input type="address" className="form-control" placeholder="Address" />
+                      <div className={styles.formGroup}>
+                        <input type="text" className={`form-control ${styles.inputAddress}`} placeholder="Address" />
                       </div>
                     </div>
                   </div>
