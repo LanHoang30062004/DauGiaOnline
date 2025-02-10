@@ -35,8 +35,8 @@ function Login() {
                         </div>
                     </header>
                     <div className={styles.container}>
-                        <h1>Login</h1>
-                        <form onSubmit={handleSubmit} className="post">
+                        <h1 className={styles.h1}>Login</h1>
+                        <form onSubmit={handleSubmit}>
                             <div className={styles.khung}>
                                 <input type="email" required
                                     value={email}

@@ -1,4 +1,4 @@
-import "./style.css"
+import styles from "./updateUser.module.css"
 import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
@@ -28,89 +28,89 @@ const UpdateUser = () => {
     };
 
     return (
-        <div className="app">
-            <div className="sidebar">
-                <div className="logo">
+        <div className={styles.app}>
+            <div className={styles.sidebar}>
+                <div className={styles.logo}>
                     <h1>ADMIN</h1>
                 </div>
-                <ul className="menu">
-                    <li className="menu-item active">
-                        <span className="icon"><FaUsers /></span>
-                        <span className="text">Users</span>
+                <ul className={styles.menu}>
+                    <li className={styles.menuItem +" "+ styles.active}>
+                        <span className={styles.icon}><FaUsers /></span>
+                        <span className={styles.text}>Users</span>
                     </li>
-                    <li className="menu-item">
-                        <span className="icon"><FaBoxArchive /></span>
-                        <span className="text">Products</span>
+                    <li className={styles.menuItem}>
+                        <span className={styles.icon}><FaBoxArchive /></span>
+                        <span className={styles.text}>Products</span>
                     </li>
                 </ul>
-                <div className="sidebar-user">
-                    <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
-                    <p className="username">Megan Fox</p>
+                <div className={styles.sidebarUser}>
+                    <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
+                    <p className={styles.username}>Megan Fox</p>
                 </div>
             </div>
-            <div className="main-content">
-                <div className="header">
+            <div className={styles.mainContent}>
+                <div className={styles.header}>
                     <h1>UPDATE USERS</h1>
                 </div>
-                <div className="user-update">
+                <div className={styles.userUpdate}>
                     <form onSubmit={handleUpdate}>
-                        <div className="user-details">
-                            <div className="user-column">
-                                <div className="form-group">
+                        <div className={styles.userDetails}>
+                            <div className={styles.userColumn}>
+                                <div className={styles.formGroup}>
                                     <label htmlFor="name">Full Name</label>
                                     <input
                                         type="text"
                                         id="name"
-                                        name="name"
+                                        name="styles.name"
                                         value={user.name}
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className="form-group">
+                                <div className={styles.formGroup}>
                                     <label htmlFor="address">Address</label>
                                     <input
                                         type="text"
                                         id="address"
-                                        name="address"
+                                        name="styles.address"
                                         value={user.address}
                                         onChange={handleChange}
                                     />
                                 </div>
-                            </div>
-                            <div className="user-column">
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={user.email}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="balance">Balance</label>
-                                    <input
-                                        type="text"
-                                        id="balance"
-                                        name="balance"
-                                        value={user.balance}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form-group">
+                                <div className={styles.formGroup}>
                                     <label htmlFor="date">Date of Birth</label>
                                     <input
                                         type="text"
                                         id="date"
-                                        name="date"
+                                        name="styles.date"
                                         value={user.date}
                                         onChange={handleChange}
                                     />
                                 </div>
                             </div>
+                            <div className={styles.userColumn}>
+                                <div className={styles.formGroup}>
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="styles.email"
+                                        value={user.email}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className={styles.formGroup}>
+                                    <label htmlFor="balance">Balance</label>
+                                    <input
+                                        type="text"
+                                        id="balance"
+                                        name="styles.balance"
+                                        value={user.balance}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="user-actions">
+                        <div className={styles.userActions}>
                             <button onClick={handleCancel}>Cancel</button>
                             <button onClick={handleUpdate}>Update</button>
                         </div>

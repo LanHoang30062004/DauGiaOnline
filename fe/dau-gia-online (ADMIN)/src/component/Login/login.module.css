@@ -15,15 +15,15 @@
     align-items: center;
     border-bottom: 1px solid #ccc;
   }
-  .header-content{
+  .headerContent{
     display: flex;
     align-items: center;
   }
-  .header-logo{
+  .headerLogo{
     width: 80px;
     height: 60px;
   }
-  .header-title{
+  .headerTitle{
     font-size: 24px;
     margin-left: 15px;
     font-weight: auto;
@@ -117,17 +117,17 @@
     border-color: #2691d9;
     transition: .5s;
   }
-  .signup_link{
+  .signupLink{
     margin: 30px 0;
     text-align: center;
     font-size: 16px;
     color: #666666;
   }
-  .signup_link a{
+  .signupLink a{
     color: #2691d9;
     text-decoration: none;
   }
-  .signup_link a:hover{
+  .signupLink a:hover{
     text-decoration: underline;
   }
   

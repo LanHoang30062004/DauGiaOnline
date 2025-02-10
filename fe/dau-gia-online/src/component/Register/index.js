@@ -1,55 +1,55 @@
-import './register.css';
+import styles from './register.module.css';
 function Register() {
   return (
-    <div class="background-image">
+    <div className={styles.backgroundImage}>
       <header>
-        <div className="header-content">
-          <img src="/Logo.jpg" alt="Logo" className="header-logo" />
-          <h1 className="header-title">Register</h1>
+        <div className={styles.headerContent}>
+          <img src="/Logo.jpg" alt="Logo" className={styles.headerLogo} />
+          <h1 className={styles.headerTitle}>Register</h1>
         </div>
       </header>
       <div className="d-flex align-items-center">
         <div className="container">
           <div className="row justify-content-center" style={{ margin: '20px' }}>
-            <div className="col-lg-6 col-md-8 register-box">
-              <div className="col-lg-12 register-title">
+            <div className={`col-lg-6 col-md-8 ${styles.registerBox}`}>
+              <div className={`col-lg-12 ${styles.registerTitle}`}>
                 Register
-                <div className="register-line"></div>
+                <div className={styles.registerLine}></div>
               </div>
-              <div className="col-lg-12 register-form">
+              <div className={`col-lg-12 ${styles.registerForm}`}>
                 <form>
                   <div className="row">
                     {/* Bên trái */}
                     <div className="col-md-6">
-                      <div className="form-group">
-                        <input type="email" className="form-control" placeholder="Email" />
+                      <div className={styles.formGroup}>
+                        <input type="email" className={`form-control ${styles.inputEmail}`} placeholder="Email" />
                       </div>
-                      <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Password" />
+                      <div className={styles.formGroup}>
+                        <input type="password" className={`form-control ${styles.inputPassword}`} placeholder="Password" />
                       </div>
-                      <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Re-enter your password" />
+                      <div className={styles.formGroup}>
+                        <input type="password" className={`form-control ${styles.inputRepassword}`} placeholder="Re-enter your password" />
                       </div>
                     </div>
                     {/* Bên phải */}
                     <div className="col-md-6">
-                      <div className="form-group">
-                        <input type="fullname" className="form-control" placeholder="Full name" />
+                      <div className={styles.formGroup}>
+                        <input type="text" className={`form-control ${styles.inputFullname}`} placeholder="Full name" />
                       </div>
-                      <div className="form-group">
-                        <input type="date" className="form-control" placeholder="Date" />
+                      <div className={styles.formGroup}>
+                        <input type="date" className={`form-control ${styles.inputDate}`} placeholder="Date" />
                       </div>
-                      <div className="form-group">
-                        <input type="address" className="form-control" placeholder="Address" />
+                      <div className={styles.formGroup}>
+                        <input type="text" className={`form-control ${styles.inputAddress}`} placeholder="Address" />
                       </div>
                     </div>
                   </div>
-                  <div className="col-12 login-btm login-button justify-content-center d-flex">
-                    <button type="submit" className="btn-outline-primary">
+                  <div className={`col-12 ${styles.loginBtm} ${styles.loginButton} justify-content-center d-flex`}>
+                    <button type="submit" className={styles.btnOutlinePrimary}>
                       Register
                     </button>
                   </div>
-                  <div className="login-link text-center mt-3">
+                  <div className={`${styles.loginLink} text-center mt-3`}>
                     <p>
                       Back to Login? <a href="#"> Login </a>
                     </p>
@@ -65,4 +65,3 @@ function Register() {
 }
 
 export default Register;
-

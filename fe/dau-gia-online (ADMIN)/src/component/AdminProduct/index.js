@@ -1,4 +1,4 @@
-import "./style.css"
+import styles from "./adminproduct.module.css"
 import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import { BiSolidInbox } from "react-icons/bi";
@@ -8,44 +8,44 @@ function AdminProduct() {
     return (
         <>
             <div>
-                <div className="app">
-                    <div className="sidebar">
-                        <div className="logo">
+                <div className={styles.app}>
+                    <div className={styles.sidebar}>
+                        <div className={styles.logo}>
                             <h1>ADMIN</h1>
                         </div>
-                        <ul className="menu">
-                            <li className="menu-item">
-                                <span className="icon"><FaUsers /></span>
-                                <span className="text">Users</span>
+                        <ul className={styles.menu}>
+                            <li className={styles.menuItem}>
+                                <span className={styles.icon}><FaUsers /></span>
+                                <span className={styles.text}>Users</span>
                             </li>
-                            <li className="menu-item active">
-                                <span className="icon"><FaBoxArchive /></span>
-                                <span className="text">Products</span>
+                            <li className={styles.menuItem + " " + styles.active} >
+                                <span className={styles.icon}><FaBoxArchive /></span>
+                                <span className={styles.text}>Products</span>
                             </li>
                         </ul>
-                        <div className="sidebar-user">
-                            <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className="avatar" />
-                            <p className="username">Megan Fox</p>
+                        <div className={styles.sidebarUser}>
+                            <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
+                            <p className={styles.username}>Megan Fox</p>
                         </div>
                     </div>
-                    <div className="main-content">
-                        <div className="header">
+                    <div className={styles.mainContent}>
+                        <div className={styles.header}>
                             <h1>PRODUCTS</h1>
                         </div>
-                        <div className="stats">
-                            <div className="stat">
+                        <div className={styles.stats}>
+                            <div className={styles.stat}>
                                 <h1>100</h1>
                                 <h1>Total Products</h1>
                             </div>
                         </div>
                         
-                            <div class="search-bar">
+                            <div class={styles.searchBar}>
                                 <input type="text" placeholder="Search Products"/>
-                                <button className="add-product-icon"><IoMdAdd /></button>
+                                <button className={styles.addProductIcon}><IoMdAdd /></button>
                             </div>
                     
-                        <div className="scrollable-div">
-                            <table className="user-table">
+                        <div className={styles.scrollableDiv}>
+                            <table className={styles.userTable}>
                                 <thead>
                                     <tr>
                                         <th>NAME</th>
@@ -62,8 +62,8 @@ function AdminProduct() {
                                         <td>83.000.000.000 VND</td>
                                         <td>03:04</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -72,8 +72,8 @@ function AdminProduct() {
                                         <td>23.000.000.000 VND</td>
                                         <td>15:12</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -82,8 +82,8 @@ function AdminProduct() {
                                         <td>12.000.000.000 VND</td>
                                         <td>21:13</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -92,8 +92,8 @@ function AdminProduct() {
                                         <td>10.000.000.000 VND</td>
                                         <td>15:02</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -102,8 +102,8 @@ function AdminProduct() {
                                         <td>8.600.000.000  VND</td>
                                         <td>15:02</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -112,8 +112,8 @@ function AdminProduct() {
                                         <td>7.800.000.000  VND</td>
                                         <td>02:08</td>
                                         <td>
-                                            <button className="edit"><BiSolidInbox /></button>
-                                            <button className="delete"><FaTrash /></button>
+                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                 </tbody>

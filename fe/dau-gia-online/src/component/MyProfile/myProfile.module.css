@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-
 .container {
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
@@ -12,14 +11,14 @@
     border-radius: 10px;
 }
 
-h1 {
+.h1 {
     font-size: 28px;
     font-weight: 700;
     color: #333;
     margin-bottom: 25px;
 }
 
-p {
+.p {
     font-size: 20px;
     color: #7e7e7e;
     margin-bottom: 20px;
@@ -30,10 +29,9 @@ p {
     width: 100%;
     height: 1px;
     background-color: #aba9a9;
-
 }
 
-.line-doc {
+.lineDoc {
     border: 1px solid #84888B;
     height: 340px;
     margin-top: 40px;
@@ -46,19 +44,19 @@ p {
     align-items: flex-start;
 }
 
-.form-section {
+.formSection {
     flex: 3;
     margin-right: 20px;
 }
 
-.form-profile {
+.formProfile {
     display: flex;
     align-items: center;
     margin-top: 40px;
     margin-bottom: 15px;
 }
 
-.form-profile label {
+.formProfile label {
     flex: 1;
     font-weight: 500;
     color: #333;
@@ -67,10 +65,9 @@ p {
 
 .dob {
     color: #7e7e7e;
-    ;
 }
 
-.form-profile input {
+.formProfile input {
     flex: none;
     width: 500px;
     padding: 10px;
@@ -82,23 +79,23 @@ p {
     color: #7e7e7e;
 }
 
-.profile-picture-section {
+.profilePictureSection {
     flex: 1;
     text-align: center;
 }
 
-.profile-picture-label {
+.profilePictureLabel {
     font-weight: 500;
     margin-bottom: 10px;
     color: #333;
 }
 
-.profile-picture {
+.profilePicture {
     text-align: center;
     margin-top: 70px;
 }
 
-.profile-picture img {
+.profilePicture img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -107,7 +104,7 @@ p {
     margin-bottom: 10px;
 }
 
-.profile-picture button {
+.profilePicture button {
     padding: 8px 15px;
     border: none;
     background-color: #acadac;
@@ -116,23 +113,20 @@ p {
     cursor: pointer;
 }
 
-
-.profile-picture button:hover {
+.profilePicture button:hover {
     background-color: #606161;
 }
 
-
-.bt-change {
+.btChange {
     text-align: center;
     margin-top: 30px;
 }
 
-.btn-select {
+.btnSelect {
     color: black;
 }
 
-
-.btn-change {
+.btnChange {
     display: inline-block;
     width: 15%;
     padding: 12px;
@@ -146,17 +140,16 @@ p {
     margin-top: 30px;
 }
 
-.btn-change:hover {
+.btnChange:hover {
     background-color: #606161;
 }
 
-
-.Custom-file-upload {
+.customFileUpload {
     position: relative;
     display: inline-block;
 }
 
-.Custom-file-upload .btn-select {
+.customFileUpload .btnSelect {
     display: inline-block;
     padding: 12px 20px;
     background-color: #acadac;
@@ -168,11 +161,11 @@ p {
     text-align: center;
 }
 
-.Custom-file-upload .btn-select:hover {
+.customFileUpload .btnSelect:hover {
     background-color: #606161;
 }
 
-.Custom-file-upload .custom-file-input {
+.customFileUpload .customFileInput {
     position: absolute;
     left: 0;
     top: 0;
@@ -180,5 +173,4 @@ p {
     height: 100%;
     opacity: 0;
     cursor: pointer;
-
 }
