@@ -1,9 +1,9 @@
-import "./detailProduc.css"
+import styles from "./detailProduct.module.css"
 function DetailProduct() {
     return (
         <>
-            <div className="container">
-                <div className="image-section">
+            <div className={styles.container}>
+                <div className={styles.imageSection}>
                     <div className="thumbnail-container">
                         <img src={process.env.PUBLIC_URL + "/subimage1.jpg"} alt="Thumbnail" />
                         <img src={process.env.PUBLIC_URL + "/subimage2.jpg"} alt="Thumbnail" />
