@@ -34,9 +34,7 @@ function App() {
             <Route path="my-profile" element={<MyProfile />} />
             <Route path="payment" element={<Payment />} />
             <Route path="shopping-cart" element={<ShoppingCart />} />
-            <Route path="detail-product" element={<DetailProduct />} />
-
-          
+            <Route path="detail-product/:id" element={<DetailProduct />} />
           </Route>
         </Routes>
       </AuthProvider>

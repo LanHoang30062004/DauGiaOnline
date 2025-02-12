@@ -24,11 +24,17 @@ function Login() {
                 const token = res.data.data;
                 if (token) {
                     login(token);
-                    navigate("/home");
+                    toast.success("Đăng nhập thành công" , {
+                        position : "bottom-right" , 
+                        autoClose : 1000 , 
+                        onClose : () => navigate("/home") 
+                    })
+                    
                 } else {
                     setError(true);
                     toast.error("Sai thông tin đăng nhập!", {
-                       
+                         position: "bottom-right",
+                         autoClose : 1000
                     });
                 }
             })
@@ -36,7 +42,8 @@ function Login() {
                 console.log(err);
                 setError(true);
                 toast.error("Sai thông tin đăng nhập!", {
-                     position: "bottom-right"
+                    position: "bottom-right",
+                    autoClose : 1000
                 });
             });
     }

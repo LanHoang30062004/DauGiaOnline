@@ -1,11 +1,9 @@
 import styles from "./shoppingCart.module.css"
 import { CiDeliveryTruck } from "react-icons/ci";
-import Header from './../../default/Header';
-import Footer from './../../default/Footer';
+
 function ShoppingCart() {
     return (
         <>
-            <Header />
             <div className={styles.container}>
                 <div className={styles.backgroundCart}>
                     <div className={styles.shoppingCart}>
@@ -66,7 +64,6 @@ function ShoppingCart() {
                 </div>
             </div>
 
-            <Footer />
         </>
     )
 }
