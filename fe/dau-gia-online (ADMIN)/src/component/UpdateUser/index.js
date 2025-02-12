@@ -2,6 +2,7 @@ import styles from "./updateUser.module.css"
 import { FaUsers } from "react-icons/fa";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 const UpdateUser = () => {
     const [user, setUser] = useState({
         name: 'Megan Fox',
@@ -34,13 +35,17 @@ const UpdateUser = () => {
                     <h1>ADMIN</h1>
                 </div>
                 <ul className={styles.menu}>
-                    <li className={styles.menuItem +" "+ styles.active}>
+                    <li className={styles.menuItem + " " + styles.active}>
                         <span className={styles.icon}><FaUsers /></span>
                         <span className={styles.text}>Users</span>
                     </li>
                     <li className={styles.menuItem}>
                         <span className={styles.icon}><FaBoxArchive /></span>
                         <span className={styles.text}>Products</span>
+                    </li>
+                    <li className={styles.menuItem}>
+                        <span className={styles.icon}><FaMoneyCheckDollar /></span>
+                        <span className={styles.text}>Payment History</span>
                     </li>
                 </ul>
                 <div className={styles.sidebarUser}>

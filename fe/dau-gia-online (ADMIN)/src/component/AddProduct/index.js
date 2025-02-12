@@ -5,6 +5,7 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
+
 function UpdateProduct() {
     return (
         <>
@@ -68,12 +69,12 @@ function UpdateProduct() {
                                     </label>
                                 </form>
                             </div>
-                            <a className={styles.refreBtn} href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online">Refresh</a>
+                            <div className={styles.refreBtn} >Refresh</div>
                         </div>
                     </div>
                     <div className={styles.btn}>
-                        <a className={styles.cancelBtn} >Cancel</a>
-                        <a className={styles.uploadBtn} >Upload</a>
+                        <div className={styles.cancelBtn} >Cancel</div>
+                        <div className={styles.uploadBtn} >Upload</div>
                     </div>
                 </div>
             </div>

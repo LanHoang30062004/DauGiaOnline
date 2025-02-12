@@ -4,6 +4,7 @@ import { FaBoxArchive } from "react-icons/fa6";
 import { BiSolidInbox } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 function AdminProduct() {
     return (
         <>
@@ -22,6 +23,10 @@ function AdminProduct() {
                                 <span className={styles.icon}><FaBoxArchive /></span>
                                 <span className={styles.text}>Products</span>
                             </li>
+                            <li className={styles.menuItem}>
+                                <span className={styles.icon}><FaMoneyCheckDollar /></span>
+                                <span className={styles.text}>Payment History</span>
+                            </li>
                         </ul>
                         <div className={styles.sidebarUser}>
                             <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
@@ -38,12 +43,12 @@ function AdminProduct() {
                                 <h1>Total Products</h1>
                             </div>
                         </div>
-                        
-                            <div class={styles.searchBar}>
-                                <input type="text" placeholder="Search Products"/>
-                                <button className={styles.addProductIcon}><IoMdAdd /></button>
-                            </div>
-                    
+
+                        <div class={styles.searchBar}>
+                            <input type="text" placeholder="Search Products" />
+                            <button className={styles.addProductIcon}><IoMdAdd /></button>
+                        </div>
+
                         <div className={styles.scrollableDiv}>
                             <table className={styles.userTable}>
                                 <thead>
