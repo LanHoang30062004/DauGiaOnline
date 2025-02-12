@@ -1,15 +1,53 @@
 import { useState } from "react";
 import styles from "./login.module.css"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { url } from "../../util/Url";
+import axios from 'axios';
+import { useAuth } from "../../context/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
-    const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
+    const { login } = useAuth();
     const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        login("sds");
-        navigate("/home")
+        axios.post(url + "users/login", {
+            email,
+            password
+        })
+            .then((res) => {
+                console.log(res);
+                const token = res.data.data;
+                if (token) {
+                    login(token);
+                    toast.success("Đăng nhập thành công" , {
+                        position : "bottom-right" , 
+                        autoClose : 1000 , 
+                        onClose : () => navigate("/home") 
+                    })
+                    
+                } else {
+                    setError(true);
+                    toast.error("Sai thông tin đăng nhập!", {
+                         position: "bottom-right",
+                         autoClose : 1000
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setError(true);
+                toast.error("Sai thông tin đăng nhập!", {
+                    position: "bottom-right",
+                    autoClose : 1000
+                });
+            });
     }
+
     return (
         <>
             <div>
@@ -21,11 +59,11 @@ function Login() {
                         </div>
                     </header>
                     <div className={styles.container}>
-                        <h1>Login</h1>
-                        <form className={styles.post}>
+                        <h1 className={styles.h1}>Login</h1>
+                        <form onSubmit={handleSubmit}>
                             <div className={styles.khung}>
-                                <input type="email" className={styles.Email} required
-                                    name={email}
+                                <input type="email" required
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <span></span>
@@ -33,7 +71,7 @@ function Login() {
                             </div>
                             <div className={styles.khung}>
                                 <input type="password" required
-                                    name={password}
+                                    value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <span></span>
@@ -41,10 +79,11 @@ function Login() {
                             </div>
                             <input type="submit" value="Login" />
                             <div className={styles.signupLink}>
-                                Not a member? <a href="#">Signup</a>
+                                Not a member? <Link to="/register">Signup</Link>
                             </div>
                         </form>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </>

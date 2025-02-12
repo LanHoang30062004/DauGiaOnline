@@ -1,11 +1,11 @@
-import styles from "./style.module.css";
+import styles from "./updateProduct.module.css";
 import { FaUsers } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
-function AddProduct() {
+function UpdateProduct() {
     return (
         <>
             <div className={styles.ui}>
@@ -35,7 +35,7 @@ function AddProduct() {
                 <div className={styles.mainBox}>
                     <div className={styles.title}>UPDATE PRODUCTS</div>
                     <div className={styles.contentBox}>
-                        <form type="text" action="" method="POST">
+                        <form className={styles.form__updateProduct} type="text" action="" method="POST">
                             <div className={styles.inforBox}>
                                 <div className={styles.field}>
                                     <input type="text" id="name" name="name" value="Cheristie" />
@@ -80,4 +80,4 @@ function AddProduct() {
         </>
     )
 }
-export default AddProduct;
+export default UpdateProduct;
