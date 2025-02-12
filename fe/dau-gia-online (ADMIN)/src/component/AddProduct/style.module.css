@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-a {
-    display: inline;
-}
 
 a {
     display: block;
@@ -158,9 +155,11 @@ form {
 }
 
 .refreBtn:hover {
-    background-color: #676565;
+    background-color: #234bce;
+    color: black;
     transition: all 0.3s ease;
     transform: scale(1);
+    border: 3px solid black;
 }
 
 .btn {
@@ -188,10 +187,11 @@ form {
 
 .cancelBtn:hover,
 .uploadBtn:hover {
-    background-color: #676565;
-    color: white;
+    background-color: #234bce;
+    color: black;
     transition: all 0.3s ease;
     transform: scale(1);
+    border: 3px solid black;
 }
 
 .sidebar {

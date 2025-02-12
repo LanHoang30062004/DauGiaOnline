@@ -157,9 +157,11 @@ form {
 }
 
 .refreBtn:hover {
-    background-color: #676565;
+    background-color: #234bce;
+    color: black;
     transition: all 0.3s ease;
     transform: scale(1);
+    border: 3px solid black;
 }
 
 .btn {
@@ -186,10 +188,11 @@ form {
 }
 .cancelBtn:hover,
 .uploadBtn:hover {
-    background-color: #676565;
-    color: white;
+    background-color: #234bce;
+    color: black;
     transition: all 0.3s ease;
     transform: scale(1);
+    border: 3px solid black;
 }
 
 .menuItem.active,

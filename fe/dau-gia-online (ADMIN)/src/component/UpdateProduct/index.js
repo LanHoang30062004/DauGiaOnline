@@ -2,6 +2,7 @@ import styles from "./style.module.css";
 import { FaUsers } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
 function AddProduct() {
@@ -20,6 +21,10 @@ function AddProduct() {
                         <li className={`${styles.menuItem} ${styles.active}`}>
                             <span className={styles.icon}><FaBoxArchive /></span>
                             <span className={styles.text}>Products</span>
+                        </li>
+                        <li className={styles.menuItem}>
+                            <span className={styles.icon}><FaMoneyCheckDollar /></span>
+                            <span className={styles.text}>Payment History</span>
                         </li>
                     </ul>
                     <div className={styles.sidebarUser}>
@@ -63,12 +68,12 @@ function AddProduct() {
                                     </label>
                                 </form>
                             </div>
-                            <a className={styles.refreBtn} href="https://trello.com/b/e6H5IA59/d%E1%BA%A5u-gia-online">Refresh</a>
+                            <div className={styles.refreBtn} >Refresh</div>
                         </div>
                     </div>
                     <div className={styles.btn}>
-                        <a className={styles.cancelBtn} >Cancel</a>
-                        <a className={styles.uploadBtn} >Upload</a>
+                        <div className={styles.cancelBtn} >Cancel</div>
+                        <div className={styles.uploadBtn} >Upload</div>
                     </div>
                 </div>
             </div>
