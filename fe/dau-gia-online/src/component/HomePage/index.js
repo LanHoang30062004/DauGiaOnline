@@ -31,12 +31,6 @@ function HomePage() {
                 <div className={styles.aucBox}>
                     <div className={styles.aucTitle}>Auction today</div>
                     <div className={styles.product}>
-                        <div className={styles.product1 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/ima3.jpg"} alt="" /></div>
-                            <div className={styles.proName}>Jacob & Co Astronomia Flawless Imperial Dragon</div>
-                            <div className={styles.proPrice}>35.500.000.000 VND</div>
-                            <div className={styles.time}>18:25</div>
-                        </div>
                         <div className={styles.product2 + " " + styles.proSe}>
                             <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-2.png"} alt="" /></div>
                             <div className={styles.proName}>Jacob & Co Fleurs de Jardin</div>

@@ -53,7 +53,7 @@ const UpdateUser = () => {
                     <h1>UPDATE USERS</h1>
                 </div>
                 <div className={styles.userUpdate}>
-                    <form onSubmit={handleUpdate}>
+                    <form className="form__updateUser" onSubmit={handleUpdate}>
                         <div className={styles.userDetails}>
                             <div className={styles.userColumn}>
                                 <div className={styles.formGroup}>
