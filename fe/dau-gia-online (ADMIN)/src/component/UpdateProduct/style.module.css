@@ -35,7 +35,7 @@ a {
     margin-left: 40px;
 }
 
-.form__updateProduct {
+form {
     width: 70%;
 }
 
@@ -67,7 +67,6 @@ a {
     color: black;
 }
 
-
 .inforBox {
     display: flex;
     flex-direction: column;
@@ -87,7 +86,7 @@ a {
     align-items: center;
 }
 
-.field>input {
+.field > input {
     width: 100%;
     height: 50px;
     border: none;
@@ -95,7 +94,7 @@ a {
     border-radius: 3px;
 }
 
-.field>input:focus {
+.field > input:focus {
     padding-left: 20px;
     transition: padding-left 0.2s ease-in-out;
 }
@@ -181,13 +180,12 @@ a {
     width: 30%;
     background-color: #AECBF6;
     font-size: 20px;
-justify-content: center;
+    justify-content: center;
     align-items: center;
     border-radius: 10px;
     color: white;
     cursor: pointer;
 }
-
 .cancelBtn:hover,
 .uploadBtn:hover {
     background-color: #234bce;
@@ -195,6 +193,11 @@ justify-content: center;
     transition: all 0.3s ease;
     transform: scale(1);
     border: 3px solid black;
+}
+
+.menuItem.active,
+.menuItem:hover {
+    background-color: #34495e;
 }
 
 .sidebar {
@@ -210,6 +213,7 @@ justify-content: center;
     text-align: center;
     margin-bottom: 30px;
     cursor: pointer;
+    border-bottom: 1px solid #34495e;
 }
 
 .menu {
@@ -234,8 +238,8 @@ justify-content: center;
 
 .icon {
     margin-right: 10px;
-    font-size: 20px;
     color: white;
+    font-size: 20px;
 }
 
 .sidebarUser {
@@ -263,7 +267,6 @@ justify-content: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #fff;
     margin: 20px;
-    
 }
 
 .imgArea>form {
@@ -273,6 +276,7 @@ justify-content: center;
     align-items: center;
     justify-content: center;
     content: "+";
+    cursor: pointer;
 }
 
 .fileUpload {
@@ -288,6 +292,7 @@ justify-content: center;
     cursor: pointer;
     transition: 0.3s;
     position: relative;
+    
 }
 
 .fileUpload:hover {
@@ -300,4 +305,5 @@ justify-content: center;
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    
 }

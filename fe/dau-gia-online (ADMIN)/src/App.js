@@ -8,6 +8,7 @@ import UpdateProduct from './component/UpdateProduct';
 import UpdateUser from './component/UpdateUser/index';
 import AddProduct from './component/AddProduct/index';
 import Login from './component/Login';
+import TransactionHistory from './component/TransactionHistory';
 const PrivateRoute = ({ children }) => {
   const { authToken } = useAuth();
   return authToken ? children : <Navigate to="/" />;
@@ -26,11 +27,13 @@ function App() {
               </PrivateRoute>
             }
           >
+
             <Route path='admin-user' element={<AdminUser />} />
             <Route path='add-product' element={<AddProduct />} />
             <Route path='admin-product' element={<AdminProduct />} />
             <Route path='update-product' element={<UpdateProduct />} />
             <Route path='update-user' element={<UpdateUser />} />
+
           </Route>
         </Routes>
       </AuthProvider>
