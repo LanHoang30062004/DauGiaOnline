@@ -32,6 +32,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/images/**").permitAll()
 
                 .requestMatchers(HttpMethod.PUT, "/api/v1/users/*").hasAnyRole("USER", "ADMIN")
 

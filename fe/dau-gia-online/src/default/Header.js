@@ -12,11 +12,35 @@ import { useAuth } from "../context/AuthContext";
 import Login from './../component/Login/index';
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-function Header() {
+function Header({ setFilter }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isAccountOpen, setIsAccountOpen] = useState(false);
     const navigate = useNavigate();
     const { logout } = useAuth();
+    const [category, setCategory] = useState("");
+    const [type, setType] = useState(null);
+    const [activeButton, setActiveButton] = useState(null);
+
+    const handleClickCategory = (e) => {
+        const value = e.target.value;
+        setFilter({
+            category: value,
+            type,
+            sort: activeButton == null ? "" : activeButton
+        })
+        setCategory(value);
+
+    }
+    const handleClickType = (e) => {
+        const value = e.target.value;
+        setFilter({
+            category,
+            type: value == "" ? null : value,
+            sort: activeButton == null ? "" : activeButton
+        })
+        setType(value);
+    }
+
 
     const handleFilterClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -27,9 +51,32 @@ function Header() {
         navigate("/");
     }
 
-    const [activeButton, setActiveButton] = useState(null);
 
     const handleButtonClick = (index) => {
+        if (index == 0) {
+            setFilter({
+                category,
+                type,
+                sort: "asc"
+            })
+        }
+        else if (index == 1) {
+            setFilter({
+                category,
+                type,
+                sort: "desc"
+            })
+        }
+
+        else {
+            setFilter({
+                category: "",
+                type: null,
+                sort: ""
+            })
+            handleFilterClick();
+        }
+
         setActiveButton(prevIndex => (prevIndex === index ? null : index));
     };
     const handleAccount = () => {
@@ -121,20 +168,20 @@ function Header() {
                                 <div className="dropdown-list">
                                     <div className="dropdown-list__left">
                                         <p>Phân loại</p>
-                                        <select>
-                                            <option value="option1">Tất cả</option>
-                                            <option value="option2">Đồng hồ</option>
-                                            <option value="option3">Túi xách</option>
-                                            <option value="option3">Giày</option>
-                                            <option value="option3">Đồ cổ</option>
+                                        <select onChange={handleClickCategory} value={category} >
+                                            <option value="">Tất cả</option>
+                                            <option value="Dong ho">Đồng hồ</option>
+                                            <option value="Tui xach">Túi xách</option>
+                                            <option value="Giay">Giày</option>
+                                            <option value="Do co">Đồ cổ</option>
                                         </select>
                                     </div>
                                     <div className="dropdown-list__center">
                                         <p>Loại hàng</p>
-                                        <select>
-                                            <option value="option1">Tất cả</option>
-                                            <option value="option1">Hàng đấu giá</option>
-                                            <option value="option2">Hàng tồn kho</option>
+                                        <select onChange={handleClickType} value={type}>
+                                            <option value="">Tất cả</option>
+                                            <option value="0">Hàng đấu giá</option>
+                                            <option value="1">Hàng tồn kho</option>
 
                                         </select>
                                     </div>
