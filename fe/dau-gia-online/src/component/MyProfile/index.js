@@ -1,5 +1,3 @@
-import Footer from "../../default/Footer";
-import Header from "../../default/Header";
 import styles from "./myProfile.module.css"
 
 function MyProfile() {
