@@ -47,6 +47,38 @@ function TransactionHistory() {
                     </div>
                     <p className={styles.amount}>800.000.000 VND</p>
                 </div>
+                <div className={styles.historyItem}>
+                    <div className={styles.historyInfo}>
+                        <p className={styles.date}>21/01/2024</p>
+                        <p className={styles.time}>20:20:28</p>
+                        <p className={styles.content}>Content: Test for fun</p>
+                    </div>
+                    <p className={styles.amount}>800.000.000 VND</p>
+                </div>
+                <div className={styles.historyItem}>
+                    <div className={styles.historyInfo}>
+                        <p className={styles.date}>21/01/2024</p>
+                        <p className={styles.time}>20:20:28</p>
+                        <p className={styles.content}>Content: Test for fun</p>
+                    </div>
+                    <p className={styles.amount}>800.000.000 VND</p>
+                </div>
+                <div className={styles.historyItem}>
+                    <div className={styles.historyInfo}>
+                        <p className={styles.date}>21/01/2024</p>
+                        <p className={styles.time}>20:20:28</p>
+                        <p className={styles.content}>Content: Test for fun</p>
+                    </div>
+                    <p className={styles.amount}>800.000.000 VND</p>
+                </div>
+                <div className={styles.historyItem}>
+                    <div className={styles.historyInfo}>
+                        <p className={styles.date}>21/01/2024</p>
+                        <p className={styles.time}>20:20:28</p>
+                        <p className={styles.content}>Content: Test for fun</p>
+                    </div>
+                    <p className={styles.amount}>800.000.000 VND</p>
+                </div>
             </div>
         </div>
     );

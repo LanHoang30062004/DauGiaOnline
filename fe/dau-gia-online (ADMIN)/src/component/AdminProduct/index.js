@@ -5,7 +5,10 @@ import { BiSolidInbox } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import axios from "axios";
+import { useState } from "react";
 function AdminProduct() {
+   
     return (
         <>
             <div>

@@ -15,7 +15,8 @@
     "react-router-dom": "^6.29.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.3",
-    "sass": "^1.83.4"
+    "sass": "^1.83.4",
+    "simple-image-magnifier": "^1.1.1"
   },
   "scripts": {
     "start": "cross-env PORT=3001 react-scripts start",

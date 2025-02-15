@@ -1,0 +1,17 @@
+{
+  "users": [
+    { "id": 1, "name": "Alice" , "email" : "test2@gmail.com" , "balance" : 12} , 
+    { "id": 1, "name": "Alice" , "email" : "test4@gmail.com" , "balance" : 12} ,
+    { "id": 1, "name": "Alice" , "email" : "test2@gmail.com" , "balance" : 12} ,
+    { "id": 1, "name": "Alice" , "email" : "test2@gmail.com" , "balance" : 12} 
+  ],
+  "products": [
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
+    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } 
+  ]
+}
