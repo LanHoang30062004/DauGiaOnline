@@ -133,7 +133,7 @@
     background-color: #5a5252;
 }
 .scrollableDiv {
-    height: 363px;
+    height: 395px;
     overflow-y: auto;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -175,11 +175,19 @@
 }
 
 .delete {
-    background-color: red;
+    background-color: rgb(254, 63, 63);
     color: white;
     border: none;
     padding: 7px 15px;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 5px;
+}
+
+.edit:hover {
+    background-color: rgb(1, 255, 1);
+}
+
+.delete:hover {
+    background-color: rgb(214, 1, 1);
 }
