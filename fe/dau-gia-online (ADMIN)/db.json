@@ -6,12 +6,25 @@
     { "id": 1, "name": "Alice" , "email" : "test2@gmail.com" , "balance" : 12} 
   ],
   "products": [
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } ,
-    { "name": "test", "category": "test", "price": 12 , "time" : "12:40" } 
-  ]
+      { "name": "Pinner Qing Dynasty", "category": "Antique", "price": 83000000000 , "time" : "03:04" },
+      { "name": "Cheristie", "category": "Antique", "price": 23000000000 , "time" : "15:12" },
+      { "name": "Ming Dynasty water vase", "category": "Antique", "price": 12000000000 , "time" : "21:13" },
+      { "name": "Himalaya Crocodile Retourné Kelly", "category": "Bag", "price": 10000000000 , "time" : "15:02" },
+      { "name": "Hermès Sellier Mosaique Kelly", "category": "Bag", "price": 8600000000 , "time" : "16:02" },
+      { "name": "Faubourg Birkin", "category": "Bag", "price": 7800000000 , "time" : "02:08" },
+      { "name": "Louis XVI Gilded Clock", "category": "Antique", "price": 5400000000 , "time" : "09:45" },
+      { "name": "Imperial Russian Fabergé Egg", "category": "Antique", "price": 9800000000 , "time" : "18:20" },
+      { "name": "Qing Dynasty Jade Seal", "category": "Antique", "price": 17500000000 , "time" : "07:30" },
+      { "name": "Ming Dynasty Blue and White Plate", "category": "Antique", "price": 8900000000 , "time" : "14:50" },
+      { "name": "Hermès Limited Edition Constance", "category": "Bag", "price": 7200000000 , "time" : "10:20" },
+      { "name": "Chanel Diamond Forever Classic", "category": "Bag", "price": 6500000000 , "time" : "19:10" },
+      { "name": "Louis Vuitton Urban Satchel", "category": "Bag", "price": 7800000000 , "time" : "11:35" },
+      { "name": "Gucci Sylvie 1969 Crocodile", "category": "Bag", "price": 5600000000 , "time" : "22:25" },
+      { "name": "Ancient Egyptian Gold Bracelet", "category": "Antique", "price": 6200000000 , "time" : "17:40" },
+      { "name": "Roman Empire Gold Coin Collection", "category": "Antique", "price": 7400000000 , "time" : "05:55" },
+      { "name": "Chanel Métiers d'Art Bag", "category": "Bag", "price": 8400000000 , "time" : "08:15" },
+      { "name": "Dior Lady Dior Crocodile", "category": "Bag", "price": 7700000000 , "time" : "12:05" },
+      { "name": "Qing Dynasty Bronze Censer", "category": "Antique", "price": 9300000000 , "time" : "16:45" },
+      { "name": "Victorian Silver Tea Set", "category": "Antique", "price": 5100000000 , "time" : "20:35" }
+  ]  
 }
