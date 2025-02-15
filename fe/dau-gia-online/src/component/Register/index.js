@@ -6,6 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { url } from '../../util/Url';
 import { format } from "date-fns";
+import { FaRegEye } from "react-icons/fa";
+import { IoEyeOffOutline } from "react-icons/io5";
+
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +17,8 @@ function Register() {
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,19 +87,27 @@ function Register() {
                         <input required type="email" className={`form-control ${styles.inputEmail}`} placeholder="Email"
                           name={email}
                           onChange={(e) => setEmail(e.target.value)}
+
                         />
                       </div>
-                      <div className={styles.formGroup}>
-                        <input required type="password" className={`form-control ${styles.inputPassword}`} placeholder="Password"
+                      <div className={styles.formGroup + " " + styles.eyeIconShow}>
+                        <input required type={showPassword ? "text" : "password"} className={`form-control ${styles.inputPassword}`} placeholder="Password"
                           name={password}
-                          onChange={(e) => setPassword(e.target.value)} />
+                          onChange={(e) => setPassword(e.target.value) }  
+                          onClick={() => setShowPassword(!password)}
+                          />
+                          <i className={styles.eyeIcon}>{showPassword ? <FaRegEye/> : <IoEyeOffOutline /> }</i>
+                          
                       </div>
-                      <div className={styles.formGroup}>
-                        <input required type="password" className={`form-control ${styles.inputRepassword}`} placeholder="Re-enter your password"
+                      <div className={styles.formGroup + " " + styles.eyeIconShow}>
+                        <input required type={showPassword ? "text" : "password"} className={`form-control ${styles.inputRepassword}`} placeholder="Re-enter your password"
                           name={retypePassword}
-                          onChange={(e) => setRetypePassword(e.target.value)}
-                        />
+                          onChange={(e) => setRetypePassword(e.target.value)} 
+                          onClick={() => setShowPassword(!password)}
+                          />
+                          <i className={styles.eyeIcon}>{showPassword ? <FaRegEye/> : <IoEyeOffOutline /> }</i>
                       </div>
+                      
                     </div>
                     {/* Bên phải */}
                     <div className="col-md-6">
