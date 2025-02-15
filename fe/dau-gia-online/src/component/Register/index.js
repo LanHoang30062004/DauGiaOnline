@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './register.module.css';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { url } from '../../util/Url';
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./register.module.css";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { url } from "../../util/Url";
 import { format } from "date-fns";
 import { FaRegEye } from "react-icons/fa";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -18,33 +18,32 @@ function Register() {
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password != retypePassword) {
       toast.error("Mật khẩu chưa khớp", {
         position: "bottom-right",
-        autoClose: 2000
-      })
-    }
-    else {
-      axios.post(url + "users/register", {
-        "email": email,
-        "password": password,
-        "retypePassword": retypePassword,
-        "fullName": fullName,
-        "address": address,
-        "dateOfBirth": format(new Date(date), "dd/MM/yyyy")
-      })
+        autoClose: 2000,
+      });
+    } else {
+      axios
+        .post(url + "users/register", {
+          email: email,
+          password: password,
+          retypePassword: retypePassword,
+          fullName: fullName,
+          address: address,
+          dateOfBirth: format(new Date(date), "dd/MM/yyyy"),
+        })
         .then((res) => {
           if (res.data.status != 200) {
             toast.warn("Người dùng đã tồn tại", {
               position: "bottom-right",
-              autoClose: 2000
-            })
-          }
-          else {
+              autoClose: 2000,
+            });
+          } else {
             toast.success("Đăng ký thành công", {
               position: "bottom-right",
               autoClose: 2000,
@@ -56,11 +55,11 @@ function Register() {
           console.log(err);
           toast.error("Có vấn đề trong việc đăng ký", {
             position: "bottom-right",
-            autoClose: 2000
-          })
-        })
+            autoClose: 2000,
+          });
+        });
     }
-  }
+  };
 
   return (
     <div className={styles.backgroundImage}>
@@ -72,66 +71,109 @@ function Register() {
       </header>
       <div className="d-flex align-items-center">
         <div className="container">
-          <div className="row justify-content-center" style={{ margin: '20px' }}>
+          <div
+            className="row justify-content-center"
+            style={{ margin: "20px" }}
+          >
             <div className={`col-lg-6 col-md-8 ${styles.registerBox}`}>
               <div className={`col-lg-12 ${styles.registerTitle}`}>
                 Register
                 <div className={styles.registerLine}></div>
               </div>
               <div className={`col-lg-12 ${styles.registerForm}`}>
-                <form method='post' onSubmit={handleSubmit}>
+                <form method="post" onSubmit={handleSubmit}>
                   <div className="row">
                     {/* Bên trái */}
                     <div className="col-md-6">
                       <div className={styles.formGroup}>
-                        <input required type="email" className={`form-control ${styles.inputEmail}`} placeholder="Email"
+                        <input
+                          required
+                          type="email"
+                          className={`form-control ${styles.inputEmail}`}
+                          placeholder="Email"
                           name={email}
                           onChange={(e) => setEmail(e.target.value)}
-
                         />
+
                       </div>
-                      <div className={styles.formGroup + " " + styles.eyeIconShow}>
-                        <input required type={showPassword ? "text" : "password"} className={`form-control ${styles.inputPassword}`} placeholder="Password"
-                          name={password}
-                          onChange={(e) => setPassword(e.target.value) }  
-                          onClick={() => setShowPassword(!password)}
-                          />
-                          <i className={styles.eyeIcon}>{showPassword ? <FaRegEye/> : <IoEyeOffOutline /> }</i>
-                          
+                      <div
+                        className={styles.formGroup + " " + styles.eyeIconShow}
+                      >
+                        <input
+                          required
+                          type={showPassword ? "text" : "password"}
+                          className={`form-control ${styles.inputPassword}`}
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className={styles.eyeButton}
+                        >
+                          {showPassword ? <FaRegEye /> : <IoEyeOffOutline />}
+                        </button>
                       </div>
-                      <div className={styles.formGroup + " " + styles.eyeIconShow}>
-                        <input required type={showPassword ? "text" : "password"} className={`form-control ${styles.inputRepassword}`} placeholder="Re-enter your password"
-                          name={retypePassword}
-                          onChange={(e) => setRetypePassword(e.target.value)} 
-                          onClick={() => setShowPassword(!password)}
-                          />
-                          <i className={styles.eyeIcon}>{showPassword ? <FaRegEye/> : <IoEyeOffOutline /> }</i>
+
+                      <div
+                        className={styles.formGroup + " " + styles.eyeIconShow}
+                      >
+                        <input
+                          required
+                          type={showPassword ? "text" : "password"}
+                          className={`form-control ${styles.inputRepassword}`}
+                          placeholder="Re-enter your password"
+                          value={retypePassword}
+                          onChange={(e) => setRetypePassword(e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className={styles.eyeButton}
+                        >
+                          {showPassword ? <FaRegEye /> : <IoEyeOffOutline />}
+                        </button>
                       </div>
-                      
                     </div>
+
                     {/* Bên phải */}
                     <div className="col-md-6">
                       <div className={styles.formGroup}>
-                        <input required type="text" className={`form-control ${styles.inputFullname}`} placeholder="Full name"
-
+                        <input
+                          required
+                          type="text"
+                          className={`form-control ${styles.inputFullname}`}
+                          placeholder="Full name"
                           name={fullName}
-                          onChange={(e) => setFullName(e.target.value)} />
+                          onChange={(e) => setFullName(e.target.value)}
+                        />
                       </div>
                       <div className={styles.formGroup}>
-                        <input required type="date" className={`form-control ${styles.inputDate}`} placeholder="Date"
+                        <input
+                          required
+                          type="date"
+                          className={`form-control ${styles.inputDate}`}
+                          placeholder="Date"
                           name={date}
                           onChange={(e) => setDate(e.target.value)}
                         />
                       </div>
                       <div className={styles.formGroup}>
-                        <input required type="text" className={`form-control ${styles.inputAddress}`} placeholder="Address"
+                        <input
+                          required
+                          type="text"
+                          className={`form-control ${styles.inputAddress}`}
+                          placeholder="Address"
                           name={address}
                           onChange={(e) => setAddress(e.target.value)}
                         />
                       </div>
                     </div>
                   </div>
-                  <div className={`col-12 ${styles.loginBtm} ${styles.loginButton} justify-content-center d-flex`}>
+                  <div
+                    className={`col-12 ${styles.loginBtm} ${styles.loginButton} justify-content-center d-flex`}
+                  >
                     <button type="submit" className={styles.btnOutlinePrimary}>
                       Register
                     </button>

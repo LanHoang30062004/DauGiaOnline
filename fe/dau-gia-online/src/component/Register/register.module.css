@@ -83,6 +83,19 @@
   margin: 70px;
   position: relative;
 }
+.formGroup input:focus ~ label,
+.formGroup input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+}
+.pass{
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+.pass:hover{
+  text-decoration: underline;
+}
 
 .formControl:focus {
   box-shadow: none;
@@ -113,9 +126,22 @@
   transition: .5s;
 }
 
-.eyeIcon {
+
+.eyeButton {
   position: absolute;
-  right: 0;
-  bottom: 0;
-} 
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #adadad;
+  padding: 0;
+}
+
+.eyeButton:focus {
+  outline: none;
+}
+
 

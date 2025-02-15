@@ -89,7 +89,7 @@ function Login() {
                                     onClick={toggleShowPassword}
                                     className={styles.eyeButton}
                                 >
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    {showPassword ? <FaEye /> :<FaEyeSlash />}
                                 </button>
                                 <span></span>
                                 <label>Password</label>
