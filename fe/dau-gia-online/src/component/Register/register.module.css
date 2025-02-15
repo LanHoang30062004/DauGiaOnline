@@ -73,12 +73,15 @@
   border-radius: 0px;
   margin-bottom: 15px;
   padding-left: 0px;
+  padding-right: 0px;
   color: #7E8285;
+  width: 100%;
 }
 
 
 .formGroup {
   margin: 70px;
+  position: relative;
 }
 
 .formControl:focus {
@@ -86,7 +89,6 @@
   background-color: #E9F1F8;
   color: #090909;
 }
-
 .formControlLabel {
   font-size: 15px;
   color: #6C6C6C;
@@ -98,7 +100,7 @@
   height: 50px;
   border-radius: 15px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 1px;
 }
 
 .btnOutlinePrimary {
@@ -110,3 +112,10 @@
   border-color: #2691d9;
   transition: .5s;
 }
+
+.eyeIcon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+} 
+
