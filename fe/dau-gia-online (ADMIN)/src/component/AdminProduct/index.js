@@ -6,9 +6,17 @@ import { FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function AdminProduct() {
-   
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:2000/products")
+            .then((res) => {
+                console.log(res.data);
+                setData(res.data);
+            })
+            .catch((err) => console.log(err))
+    }, [])
     return (
         <>
             <div>
@@ -56,6 +64,7 @@ function AdminProduct() {
                             <table className={styles.userTable}>
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>NAME</th>
                                         <th>CATEGORIES</th>
                                         <th>PRICE</th>
@@ -64,66 +73,19 @@ function AdminProduct() {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {data.map((p)  =>
                                     <tr>
-                                        <td>Pinner Qing Dynasty</td>
-                                        <td>Antique</td>
-                                        <td>83.000.000.000 VND</td>
-                                        <td>03:04</td>
+                                        <td>{p.id}</td>
+                                        <td>{p.name}</td>
+                                        <td>{p.category}</td>
+                                        <td>{p.price}</td>
+                                        <td>{p.time}</td>
                                         <td>
                                             <button className={styles.edit}><BiSolidInbox /></button>
                                             <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Cheristie</td>
-                                        <td>Antique</td>
-                                        <td>23.000.000.000 VND</td>
-                                        <td>15:12</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ming Dynasty water vase</td>
-                                        <td>Antique</td>
-                                        <td>12.000.000.000 VND</td>
-                                        <td>21:13</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Himalaya Crocodile Retourné Kelly</td>
-                                        <td>Bag</td>
-                                        <td>10.000.000.000 VND</td>
-                                        <td>15:02</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hermès Sellier Mosaique Kelly</td>
-                                        <td>Bag</td>
-                                        <td>8.600.000.000  VND</td>
-                                        <td>15:02</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Faubourg Birkin</td>
-                                        <td>Bag</td>
-                                        <td>7.800.000.000  VND</td>
-                                        <td>02:08</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
+                                    )}
                                 </tbody>
                             </table>
                         </div>
