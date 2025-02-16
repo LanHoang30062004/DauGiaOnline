@@ -72,40 +72,48 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public PageResponse<?> findAllByFilter(int page, int size, String sort, String category, Boolean type) {
         if (page > 0) page = page - 1;
+
+        // Xử lý sort
         List<Sort.Order> orders = new ArrayList<>();
-        if (sort != null && !sort.equals("")) {
-            Pattern patter = Pattern.compile("(\\w+?)(:)(.*)");
-            Matcher matcher = patter.matcher(sort);
-            if (matcher.find()) {
-                if (matcher.group(3).equalsIgnoreCase("asc")) {
-                    orders.add(new Sort.Order(Sort.Direction.ASC, matcher.group(1)));
-                } else {
-                    orders.add(new Sort.Order(Sort.Direction.DESC, matcher.group(1)));
-                }
+        if (sort != null && !sort.isEmpty()) {
+            if (sort.equalsIgnoreCase("asc")) {
+                orders.add(new Sort.Order(Sort.Direction.ASC, "startingPrice"));
+            } else if (sort.equalsIgnoreCase("desc")) {
+                orders.add(new Sort.Order(Sort.Direction.DESC, "startingPrice"));
             }
         }
-        Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
+        Pageable pageable = orders.isEmpty()
+                ? PageRequest.of(page, size)
+                : PageRequest.of(page, size, Sort.by(orders));
 
+        // Xây dựng điều kiện tìm kiếm
         Specification<Product> spec = Specification.where(null);
 
-        if (category != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("name"), category.toLowerCase()));
+        if (category != null && !category.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(criteriaBuilder.lower(root.get("category").get("name")), category.toLowerCase())
+            );
         }
 
         if (type != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("auctioned"), type));
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("auctioned"), type)
+            );
         }
+
+        // Truy vấn dữ liệu
         Page<Product> products = this.productRepository.findAll(spec, pageable);
-        List<ProductDTO> productDTOS = products.getContent().stream().map((p) -> {
-            return ProductDTO.builder()
-                    .id(p.getId())
-                    .urlResources(this.handleUrlResource(p.getProductImages()))
-                    .name(p.getName())
-                    .category(p.getCategory().getName())
-                    .startingPrice(p.getStartingPrice())
-                    .auctionTime(p.getAuctionTime())
-                    .build();
-        }).toList();
+
+        List<ProductDTO> productDTOS = products.getContent().stream()
+                .map(p -> ProductDTO.builder()
+                        .id(p.getId())
+                        .urlResources(this.handleUrlResource(p.getProductImages()))
+                        .name(p.getName())
+                        .category(p.getCategory().getName())
+                        .startingPrice(p.getStartingPrice())
+                        .auctionTime(p.getAuctionTime())
+                        .build())
+                .toList();
 
         return PageResponse.builder()
                 .items(productDTOS)

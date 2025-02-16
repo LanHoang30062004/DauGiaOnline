@@ -1,11 +1,30 @@
-import Footer from "../../default/Footer";
-import Header from "../../default/Header";
 import styles from "./myProfile.module.css"
+import { useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyProfile() {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleChange = () => {
+        setShowModal(true);
+    };
+
+    const confirmChange = () => {
+        setShowModal(false);
+        toast.success("Your information has been successfully updated!", {
+            position: "bottom-right",
+            autoClose: 1500
+        });
+    };
+
+    const cancelChange = () => {
+        setShowModal(false);
+    };
+
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.myProfileContainer}>
                 <h1 className={styles.h1}>My Profile</h1>
                 <p className={styles.p}>Manage profile information to keep your account secure</p>
                 <div className={styles.line}></div>
@@ -47,11 +66,23 @@ function MyProfile() {
                 </div>
 
                 <div className={styles.btChange}>
-                    <button type="submit" className={styles.btnChange}>Change</button>
+                    <button type="submit" className={styles.btnChange} onClick={handleChange}>Change</button>
                 </div>
             </div>
 
+            {showModal && (
+                <div className={styles.notificationAlert}>
+                    <div className={styles.notification}>
+                        <p>Are you sure you want to change the information?</p>
+                        <div className={styles.notificationButton}>
+                            <button className={styles.btnConfirm} onClick={confirmChange}>Confirm</button>
+                            <button className={styles.btnCancel} onClick={cancelChange}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <ToastContainer />
         </>
     )
 }
-export default MyProfile; 
+export default MyProfile;

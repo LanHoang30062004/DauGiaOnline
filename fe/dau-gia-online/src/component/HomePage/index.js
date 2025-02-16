@@ -1,6 +1,63 @@
+import { Link, useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 import Header from "../../default/Header";
 import styles from "./homePage.module.css";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../interceptor";
+import { url } from './../../util/Url';
 function HomePage() {
+    const size = 12 ; 
+    const navigate = useNavigate();
+    const [totalPage, setTotalPage] = useState(0);
+    const [products, setProducts] = useState([]);
+    const filter = useOutletContext();
+    var { category, type, sort } = filter;
+    sort = sort ?? "";
+    category = category ?? "";
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Xác định phạm vi hiển thị từ đâu đến đâu
+    const startPage = Math.max(1, Math.min(currentPage - 2, totalPage - 4));
+    const endPage = Math.min(totalPage, startPage + 4);
+
+    // Chuyển trang
+    const handlePageClick = (page) => {
+        if (page >= 1 && page <= totalPage) {
+            setCurrentPage(page);
+        }
+    };
+    useEffect(() => {
+        if (type == null) {
+            axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`)
+                .then((res) => {
+                    setProducts(res.data.data.items);
+                    setTotalPage(res.data.data.totalPages)
+                })
+                .catch((err) => console.log(err))
+        }
+        else {
+            if (type == 0) {
+                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=false`)
+                    .then((res) => {
+                        setProducts(res.data.data.items);
+                        setTotalPage(res.data.data.totalPages)
+
+                    })
+                    .catch((err) => console.log(err))
+            }
+            else {
+                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=true`)
+                    .then((res) => {
+                        setProducts(res.data.data.items);
+                        setTotalPage(res.data.data.totalPages)
+                    })
+                    .catch((err) => console.log(err))
+            }
+
+        }
+
+    }, [currentPage, sort, type, category])
+    console.log(products);
+    console.log(totalPage);
     return (
         <>
             <div className={styles.ui}>
@@ -31,82 +88,41 @@ function HomePage() {
                 <div className={styles.aucBox}>
                     <div className={styles.aucTitle}>Auction today</div>
                     <div className={styles.product}>
-                        <div className={styles.product2 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-2.png"} alt="" /></div>
-                            <div className={styles.proName}>Jacob & Co Fleurs de Jardin</div>
-                            <div className={styles.proPrice}>15.000.000.000 VND</div>
-                            <div className={styles.time}>2:12:15</div>
-                        </div>
-                        <div className={styles.product3 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-3.png"} alt="" /></div>
-                            <div className={styles.proName}>Himalaya Crocodile Retourné Kelly</div>
-                            <div className={styles.proPrice}>10.000.000.000 VND</div>
-                            <div className={styles.time}>15:02</div>
-                        </div>
-                        <div className={styles.product4 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-4.png"} alt="" /></div>
-                            <div className={styles.proName}>Ming Dynasty water vase</div>
-                            <div className={styles.proPrice}>12.000.000.000 VND</div>
-                            <div className={styles.time}>21:13</div>
-                        </div>
-                        <div className={styles.product5 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-5.png"} alt="" /></div>
-                            <div className={styles.proName}>Cheristie</div>
-                            <div className={styles.proPrice}>23.000.000.000 VND</div>
-                            <div className={styles.time}>15:12</div>
-                        </div>
-                        <div className={styles.product6 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-6.png"} alt="" /></div>
-                            <div className={styles.proName}>Nike Air Force 1 Low x Louis Vuitton Virgil</div>
-                            <div className={styles.proPrice}>200.000.000 VND</div>
-                            <div className={styles.time}>1:14:05</div>
-                        </div>
-                        <div className={styles.product7 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-7.png"} alt="" /></div>
-                            <div className={styles.proName}>Pinner Qing Dynasty</div>
-                            <div className={styles.proPrice}>83.000.000.000 VND</div>
-                            <div className={styles.time}>03:04</div>
-                        </div>
-                        <div className={styles.product8 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-8.png"} alt="" /></div>
-                            <div className={styles.proName}>Hermès Sellier Mosaïque Kelly</div>
-                            <div className={styles.proPrice}>8.600.000.000 VND</div>
-                            <div className={styles.time}>3:01:15</div>
-                        </div>
-                        <div className={styles.product9 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-9.png"} alt="" /></div>
-                            <div className={styles.proName}>Air Force 1 Low x Louis Vuitton 'Metallic Gold'</div>
-                            <div className={styles.proPrice}>625.000.000 VND</div>
-                            <div className={styles.time}>19:20</div>
-                        </div>
-                        <div className={styles.product10 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-10.png"} alt="" /></div>
-                            <div className={styles.proName}>Faubourg Birkin</div>
-                            <div className={styles.proPrice}>7.800.000.000 VND  </div>
-                            <div className={styles.time}>02:08</div>
-                        </div>
-                        <div className={styles.product11 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-11.png"} alt="" /></div>
-                            <div className={styles.proName}>Van Cleef & Arpels Lady Arpels</div>
-                            <div className={styles.proPrice}>7.380.000.000 VND</div>
-                            <div className={styles.time}>22:04</div>
-                        </div>
-                        <div className={styles.product12 + " " + styles.proSe}>
-                            <div className={styles.proImg}><img src={process.env.PUBLIC_URL + "/prod-12.png"} alt="" /></div>
-                            <div className={styles.proName}>Nike Air Yeezy 2 Red October</div>
-                            <div className={styles.proPrice}>1.903.050.000 VND</div>
-                            <div className={styles.time}>20:25</div>
-                        </div>
+                        {products.map((p) =>
+                            <div className={styles.product2 + " " + styles.proSe} onClick={() => navigate(`/detail-product/${p.id}`)}>
+                                <div className={styles.proImg}>
+                                    <img src={`http://localhost:8081/api/v1/products/images/${p.urlResources[0]}`} alt="" />
+                                </div>
+                                <div className={styles.proName}>{p.name}</div>
+                                <div className={styles.proPrice}>{p.startingPrice}VND</div>
+                                <div className={styles.time}>{p.auctionTime}</div>
+                            </div>
+                        )}
                     </div>
                     <div className={styles.listPage}>
-                        <div className={styles.start + " " + styles.list} >{'<'}</div>
-                        <div className={styles.number + " " + styles.list} >1</div>
-                        <div className={styles.number + " " + styles.list} >2</div>
-                        <div className={styles.number + " " + styles.list} >3</div>
-                        <div className={styles.number + " " + styles.list} >4</div>
-                        <div className={styles.number + " " + styles.list} >5</div>
-                        <div className={styles.number + " " + styles.list} >...</div>
-                        <div className={styles.end + " " + styles.list} > {'>'} </div>
+                        <div
+                            className={`${styles.start} ${styles.list} ${currentPage === 1 ? styles.disabled : ""}`}
+                            onClick={() => handlePageClick(currentPage - 1)}
+                        >
+                            {"<"}
+                        </div>
+
+                        {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((page) => (
+                            <div
+                                key={page}
+                                className={`${styles.number} ${styles.list} ${currentPage === page ? styles.active : ""}`}
+                                onClick={() => handlePageClick(page)}
+                            >
+                                {page}
+                            </div>
+                        ))}
+
+                        <div
+                            className={`${styles.end} ${styles.list} ${currentPage === totalPage ? styles.disabled : ""}`}
+                            onClick={() => handlePageClick(currentPage + 1)}
+                        >
+                            {">"}
+                        </div>
                     </div>
                 </div>
             </div>

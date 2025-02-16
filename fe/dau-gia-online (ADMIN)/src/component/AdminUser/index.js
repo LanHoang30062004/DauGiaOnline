@@ -4,7 +4,21 @@ import { FaBoxArchive } from "react-icons/fa6";
 import { BiSolidInbox } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function AdminUser() {
+    const [data, setData] =useState([]);
+    const navigate = useNavigate() ; 
+    useEffect(() => {
+        axios.get("http://localhost:2000/users")
+            .then((res) => {
+                console.log(res.data);
+                setData(res.data);
+            })
+            .catch((err) => console.log(err))
+    }, [])
+
     return (
         <>
             <div>
@@ -53,6 +67,7 @@ function AdminUser() {
                             <table className={styles.userTable}>
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>NAME</th>
                                         <th>EMAIL</th>
                                         <th>ACCOUNT BALANCE</th>
@@ -60,87 +75,18 @@ function AdminUser() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Megan Fox</td>
-                                        <td>meganfox69@example.com</td>
-                                        <td>8.420.030.000 VND</td>
+                                    {data.map((user) =>
+                                        <tr>        
+                                        <td>{user.id}</td>                              
+                                        <td>{user.name}</td>                                        
+                                        <td>{user.email}</td>                                        
+                                        <td>{user.balance}</td>  
                                         <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button onClick={() => navigate(`/update-user/${user.id}`)} className={styles.edit}><BiSolidInbox /></button> 
                                             <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Black Jack</td>
-                                        <td>jack@well.com</td>
-                                        <td>50.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kyrie Irving</td>
-                                        <td>kyrie@gmail.com</td>
-                                        <td>3.240.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gordon Buda</td>
-                                        <td>budahaha@gmail.com</td>
-                                        <td>200.500.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Connor McDavid</td>
-                                        <td>connor@well.com</td>
-                                        <td>1.400.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mary Jane</td>
-                                        <td>auroido@example.com</td>
-                                        <td>3.000.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kyyyy</td>
-                                        <td>Kyyyy@example.com</td>
-                                        <td>3.000.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Naruto</td>
-                                        <td>Naruto@example.com</td>
-                                        <td>3.000.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sasuke</td>
-                                        <td>Sasuke@example.com</td>
-                                        <td>3.000.000.000 VND</td>
-                                        <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
-                                            <button className={styles.delete}><FaTrash /></button>
-                                        </td>
-                                    </tr>
+                                )}                                   
                                 </tbody>
                             </table>
                         </div>

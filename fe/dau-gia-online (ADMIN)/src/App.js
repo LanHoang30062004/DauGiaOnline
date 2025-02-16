@@ -20,7 +20,9 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Login />} />
+
           <Route path="/transaction-history" element={<TransactionHistory />} />
+          <Route path="transaction-history" element={<TransactionHistory />} />
           <Route
             path="/"
             element={

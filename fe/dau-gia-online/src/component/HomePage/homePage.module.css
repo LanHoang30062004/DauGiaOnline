@@ -183,3 +183,42 @@ a {
     background-color: black;
     color: white;
 }
+.linkWrapper {
+    display: contents;
+  }
+  .listPage {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .list {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .list:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .active {
+    background-color: #007bff; 
+    color: white;
+    font-weight: bold;
+    border-color: #0056b3;
+    pointer-events: none; 
+  }
+  
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  

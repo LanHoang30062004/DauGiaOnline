@@ -10,6 +10,7 @@ import MyProfile from './component/MyProfile/index';
 import Payment from './component/Payment/index';
 import ShoppingCart from './component/ShoppingCart/index';
 import DetailProduct from './component/DetailProduct/index';
+import TransactionHistory from './component/TransactionHistory';
 const PrivateRoute = ({ children }) => {
   const { authToken } = useAuth();
   return authToken ? children : <Navigate to="/" />;
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/transaction-history" element={<TransactionHistory />} />
           <Route
             path="/"
             element={
@@ -32,9 +34,10 @@ function App() {
             <Route path="home" element={<HomePage />} />
             <Route path="help-contact" element={<HelpContact />} />
             <Route path="my-profile" element={<MyProfile />} />
-            <Route path="payment" element={<Payment />} />
+            <Route path="payment/:id" element={<Payment />} />
             <Route path="shopping-cart" element={<ShoppingCart />} />
             <Route path="detail-product/:id" element={<DetailProduct />} />
+            <Route path="transaction-history/:id" element={<TransactionHistory />} />
           </Route>
         </Routes>
       </AuthProvider>

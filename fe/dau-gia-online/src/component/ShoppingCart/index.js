@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./shoppingCart.module.css"
 import { CiDeliveryTruck } from "react-icons/ci";
 
 function ShoppingCart() {
+    const navigate = useNavigate(); 
     return (
         <>
             <div className={styles.container}>
@@ -15,7 +17,7 @@ function ShoppingCart() {
                             <div>Delete</div>
                         </div>
                         <div className={styles.backgroundProduct}>
-                            <div className={styles.noProduct}>
+                            <div className={styles.noProduct} onClick= {() => navigate("/payment/1")}>
                                 <div className={styles.cartItem}>
                                     <div className={styles.productInfo}>
                                         <img
@@ -24,7 +26,7 @@ function ShoppingCart() {
                                         />
                                         <p>Air Force 1 Low x Louis Vuitton ‘Metallic Gold’</p>
                                     </div>
-                                    <div className={styles.price}>725.000.000 VND</div>
+                                    <div className={styles.price}>72 VND</div>
                                     <div className={styles.quantity}>1</div>
                                     <div className={styles.delete}>
                                         <button>&#128465;</button>

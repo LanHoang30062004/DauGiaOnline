@@ -124,4 +124,38 @@
   .signupLink a:hover{
     text-decoration: underline;
   }
+
+  .passwordInputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .passwordInput {
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+  }
+  
+  .eyeButton {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #adadad;
+    padding: 0;
+  }
+
+  .eyeButton:focus {
+    outline: none;
+  }
+  
   

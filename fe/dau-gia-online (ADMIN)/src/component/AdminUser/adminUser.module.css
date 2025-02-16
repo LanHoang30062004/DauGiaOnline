@@ -145,11 +145,28 @@
     border-bottom: 1px solid #ccc;
 }
 
-.actions button {
+/* .actions .edit button:hover {
     margin-right: 5px;
     border: none;
     cursor: pointer;
+    background-color: rgb(231, 129, 20);
 }
+.actions .delete button:hover {
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(237, 175, 161);
+} */
+
+.edit:hover {
+    background-color: rgb(1, 255, 1);
+}
+
+.delete:hover {
+    background-color: rgb(214, 1, 1);
+}
+
+
 
 .edit {
     background-color: greenyellow;
@@ -161,7 +178,7 @@
 }
 
 .delete {
-    background-color: red;
+    background-color: rgb(254, 63, 63);
     color: white;
     border: none;
     padding: 7px 15px;
