@@ -8,6 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import React, { useState } from "react";
 function TransactionHistory() {
+    
     return (
         <>
             <div className={styles.ui}>
