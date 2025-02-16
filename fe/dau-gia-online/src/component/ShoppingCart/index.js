@@ -26,7 +26,7 @@ function ShoppingCart() {
                                         />
                                         <p>Air Force 1 Low x Louis Vuitton ‘Metallic Gold’</p>
                                     </div>
-                                    <div className={styles.price}>725.000.000 VND</div>
+                                    <div className={styles.price}>72 VND</div>
                                     <div className={styles.quantity}>1</div>
                                     <div className={styles.delete}>
                                         <button>&#128465;</button>

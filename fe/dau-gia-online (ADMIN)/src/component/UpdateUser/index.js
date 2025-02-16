@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
 const UpdateUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -15,6 +17,8 @@ const UpdateUser = () => {
     address: "",
     balance: ""
   });
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     axios
       .get(`http://localhost:2000/users/${id}`)
@@ -34,23 +38,36 @@ const UpdateUser = () => {
     }));
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
     e.preventDefault();
+    setShowModal(true);
+  };
+
+  const confirmChange = () => {
     axios
-      .put(`http://localhost:2000/users/${id}`,user)
+      .put(`http://localhost:2000/users/${id}`, user)
       .then(() => {
-        alert("User information updated");
+        toast.success("Your information has been successfully updated!", {
+          position: "bottom-right",
+          autoClose: 1500
+        });
         navigate("/admin-users");
       })
       .catch((error) => {
         console.error("error updating user", error);
       });
+    setShowModal(false);
+  };
+
+  const cancelChange = () => {
+    setShowModal(false);
   };
 
   const handleCancel = () => {
     alert("Update canceled");
     navigate("/admin-users");
   };
+
 
   return (
     <div className={styles.app}>
@@ -100,7 +117,7 @@ const UpdateUser = () => {
                   <input
                     type="text"
                     id="name"
-                    name="styles.name"
+                    name="name"
                     value={user.name}
                     onChange={handleChange}
                   />
@@ -110,7 +127,7 @@ const UpdateUser = () => {
                   <input
                     type="text"
                     id="address"
-                    name="styles.address"
+                    name="address"
                     value={user.address}
                     onChange={handleChange}
                   />
@@ -120,7 +137,7 @@ const UpdateUser = () => {
                   <input
                     type="text"
                     id="date"
-                    name="styles.date"
+                    name="date"
                     value={user.date}
                     onChange={handleChange}
                   />
@@ -132,7 +149,7 @@ const UpdateUser = () => {
                   <input
                     type="email"
                     id="email"
-                    name="styles.email"
+                    name="email"
                     value={user.email}
                     onChange={handleChange}
                   />
@@ -142,7 +159,7 @@ const UpdateUser = () => {
                   <input
                     type="text"
                     id="balance"
-                    name="styles.balance"
+                    name="balance"
                     value={user.balance}
                     onChange={handleChange}
                   />
@@ -150,13 +167,27 @@ const UpdateUser = () => {
               </div>
             </div>
             <div className={styles.userActions}>
-              <button onClick={handleCancel}>Cancel</button>
-              <button onClick={handleUpdate}>Update</button>
+              <button type="button" onClick={handleCancel}>Cancel</button>
+              <button type="submit">Update</button>
             </div>
           </form>
+
+          {showModal && (
+            <div className={styles.notificationAlert}>
+              <div className={styles.notification}>
+                <p>Are you sure you want to update the information?</p>
+                <div className={styles.notificationButton}>
+                  <button className={styles.btnConfirm} onClick={confirmChange}>Confirm</button>
+                  <button className={styles.btnCancel} onClick={cancelChange}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          )}
+          <ToastContainer />
         </div>
       </div>
     </div>
   );
 };
+
 export default UpdateUser;
