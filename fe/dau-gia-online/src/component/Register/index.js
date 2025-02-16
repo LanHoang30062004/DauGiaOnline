@@ -19,6 +19,7 @@ function Register() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showRetypePassword, setShowRetypePassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -90,11 +91,11 @@ function Register() {
                           required
                           type="email"
                           className={`form-control ${styles.inputEmail}`}
-                          placeholder="Email"
                           name={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
-
+                        <span></span>
+                        <label>Email</label>
                       </div>
                       <div
                         className={styles.formGroup + " " + styles.eyeIconShow}
@@ -103,7 +104,6 @@ function Register() {
                           required
                           type={showPassword ? "text" : "password"}
                           className={`form-control ${styles.inputPassword}`}
-                          placeholder="Password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                         />
@@ -114,6 +114,8 @@ function Register() {
                         >
                           {showPassword ? <FaRegEye /> : <IoEyeOffOutline />}
                         </button>
+                        <span></span>
+                        <label>Password</label>
                       </div>
 
                       <div
@@ -121,19 +123,20 @@ function Register() {
                       >
                         <input
                           required
-                          type={showPassword ? "text" : "password"}
+                          type={showRetypePassword ? "text" : "password"}
                           className={`form-control ${styles.inputRepassword}`}
-                          placeholder="Re-enter your password"
                           value={retypePassword}
                           onChange={(e) => setRetypePassword(e.target.value)}
                         />
                         <button
                           type="button"
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={() => setShowRetypePassword(!showRetypePassword)}
                           className={styles.eyeButton}
                         >
-                          {showPassword ? <FaRegEye /> : <IoEyeOffOutline />}
+                          {showRetypePassword ? <FaRegEye /> : <IoEyeOffOutline />}
                         </button>
+                        <span></span>
+                        <label>Re-enter Password</label>
                       </div>
                     </div>
 
@@ -144,10 +147,11 @@ function Register() {
                           required
                           type="text"
                           className={`form-control ${styles.inputFullname}`}
-                          placeholder="Full name"
                           name={fullName}
                           onChange={(e) => setFullName(e.target.value)}
                         />
+                        <span></span>
+                        <label>Full Name</label>
                       </div>
                       <div className={styles.formGroup}>
                         <input
@@ -164,10 +168,11 @@ function Register() {
                           required
                           type="text"
                           className={`form-control ${styles.inputAddress}`}
-                          placeholder="Address"
                           name={address}
                           onChange={(e) => setAddress(e.target.value)}
                         />
+                        <span></span>
+                        <label>Address</label>
                       </div>
                     </div>
                   </div>

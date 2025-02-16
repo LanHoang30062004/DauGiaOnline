@@ -78,6 +78,26 @@
   width: 100%;
 }
 
+.formGroup label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+.formGroup span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+}
 
 .formGroup {
   margin: 70px;
@@ -143,5 +163,7 @@
 .eyeButton:focus {
   outline: none;
 }
+
+
 
 
