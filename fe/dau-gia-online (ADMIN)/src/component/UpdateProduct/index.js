@@ -47,7 +47,7 @@ function UpdateProduct() {
             .then(() => {
                 toast.success('Product information updated successfully!', {
                     position: 'bottom-right',
-                    autoClose: 1500,
+                    autoClose: 1000,
                     onClose : () => navigate('/admin-products')
                 });
             })

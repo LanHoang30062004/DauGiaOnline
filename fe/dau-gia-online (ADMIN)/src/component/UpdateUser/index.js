@@ -49,7 +49,7 @@ const UpdateUser = () => {
       .then(() => {
         toast.success("Your information has been successfully updated!", {
           position: "bottom-right",
-          autoClose: 1500,
+          autoClose: 1000,
           onClose : () => navigate("/admin-user")
         });
         
