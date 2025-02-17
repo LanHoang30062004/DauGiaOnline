@@ -98,6 +98,9 @@ function UpdateProduct() {
     const handleToPayHistory = () => {
         navigate("/transaction-history");
     };
+    const handleToLogOut = () => {   
+        navigate("/");
+    };
 
     return (
         <>
@@ -120,7 +123,7 @@ function UpdateProduct() {
                             <span className={styles.text}>Payment History</span>
                         </li>
                     </ul>
-                    <div className={styles.sidebarUser}>
+                    <div className={styles.sidebarUser} onClick={handleToLogOut}>
                         <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
                         <div className={styles.username}>Megan Fox</div>
                     </div>

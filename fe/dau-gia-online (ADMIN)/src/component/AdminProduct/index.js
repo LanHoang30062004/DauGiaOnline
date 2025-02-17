@@ -32,6 +32,9 @@ function AdminProduct() {
     const handleToAddProduct = () => {
         navigate("/add-product");
     };
+    const handleToLogOut = () => {   
+        navigate("/");
+    };
     return (
         <>
             <div>
@@ -54,7 +57,7 @@ function AdminProduct() {
                                 <span className={styles.text}>Payment History</span>
                             </li>
                         </ul>
-                        <div className={styles.sidebarUser}>
+                        <div className={styles.sidebarUser} onClick={handleToLogOut}>
                             <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
                             <p className={styles.username}>Megan Fox</p>
                         </div>
@@ -65,12 +68,12 @@ function AdminProduct() {
                         </div>
                         <div className={styles.stats}>
                             <div className={styles.stat}>
-                                <h1>100</h1>
+                                <h1>{data.length}</h1>
                                 <h1>Total Products</h1>
                             </div>
                         </div>
 
-                        <div class={styles.searchBar}>
+                        <div class={styles.searchBar} >
                             <input type="text" placeholder="Search Products" />
                             <button className={styles.addProductIcon} onClick={handleToAddProduct}><IoMdAdd /></button>
                         </div>

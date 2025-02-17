@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function AdminUser() {
     const [data, setData] =useState([]);
+    const [deleteUserId, setDeleteUserId] = useState(null);
     const navigate = useNavigate() ; 
     useEffect(() => {
         axios.get("http://localhost:2000/users")
@@ -18,7 +19,19 @@ function AdminUser() {
             })
             .catch((err) => console.log(err))
     }, [])
+    useEffect(() => {
+        if (deleteUserId !== null) {
+            axios.delete(`http://localhost:2000/users/${deleteUserId}`)
+                .then(() => {
+                    setData(data.filter(user => user.id !== deleteUserId));
+                })
+                .catch((err) => console.error(err));
+        }
+    }, [deleteUserId]);
 
+    const handleDelete = (id) => {
+        setDeleteUserId(id);
+    };
     const handleToUsers = () => {   
         navigate("/admin-user");
     };
@@ -27,6 +40,9 @@ function AdminUser() {
     };
     const handleToPayHistory = () => {   
         navigate("/transaction-history");
+    };
+    const handleToLogOut = () => {   
+        navigate("/");
     };
 
     return (
@@ -51,7 +67,7 @@ function AdminUser() {
                                 <span className={styles.text}>Payment History</span>
                             </li>
                         </ul>
-                        <div className={styles.sidebarUser}>
+                        <div className={styles.sidebarUser} onClick={handleToLogOut}>
                             <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
                             <p className={styles.username}>Megan Fox</p>
                         </div>
@@ -93,7 +109,9 @@ function AdminUser() {
                                         <td>{user.balance}</td>  
                                         <td>
                                             <button onClick={() => navigate(`/update-user/${user.id}`)} className={styles.edit}><BiSolidInbox /></button> 
-                                            <button className={styles.delete}><FaTrash /></button>
+                                            <button onClick={() => handleDelete(user.id)} className={styles.delete}>
+                                                <FaTrash />
+                                            </button>
                                         </td>
                                     </tr>
                                 )}                                   
