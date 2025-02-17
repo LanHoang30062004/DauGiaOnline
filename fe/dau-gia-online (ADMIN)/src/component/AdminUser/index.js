@@ -102,7 +102,7 @@ function AdminUser() {
                                         <td>{user.balance}</td>  
                                         <td>
                                             <button onClick={() => navigate(`/update-user/${user.id}`)} className={styles.edit}><BiSolidInbox /></button> 
-
+                                            
                                             <button onClick={() => handleDeleteUser(user.id)} className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
