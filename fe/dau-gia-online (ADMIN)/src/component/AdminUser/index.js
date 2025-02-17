@@ -7,7 +7,7 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 function AdminUser() {
     const [data, setData] = useState([]);
@@ -34,6 +34,11 @@ function AdminUser() {
             .then(() => {
                 setData(data.filter(user => user.id !== userToDelete));
                 setShowModal(false);
+                
+                toast.success("User has been successfully deleted!", {
+                    position: "bottom-right",
+                    autoClose: 1500,
+                });
             })
             .catch((err) => console.log(err));
     };
