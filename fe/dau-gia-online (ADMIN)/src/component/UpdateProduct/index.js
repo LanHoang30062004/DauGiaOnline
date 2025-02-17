@@ -5,10 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './updateProduct.module.css';
 import { FaUsers } from 'react-icons/fa';
-import { MdInventory2 } from 'react-icons/md';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { FaMoneyCheckDollar } from 'react-icons/fa6';
 import { FaBoxArchive } from 'react-icons/fa6';
+import { FaMoneyCheckDollar } from 'react-icons/fa6';
 
 function UpdateProduct() {
     const { id } = useParams();
@@ -18,7 +16,7 @@ function UpdateProduct() {
         price: '',
         time: '',
         category: '',
-        image: ''
+        images: []
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -34,12 +32,19 @@ function UpdateProduct() {
     };
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setProduct(prev => ({ ...prev, image: file }));
+        const files = Array.from(e.target.files);
+        setProduct(prev => ({ ...prev, images: files }));
     };
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        if (!product.name || !product.price || !product.time || !product.category) {
+            toast.error('All fields must be filled out!', {
+                position: 'bottom-right',
+                autoClose: 1500
+            });
+            return;
+        }
         setShowModal(true);
     };
 
@@ -49,7 +54,10 @@ function UpdateProduct() {
         formData.append('price', product.price);
         formData.append('time', product.time);
         formData.append('category', product.category);
-        formData.append('image', product.image);
+
+        product.images.forEach((file) => {
+            formData.append('images', file);
+        });
 
         axios.put(`http://localhost:2000/products/${id}`, formData)
             .then(() => {
@@ -78,6 +86,7 @@ function UpdateProduct() {
             position: 'bottom-right',
             autoClose: 1500
         });
+        navigate("/admin-users");
     };
 
     const handleToUsers = () => {
@@ -135,7 +144,7 @@ function UpdateProduct() {
                             <form>
                                 <label className={styles.fileUpload}>
                                     +
-                                    <input className={styles.uploadImg} type="file" onChange={handleFileChange} />
+                                    <input className={styles.uploadImg} type="file" multiple onChange={handleFileChange} />
                                 </label>
                             </form>
                         </div>
