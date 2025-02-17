@@ -4,12 +4,15 @@ import styles from "./homePage.module.css";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../interceptor";
 import { url } from './../../util/Url';
+import { formatCurrency } from "../../util/format";
+import { compareTime, convertDateTime } from "../../util/formatDate";
+import { format } from "date-fns";
 function HomePage() {
-    const size = 12 ; 
+    const size = 12;
     const navigate = useNavigate();
     const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([]);
-    const filter = useOutletContext();
+    const { filter, search } = useOutletContext();
     var { category, type, sort } = filter;
     sort = sort ?? "";
     category = category ?? "";
@@ -26,8 +29,9 @@ function HomePage() {
         }
     };
     useEffect(() => {
-        if (type == null) {
-            axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`)
+        console.log(search);
+        if (search) {
+            axiosInstance.get(`products/by-search?page=${currentPage}&size=${size}&search=${search}`)
                 .then((res) => {
                     setProducts(res.data.data.items);
                     setTotalPage(res.data.data.totalPages)
@@ -35,29 +39,39 @@ function HomePage() {
                 .catch((err) => console.log(err))
         }
         else {
-            if (type == 0) {
-                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=false`)
+            if (type == null) {
+                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`)
                     .then((res) => {
                         setProducts(res.data.data.items);
                         setTotalPage(res.data.data.totalPages)
-
                     })
                     .catch((err) => console.log(err))
             }
             else {
-                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=true`)
-                    .then((res) => {
-                        setProducts(res.data.data.items);
-                        setTotalPage(res.data.data.totalPages)
-                    })
-                    .catch((err) => console.log(err))
-            }
+                if (type == 0) {
+                    axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=false`)
+                        .then((res) => {
+                            setProducts(res.data.data.items);
+                            setTotalPage(res.data.data.totalPages)
 
+                        })
+                        .catch((err) => console.log(err))
+                }
+                else {
+                    axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=true`)
+                        .then((res) => {
+                            setProducts(res.data.data.items);
+                            setTotalPage(res.data.data.totalPages)
+                        })
+                        .catch((err) => console.log(err))
+                }
+
+            }
         }
 
-    }, [currentPage, sort, type, category])
+
+    }, [currentPage, sort, type, category, search])
     console.log(products);
-    console.log(totalPage);
     return (
         <>
             <div className={styles.ui}>
@@ -94,8 +108,10 @@ function HomePage() {
                                     <img src={`http://localhost:8081/api/v1/products/images/${p.urlResources[0]}`} alt="" />
                                 </div>
                                 <div className={styles.proName}>{p.name}</div>
-                                <div className={styles.proPrice}>{p.startingPrice}VND</div>
-                                <div className={styles.time}>{p.auctionTime}</div>
+                                <div className={styles.proPrice}>{formatCurrency(p.startingPrice)}VND</div>
+                                <div className={styles.time}>{
+                                    compareTime(convertDateTime(p.auctionTime)) ? "Auction Ended" : convertDateTime(p.auctionTime)
+                                }</div>
                             </div>
                         )}
                     </div>

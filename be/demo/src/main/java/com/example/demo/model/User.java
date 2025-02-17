@@ -45,6 +45,9 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "users")
     private List<Product> products ;
 
+    @OneToMany(mappedBy = "user")
+    private List<Auction> auctions ;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

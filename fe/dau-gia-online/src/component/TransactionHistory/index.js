@@ -8,7 +8,7 @@ function TransactionHistory() {
             <div className={styles.searchBox}>
                 <input type="date" placeholder="dd/mm/yyyy" />
                 <input type="text" placeholder="Search for content" />
-                <button>Search</button>
+                <button className={styles.trans__button}>Search</button>
             </div>
 
             <div className={styles.historyList}>

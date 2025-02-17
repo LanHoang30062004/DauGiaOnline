@@ -33,7 +33,7 @@ input {
     flex: 1;
 }
 
-button {
+.trans__button {
     background-color: red;
     color: white;
     border: none;
@@ -42,7 +42,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.trans__button:hover {
     background-color: rgb(178, 7, 7);
 }
 

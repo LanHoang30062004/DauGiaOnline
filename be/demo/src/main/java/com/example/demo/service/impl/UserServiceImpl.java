@@ -85,8 +85,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ProductDTO> getProductsInCart(Long userId) throws NotFoundException {
-        User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Can not find user with id :" + userId)) ;
+    public List<ProductDTO> getProductsInCart(String email) throws NotFoundException {
+        User user = this.userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Can not find user with email :" + email)) ;
         List<ProductDTO> list = user.getProducts().stream().map((product -> {
             return ProductDTO.builder()
                     .id(product.getId())
@@ -97,5 +97,31 @@ public class UserServiceImpl implements UserService {
                     .build() ;
         })).toList() ;
         return list;
+    }
+
+    @Override
+    public UserDTO getUserByEmail(String email) throws NotFoundException {
+        User user = this.userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(String.format("User not found with email : %s" , email))) ;
+
+        return UserDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .address(user.getAddress())
+                .fullName(user.getFullName())
+                .dateOfBirth(user.getDateOfBirth())
+                .build();
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return this.userRepository.findAll().stream().map((user) -> {
+            return UserDTO.builder()
+                    .id(user.getId())
+                    .email(user.getEmail())
+                    .address(user.getAddress())
+                    .fullName(user.getFullName())
+                    .dateOfBirth(user.getDateOfBirth())
+                    .build();
+        }).toList();
     }
 }

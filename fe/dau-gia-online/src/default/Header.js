@@ -12,7 +12,7 @@ import { useAuth } from "../context/AuthContext";
 import Login from './../component/Login/index';
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-function Header({ setFilter }) {
+function Header({ setFilter , setSearch }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isAccountOpen, setIsAccountOpen] = useState(false);
     const navigate = useNavigate();
@@ -92,6 +92,9 @@ function Header({ setFilter }) {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    const handleSearch = (e) => {
+        setSearch(e.target.value) ; 
+    }
 
 
 
@@ -160,7 +163,7 @@ function Header({ setFilter }) {
                         </Link>
                         <div className="below__search">
                             <div className="below__magnifying"><FaMagnifyingGlass /></div>
-                            <input placeholder="Tìm kiếm" />
+                            <input onChange={handleSearch} placeholder="Tìm kiếm" />
                             <div className="below__filter" onClick={handleFilterClick}>
                                 <FaFilter /> Filter
                             </div>

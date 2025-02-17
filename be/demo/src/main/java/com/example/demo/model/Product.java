@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Product extends BaseEntity {
     private Long startingPrice;
 
     @Column(name = "auction_time")
-    private String auctionTime;
+    private LocalDateTime auctionTime;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,7 +44,11 @@ public class Product extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"product_id"})
     )
+
     private List<User> users;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE ,mappedBy = "product")
+    private List<Auction> auctions ;
 
     @OneToOne(mappedBy = "product")
     private Inventory inventory  ;

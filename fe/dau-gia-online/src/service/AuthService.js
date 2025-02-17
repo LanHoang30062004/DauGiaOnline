@@ -9,4 +9,7 @@ export const setToken = (token) => {
   export const removeToken = () => {
     localStorage.removeItem("authToken");
   };
+  export const setEmail = (email) => {
+    localStorage.setItem("email", email);
+  }
   

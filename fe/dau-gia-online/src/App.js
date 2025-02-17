@@ -1,5 +1,5 @@
 import './App.css';
-import { Navigate, Route, Router, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from './component/Login/index';
 import LayoutDefault from './LayoutDefault';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -11,18 +11,21 @@ import Payment from './component/Payment/index';
 import ShoppingCart from './component/ShoppingCart/index';
 import DetailProduct from './component/DetailProduct/index';
 import TransactionHistory from './component/TransactionHistory';
+import { getToken } from './service/AuthService';
 const PrivateRoute = ({ children }) => {
   const { authToken } = useAuth();
-  return authToken ? children : <Navigate to="/" />;
+  return authToken ? children : <Navigate to="/" replace />;
 };
 function App() {
   return (
     <>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
+
+          <Route path="/" element={getToken() ? <Navigate to="/home" replace /> : <Login />} />
+
           <Route
             path="/"
             element={

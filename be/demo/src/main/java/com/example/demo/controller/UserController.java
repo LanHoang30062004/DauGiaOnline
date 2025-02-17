@@ -24,17 +24,34 @@ public class UserController {
     private final UserService userService;
 
 
-    @GetMapping("/cart/{id}")
-    public ResponseData<?> getUser(@PathVariable Long id) {
+    @GetMapping("/cart/{email}")
+    public ResponseData<?> getUser(@PathVariable String email) {
         try {
-            List<ProductDTO> result = this.userService.getProductsInCart(id) ;
-            log.info("Get products in cart successful with user id : {}" , id) ;
+            List<ProductDTO> result = this.userService.getProductsInCart(email) ;
+            log.info("Get products in cart successful with user email : {}" , email) ;
             return new ResponseData<>(HttpStatus.OK.value(),"Get products in cart successful" , result);
         }
         catch (Exception e) {
             log.error("Get products in cart failed : {}", e.getMessage());
             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value() , e.getMessage());
         }
+    }
+    @GetMapping("/{email}")
+    public ResponseData getUserByEmail(@PathVariable String email) {
+        try {
+            UserDTO result = this.userService.getUserByEmail(email) ;
+            log.info("Get user by email successful with email  : {}", email);
+            return new ResponseData(HttpStatus.OK.value(), " Get user by email successful with email  : " + email , result);
+        }
+        catch (Exception e) {
+            log.error("Get user failed : {}", e.getMessage());
+            return new ResponseData(HttpStatus.INTERNAL_SERVER_ERROR.value() , e.getMessage());
+        }
+    }
+    @GetMapping("")
+    public ResponseData<?> getUsers() {
+        log.info("Get users successful");
+        return new ResponseData(HttpStatus.OK.value(), "Get users successful" , this.userService.getAllUsers());
     }
 
     @PostMapping("/login")
