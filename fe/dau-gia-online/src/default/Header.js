@@ -12,7 +12,8 @@ import { useAuth } from "../context/AuthContext";
 import Login from './../component/Login/index';
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-function Header({ setFilter , setSearch }) {
+import { MdAttachMoney } from "react-icons/md";
+function Header({ setFilter, setSearch }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isAccountOpen, setIsAccountOpen] = useState(false);
     const navigate = useNavigate();
@@ -93,7 +94,7 @@ function Header({ setFilter , setSearch }) {
         setIsModalOpen(false);
     };
     const handleSearch = (e) => {
-        setSearch(e.target.value) ; 
+        setSearch(e.target.value);
     }
 
 
@@ -138,6 +139,12 @@ function Header({ setFilter , setSearch }) {
                                                 <div className="add__button">
                                                     <div className="add__button--circle"><FaUser /></div>
                                                     <p className="add__button--title">Trang cá nhân</p>
+                                                </div>
+                                            </Link>
+                                            <Link to="/transaction-history/1" style={{ color: "black" }}>
+                                                <div className="add__button">
+                                                    <div className="add__button--circle"><MdAttachMoney /></div>
+                                                    <p className="add__button--title">Lịch sử giao dịch</p>
                                                 </div>
                                             </Link>
                                             <div onClick={handleLogout} className="add__button">

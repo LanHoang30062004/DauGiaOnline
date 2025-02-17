@@ -62,7 +62,7 @@ function AdminUser() {
                         </div>
                         <div className={styles.stats}>
                             <div className={styles.stat}>
-                                <h1>9</h1>
+                                <h1>{data.length}</h1>
                                 <h1>Total Users</h1>
                             </div>
                             <div className={styles.stat}>
