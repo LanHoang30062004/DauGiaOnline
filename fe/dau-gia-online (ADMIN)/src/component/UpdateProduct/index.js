@@ -98,6 +98,9 @@ function UpdateProduct() {
     const handleToPayHistory = () => {
         navigate("/transaction-history");
     };
+    const handleToLogOut = () => {   
+        navigate("/");
+    };
 
     return (
         <div className={styles.ui}>
@@ -108,7 +111,7 @@ function UpdateProduct() {
                     <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}><FaBoxArchive /><span>Products</span></li>
                     <li className={styles.menuItem} onClick={handleToPayHistory}><FaMoneyCheckDollar /><span>Payment History</span></li>
                 </ul>
-                <div className={styles.sidebarUser}>
+                <div className={styles.sidebarUser} onClick={handleToLogOut}>
                     <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
                     <div className={styles.username}>Megan Fox</div>
                 </div>
