@@ -15,8 +15,7 @@ function UpdateProduct() {
         name: '',
         price: '',
         time: '',
-        category: '',
-        images: []
+        category: ''
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -29,11 +28,6 @@ function UpdateProduct() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleFileChange = (e) => {
-        const files = Array.from(e.target.files);
-        setProduct(prev => ({ ...prev, images: files }));
     };
 
     const handleUpdate = (e) => {
@@ -49,23 +43,13 @@ function UpdateProduct() {
     };
 
     const confirmChange = () => {
-        const formData = new FormData();
-        formData.append('name', product.name);
-        formData.append('price', product.price);
-        formData.append('time', product.time);
-        formData.append('category', product.category);
-
-        product.images.forEach((file) => {
-            formData.append('images', file);
-        });
-
-        axios.put(`http://localhost:2000/products/${id}`, formData)
+        axios.put(`http://localhost:2000/products/${id}`, product)
             .then(() => {
                 toast.success('Product information updated successfully!', {
                     position: 'bottom-right',
-                    autoClose: 1500
+                    autoClose: 1000,
+                    onClose : () => navigate('/admin-products')
                 });
-                navigate('/admin-products');
             })
             .catch(error => {
                 console.error('Error updating product', error);
@@ -86,7 +70,7 @@ function UpdateProduct() {
             position: 'bottom-right',
             autoClose: 1500
         });
-        navigate("/admin-users");
+        navigate("/admin-products");
     };
 
     const handleToUsers = () => {
@@ -125,16 +109,16 @@ function UpdateProduct() {
             <div className={styles.mainBox}>
                 <div className={styles.title}>UPDATE PRODUCTS</div>
                 <div className={styles.contentBox}>
-                    <form className={styles.form__updateProduct}>
+                    <form className={styles.form__updateProduct} onSubmit={handleUpdate}>
                         <div className={styles.inforBox}>
                             <div className={styles.field}>
-                                <input type="text" id="name" name="name" value={product.name} onChange={handleChange} />
+                                <input type="text" id="name" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" />
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="price" name="price" value={product.price} onChange={handleChange} />
+                                <input type="text" id="price" name="price" value={product.price} onChange={handleChange} placeholder="Price" />
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="time" name="time" value={product.time} onChange={handleChange} />
+                                <input type="text" id="time" name="time" value={product.time} onChange={handleChange} placeholder="Auction Time" />
                             </div>
                             <div className={styles.cateField}>
                                 <label htmlFor="cate">Category:</label>
@@ -147,22 +131,11 @@ function UpdateProduct() {
                                 </select>
                             </div>
                         </div>
-                    </form>
-                    <div className={styles.imageBox}>
-                        <div className={styles.imgArea}>
-                            <form>
-                                <label className={styles.fileUpload}>
-                                    +
-                                    <input className={styles.uploadImg} type="file" multiple onChange={handleFileChange} />
-                                </label>
-                            </form>
+                        <div className={styles.btn}>
+                            <button type="button" className={styles.cancelBtn} onClick={handleCancel}>Cancel</button>
+                            <button type="submit" className={styles.uploadBtn}>Update</button>
                         </div>
-                        <div className={styles.refreBtn} onClick={() => setProduct({ ...product })}>Refresh</div>
-                    </div>
-                </div>
-                <div className={styles.btn}>
-                    <div className={styles.cancelBtn} onClick={handleCancel}>Cancel</div>
-                    <button type="button" className={styles.uploadBtn} onClick={handleUpdate}>Upload</button>
+                    </form>
                 </div>
             </div>
             {showModal && (
