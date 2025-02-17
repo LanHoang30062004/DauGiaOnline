@@ -4,7 +4,7 @@ import { MdInventory2 } from "react-icons/md";
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBoxArchive } from "react-icons/fa6";
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,13 +13,25 @@ function UpdateProduct() {
     const navigate = useNavigate();
     const [prod, setProd] = useState(
         {
+            id: 0,
             name: "",
             price: 0,
             time: "",
             category: "",
-            img: [],
         }
     );
+    const [products, setProducts] = useState([]);
+    const fetchProducts = async () => {
+        try {
+            const response = await axios.get("http://localhost:2000/products");
+            setProducts(response.data);
+        } catch (error) {
+            console.error("Lỗi: ", error);
+        }
+    };
+    useEffect(() => {
+        fetchProducts();
+    }, []);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProd((prevProd) => ({
@@ -33,37 +45,25 @@ function UpdateProduct() {
         console.log("Files selected:", files);
         setProd((prevProd) => ({
             ...prevProd,
-            img: files,
         }));
     };
 
     const handleUpload = async (e) => {
         e.preventDefault();
 
-        if (!prod.name || !prod.price || !prod.time || !prod.category) {
-            alert("Vui lòng điền đầy đủ thông tin!");
-            return;
-        }
-
-        if (prod.img.length === 0) {
-            alert("Vui lòng chọn ít nhất một hình ảnh!");
-            return;
-        }
-
+        const newId =  Number(products[products.length - 1].id) + 1;
 
         const formData = new FormData();
+        formData.append("id", newId);
         formData.append("name", prod.name);
-        formData.append("price", prod.price);
-        formData.append("time", prod.time); 
+        formData.append("price", Number(prod.price));
+        formData.append("time", prod.time);
         formData.append("category", prod.category);
-        prod.img.forEach((file) => {
-            formData.append("images[]", file);
-        });
         console.log("Uploading product:", prod);
 
         try {
             const response = await axios.post("http://localhost:2000/products", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: { "Content-Type": "application/json" },
             });
             console.log("Upload thành công:", response.data);
             alert("Sản phẩm đã được thêm thành công!");
@@ -76,11 +76,11 @@ function UpdateProduct() {
     const handleRefresh = () => {
         setProd((prevProd) => ({
             ...prevProd,
-            img: [],  
+            img: [],
         }));
-    
+
         document.getElementById("fileInput").value = "";
-        console.log( prod.img);
+        console.log(prod.img);
 
     };
 
@@ -98,7 +98,7 @@ function UpdateProduct() {
     const handleToPayHistory = () => {
         navigate("/transaction-history");
     };
-    const handleToLogOut = () => {   
+    const handleToLogOut = () => {
         navigate("/");
     };
 
@@ -144,8 +144,8 @@ function UpdateProduct() {
                                     <input type="text" id="time" name="time" placeholder="Auction time" onChange={handleChange} autoComplete="off" />
                                 </div>
                                 <div className={styles.cateField}>
-                                    <label for="cate">Category:</label>
-                                    <select className={styles.cateSelect} id="category" name="cate" onChange={handleChange}>
+                                    <label for="category">Category:</label>
+                                    <select className={styles.cateSelect} id="cate" name="category" onChange={handleChange}>
                                         <option value="disabled selected"></option>
                                         <option value="bag">Bag</option>
                                         <option value="watch">Watch</option>
@@ -160,11 +160,11 @@ function UpdateProduct() {
                                 <form action="" method="POST">
                                     <label className={styles.fileUpload}>
                                         +
-                                        <input className={styles.uploadImg} type="file" multiple id="fileInput" onChange={handleFileChange} />
+                                        <input className={styles.uploadImg} type="file" multiple id="fileInput" />
                                     </label>
                                 </form>
                             </div>
-                            <div className={styles.refreBtn} onClick={handleRefresh} >Refresh</div>
+                            <div className={styles.refreBtn}  >Refresh</div>
                         </div>
                     </div>
 
