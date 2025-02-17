@@ -6,9 +6,10 @@ function TransactionHistory() {
             <h2 className="transactionHistoryTitle">Payment History</h2>
 
             <div className={styles.searchBox}>
-                <input type="date" placeholder="dd/mm/yyyy" />
-                <input type="text" placeholder="Search for content" />
-                <button className={styles.trans__button}>Search</button>
+
+                <input className={styles.searchInput} type="date" placeholder="dd/mm/yyyy" />
+                <input className={styles.searchInput} type="text" placeholder="Search for content" />
+                <button className={styles.searchButton}>Search</button>
             </div>
 
             <div className={styles.historyList}>
@@ -39,38 +40,6 @@ function TransactionHistory() {
                     <p className={styles.amount}>800.000.000 VND</p>
                 </div>
 
-                <div className={styles.historyItem}>
-                    <div className={styles.historyInfo}>
-                        <p className={styles.date}>21/01/2024</p>
-                        <p className={styles.time}>20:20:28</p>
-                        <p className={styles.content}>Content: Test for fun</p>
-                    </div>
-                    <p className={styles.amount}>800.000.000 VND</p>
-                </div>
-                <div className={styles.historyItem}>
-                    <div className={styles.historyInfo}>
-                        <p className={styles.date}>21/01/2024</p>
-                        <p className={styles.time}>20:20:28</p>
-                        <p className={styles.content}>Content: Test for fun</p>
-                    </div>
-                    <p className={styles.amount}>800.000.000 VND</p>
-                </div>
-                <div className={styles.historyItem}>
-                    <div className={styles.historyInfo}>
-                        <p className={styles.date}>21/01/2024</p>
-                        <p className={styles.time}>20:20:28</p>
-                        <p className={styles.content}>Content: Test for fun</p>
-                    </div>
-                    <p className={styles.amount}>800.000.000 VND</p>
-                </div>
-                <div className={styles.historyItem}>
-                    <div className={styles.historyInfo}>
-                        <p className={styles.date}>21/01/2024</p>
-                        <p className={styles.time}>20:20:28</p>
-                        <p className={styles.content}>Content: Test for fun</p>
-                    </div>
-                    <p className={styles.amount}>800.000.000 VND</p>
-                </div>
                 <div className={styles.historyItem}>
                     <div className={styles.historyInfo}>
                         <p className={styles.date}>21/01/2024</p>

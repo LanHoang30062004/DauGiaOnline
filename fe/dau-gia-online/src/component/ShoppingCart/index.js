@@ -51,6 +51,7 @@ function ShoppingCart() {
                                             </div>
                                         </div>
 
+
                                         <div className={styles.shippingFee}>
                                             <div className={styles.icon}>
                                                 <CiDeliveryTruck />

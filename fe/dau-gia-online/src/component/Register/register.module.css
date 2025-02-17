@@ -1,4 +1,4 @@
-.backgroundImage {
+ .backgroundImage {
   background-color: #ffffff;
   background-image: url(/public/image.jpg);
   background-size: cover;
@@ -73,12 +73,48 @@
   border-radius: 0px;
   margin-bottom: 15px;
   padding-left: 0px;
+  padding-right: 0px;
   color: #7E8285;
+  width: 100%;
 }
 
+.formGroup label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+.formGroup span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+}
 
 .formGroup {
   margin: 70px;
+  position: relative;
+}
+.formGroup input:focus ~ label,
+.formGroup input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+}
+.pass{
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+.pass:hover{
+  text-decoration: underline;
 }
 
 .formControl:focus {
@@ -86,7 +122,6 @@
   background-color: #E9F1F8;
   color: #090909;
 }
-
 .formControlLabel {
   font-size: 15px;
   color: #6C6C6C;
@@ -98,7 +133,7 @@
   height: 50px;
   border-radius: 15px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 1px;
 }
 
 .btnOutlinePrimary {
@@ -109,4 +144,22 @@
 .btnOutlinePrimary:hover{
   border-color: #2691d9;
   transition: .5s;
+}
+
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #adadad;
+  padding: 0;
+}
+
+.eyeButton:focus {
+  outline: none;
 }

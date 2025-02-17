@@ -5,8 +5,100 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { FaBoxArchive } from "react-icons/fa6";
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function UpdateProduct() {
+
+    const navigate = useNavigate();
+    const [prod, setProd] = useState(
+        {
+            name: "",
+            price: 0,
+            time: "",
+            category: "",
+            img: [],
+        }
+    );
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProd((prevProd) => ({
+            ...prevProd,
+            [name]: value,
+        }));
+    };
+
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        console.log("Files selected:", files);
+        setProd((prevProd) => ({
+            ...prevProd,
+            img: files,
+        }));
+    };
+
+    const handleUpload = async (e) => {
+        e.preventDefault();
+
+        if (!prod.name || !prod.price || !prod.time || !prod.category) {
+            alert("Vui lòng điền đầy đủ thông tin!");
+            return;
+        }
+
+        if (prod.img.length === 0) {
+            alert("Vui lòng chọn ít nhất một hình ảnh!");
+            return;
+        }
+
+
+        const formData = new FormData();
+        formData.append("name", prod.name);
+        formData.append("price", prod.price);
+        formData.append("time", prod.time); 
+        formData.append("category", prod.category);
+        prod.img.forEach((file) => {
+            formData.append("images[]", file);
+        });
+        console.log("Uploading product:", prod);
+
+        try {
+            const response = await axios.post("http://localhost:2000/products", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            console.log("Upload thành công:", response.data);
+            alert("Sản phẩm đã được thêm thành công!");
+        } catch (error) {
+            console.error("Lỗi khi upload sản phẩm:", error);
+            alert("Đã xảy ra lỗi khi upload sản phẩm.");
+        }
+    };
+
+    const handleRefresh = () => {
+        setProd((prevProd) => ({
+            ...prevProd,
+            img: [],  
+        }));
+    
+        document.getElementById("fileInput").value = "";
+        console.log( prod.img);
+
+    };
+
+    const handleCancel = () => {
+        alert("Add product canceled");
+        window.location.reload();
+    };
+
+    const handleToUsers = () => {
+        navigate("/admin-user");
+    };
+    const handleToProducts = () => {
+        navigate("/admin-product");
+    };
+    const handleToPayHistory = () => {
+        navigate("/transaction-history");
+    };
+
     return (
         <>
             <div className={styles.ui}>
@@ -15,46 +107,46 @@ function UpdateProduct() {
                         <h1>ADMIN</h1>
                     </div>
                     <ul className={styles.menu}>
-                        <li className={styles.menuItem}>
+                        <li className={styles.menuItem} onClick={handleToUsers}>
                             <span className={styles.icon}><FaUsers /></span>
                             <span className={styles.text}>Users</span>
                         </li>
-                        <li className={`${styles.menuItem} ${styles.active}`}>
+                        <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}>
                             <span className={styles.icon}><FaBoxArchive /></span>
                             <span className={styles.text}>Products</span>
                         </li>
-                        <li className={styles.menuItem}>
+                        <li className={styles.menuItem} onClick={handleToPayHistory}>
                             <span className={styles.icon}><FaMoneyCheckDollar /></span>
                             <span className={styles.text}>Payment History</span>
                         </li>
                     </ul>
                     <div className={styles.sidebarUser}>
                         <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
-                        <div  className={styles.username}>Megan Fox</div>
+                        <div className={styles.username}>Megan Fox</div>
                     </div>
                 </div>
                 <div className={styles.mainBox}>
                     <div className={styles.title}>ADD PRODUCTS</div>
                     <div className={styles.contentBox}>
-                        <form className={styles.form__updateProduct} type="text" action="" method="POST">
+                        <form className={styles.form__updateProduct} type="text" action="" encType="multipart/form-data" method="POST" onSubmit={handleUpload}>
                             <div className={styles.inforBox}>
                                 <div className={styles.field}>
-                                    <input type="text" id="name" name="name" value="Cheristie" />
+                                    <input type="text" id="name" name="name" placeholder="Name product" onChange={handleChange} autoComplete="off" />
                                 </div>
                                 <div className={styles.field}>
-                                    <input type="text" id="price" name="price" value="23.000 VND" />
+                                    <input type="text" id="price" name="price" placeholder="Starting price" onChange={handleChange} autoComplete="off" />
                                 </div>
 
                                 <div className={styles.field}>
-                                    <input type="text" id="time" name="time" value="12/12/2025" />
+                                    <input type="text" id="time" name="time" placeholder="Auction time" onChange={handleChange} autoComplete="off" />
                                 </div>
                                 <div className={styles.cateField}>
                                     <label for="cate">Category:</label>
-                                    <select className={styles.cateSelect} id="cate" name="cate">
+                                    <select className={styles.cateSelect} id="category" name="cate" onChange={handleChange}>
                                         <option value="disabled selected"></option>
                                         <option value="bag">Bag</option>
                                         <option value="watch">Watch</option>
-                                        <option value="antique" selected>Antique</option>
+                                        <option value="antique">Antique</option>
                                         <option value="sneakers">Sneakers</option>
                                     </select>
                                 </div>
@@ -65,16 +157,19 @@ function UpdateProduct() {
                                 <form action="" method="POST">
                                     <label className={styles.fileUpload}>
                                         +
-                                        <input className={styles.uploadImg} type="file" id="fileInput"/>
+                                        <input className={styles.uploadImg} type="file" multiple id="fileInput" onChange={handleFileChange} />
                                     </label>
                                 </form>
                             </div>
-                            <div className={styles.refreBtn} >Refresh</div>
+                            <div className={styles.refreBtn} onClick={handleRefresh} >Refresh</div>
                         </div>
                     </div>
+
+
+
                     <div className={styles.btn}>
-                        <div className={styles.cancelBtn} >Cancel</div>
-                        <div className={styles.uploadBtn} >Upload</div>
+                        <div className={styles.cancelBtn} onClick={handleCancel}>Cancel</div>
+                        <div className={styles.uploadBtn} onClick={handleUpload} >Upload</div>
                     </div>
                 </div>
             </div>

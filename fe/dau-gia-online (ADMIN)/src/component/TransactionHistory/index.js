@@ -7,7 +7,20 @@ import { FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function TransactionHistory() {
+    const navigate = useNavigate();
+
+    const handleToUsers = () => {
+        navigate("/admin-user");
+    };
+    const handleToProducts = () => {
+        navigate("/admin-product");
+    };
+    const handleToPayHistory = () => {
+        navigate("/transaction-history");
+    };
+    
     return (
         <>
             <div className={styles.ui}>
@@ -16,15 +29,15 @@ function TransactionHistory() {
                         <h1>ADMIN</h1>
                     </div>
                     <ul className={styles.menu}>
-                        <li className={styles.menuItem}>
+                        <li className={styles.menuItem} onClick={handleToUsers}>
                             <span className={styles.icon}><FaUsers /></span>
                             <span className={styles.text}>Users</span>
                         </li>
-                        <li className={styles.menuItem}>
+                        <li className={styles.menuItem}     onClick={handleToProducts}>
                             <span className={styles.icon}><FaBoxArchive /></span>
                             <span className={styles.text}>Products</span>
                         </li>
-                        <li className={`${styles.menuItem} ${styles.active}`}>
+                        <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToPayHistory}>
                             <span className={styles.icon}><FaMoneyCheckDollar /></span>
                             <span className={styles.text}>Payment History</span>
                         </li>

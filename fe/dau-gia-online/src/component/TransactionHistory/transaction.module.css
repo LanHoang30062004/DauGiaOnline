@@ -10,7 +10,6 @@
     margin: 100px auto;
     border-radius: 10px;
     border: 1px solid rgb(190, 188, 188);
-    overflow-y: auto;
 }
 
 .transactionHistoryTitle {
@@ -21,19 +20,18 @@
 .searchBox {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
-    margin-left: 25px;
-    margin: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
-input {
+.searchInput {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 20px;
     flex: 1;
 }
 
-.trans__button {
+.searchButton {
     background-color: red;
     color: white;
     border: none;
@@ -42,11 +40,13 @@ input {
     cursor: pointer;
 }
 
-.trans__button:hover {
+
+.searchButton:hover {
     background-color: rgb(178, 7, 7);
 }
 
 .historyList {
+    overflow-y: scroll;
     border-top: 1px solid #eee;
     padding-top: 10px;
     background-color: #f6f3f3;
