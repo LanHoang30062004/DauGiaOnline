@@ -14,5 +14,8 @@ public interface UserService {
 
     public void updateUser(Long userId , UserChangeDTO user) throws Exception;
     public String login (String email, String password) throws Exception;
-    List<ProductDTO> getProductsInCart(Long userId) throws NotFoundException;
+    List<ProductDTO> getProductsInCart(String email) throws NotFoundException;
+    UserDTO getUserByEmail (String email) throws NotFoundException;
+    List<UserDTO> getAllUsers() ;
+
 }

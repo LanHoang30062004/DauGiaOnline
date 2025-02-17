@@ -6,6 +6,7 @@ function TransactionHistory() {
             <h2 className="transactionHistoryTitle">Payment History</h2>
 
             <div className={styles.searchBox}>
+
                 <input className={styles.searchInput} type="date" placeholder="dd/mm/yyyy" />
                 <input className={styles.searchInput} type="text" placeholder="Search for content" />
                 <button className={styles.searchButton}>Search</button>

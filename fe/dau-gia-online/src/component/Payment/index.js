@@ -1,7 +1,98 @@
+import { useEffect, useState } from "react";
 import styles from "./payment.module.css"
 
 import { FaTruck } from "react-icons/fa";
+import { useAsyncError, useParams } from "react-router-dom";
+import axiosInstance from './../../interceptor/index';
+import { url } from "../../util/Url";
+import { formatCurrency } from "../../util/format";
+import { provinces } from "../../util/distance";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Payment() {
+    const [product, setProduct] = useState({});
+    const [shippingFee, setShippingFee] = useState(0);
+    const [speed, setSpeed] = useState(0);
+    const [address, setAddress] = useState({});
+    const [date, setDate] = useState();
+    const { id } = useParams();
+    const handleShippingFee = (index) => {
+        if (index == 1) {
+            setShippingFee(50000);
+            setSpeed(60);
+        }
+        else if (index == 2) {
+            setShippingFee(1000000)
+            setSpeed(120);
+        }
+        else {
+            setShippingFee(2000000);
+            setSpeed(900);
+        }
+
+    }
+    const validAddress = (address) => {
+        const regex = /(.+?),\s*(Đường .+?),\s*(Phường .+?),\s*(Quận \d+|Huyện .+?),\s*(?:Tỉnh|Thành phố|TP\.?)\s*(.+)/;
+        const match = address.match(regex);
+
+        if (!match) {
+            toast.error("Địa chỉ không đúng định dạng. Vui lòng nhập theo cấu trúc: Số nhà, Đường [Tên đường], Phường [Tên phường], Quận/Huyện [Tên quận/huyện], Tỉnh/Thành phố [Tên tỉnh/thành phố]", {
+                position: "bottom-right",
+                autoClose: 10000,
+            })
+            return;
+        }
+        const province = match[5]; // Lấy tỉnh/thành phố từ địa chỉ
+        if (provinces.some((p) => p.name === province)) {
+            setAddress(provinces.find((p) => p.name === province));
+        }
+        else {
+            toast.error("Địa chỉ không tồn tại", {
+                position: "bottom-right",
+                autoClose: 3000,
+            })
+            return;
+        }
+    }
+
+    const handleAdress = (e) => {
+        const result = e.target.value;
+        if (result)   validAddress(result);
+    }
+    const calculateDate = (distance, speed, shippingFee) => {
+        console.log(distance, speed, shippingFee);
+        if (!distance || speed <= 0 || !shippingFee) return "Dữ liệu không hợp lệ";
+
+        const hours = distance / speed; 
+        console.log(hours)
+        const now = new Date(); 
+        let additionalDays = 0;
+        if (shippingFee === 50000) additionalDays = 4;
+        else if (shippingFee === 1000000) additionalDays = 3;
+        else if (shippingFee === 2000000) additionalDays = 2;
+
+        now.setDate(now.getDate() + additionalDays);
+        now.setHours(now.getHours() + Math.floor(hours));
+        now.setMinutes(now.getMinutes() + Math.round((hours % 1) * 60)); 
+
+        return now.toLocaleDateString("vi-VN"); 
+    };
+
+    useEffect(() => {
+        if (address.distance && speed > 0 && shippingFee > 0) {
+            setDate(calculateDate(address.distance, speed, shippingFee));
+        }
+    }, [address, speed, shippingFee]);
+
+    useEffect(() => {
+        axiosInstance.get(url + `products/${id}`)
+            .then((res) => {
+                setProduct(res.data.data);
+            })
+            .catch((err) => console.log(err))
+
+    }, [])
     return (
         <>
             <div className={styles.ui}>
@@ -14,7 +105,7 @@ function Payment() {
                             <div className={styles.boxName}>
                                 ORDER INFORMATION
                             </div>
-                            <input className={styles.inputAddr} type="text" placeholder="Address" />
+                            <input onBlur={handleAdress} className={styles.inputAddr} type="text" placeholder="Address" />
                         </div>
                         <div className={styles.space}></div>
                         <div className={styles.formBox}>
@@ -26,20 +117,20 @@ function Payment() {
                                 <div className={styles.formTitle}>Shipping by</div>
                                 <div className={styles.btnGroup + " " + styles.dFlex + " " + styles.justifyContentCenter} role="group">
                                     <input type="radio" className={styles.btnCheck} name="shipping" id="motorbike" />
-                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="motorbike">Motorbike</label>
+                                    <label onClick={() => handleShippingFee(1)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="motorbike">Motorbike</label>
 
                                     <input type="radio" className={styles.btnCheck} name="shipping" id="plane" />
-                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="plane">Plane</label>
+                                    <label onClick={() => handleShippingFee(2)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="plane">Van</label>
 
                                     <input type="radio" className={styles.btnCheck} name="shipping" id="van" />
-                                    <label className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="van">Van</label>
+                                    <label onClick={() => handleShippingFee(3)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="van">Plane</label>
 
                                 </div>
 
                             </div>
                             <div className={styles.dateBox}>
                                 <div className={styles.formTitle}>Delivery date</div>
-                                <div className={styles.dateSelect}>15/01/2025</div>
+                                <div className={styles.dateSelect}>{date}</div>
                             </div>
                         </div>
                     </div>
@@ -48,16 +139,16 @@ function Payment() {
                             ORDERS
                         </div>
                         <div className={styles.productName}>
-                            Air Force 1 Low x Louis Vuitton 'Metallic Gold'
+                            {product.name}
                         </div>
                         <div className={styles.inforBox}>
                             <div className={styles.priceBox}>
                                 <div className={styles.priceItem + " " + styles.font1}>Price of the item: </div>
-                                <div className={styles.price + " " + styles.font2}>725.000.000 VND</div>
+                                <div className={styles.price + " " + styles.font2}>{formatCurrency(product.startingPrice)} VND</div>
                             </div>
                             <div className={styles.feeBox}>
                                 <div className={styles.shipFee + " " + styles.font1}>Shipping fee: </div>
-                                <div className={styles.fee + " " + styles.font2}>50.000 VND</div>
+                                <div className={styles.fee + " " + styles.font2}>{formatCurrency(shippingFee)} VND</div>
                             </div>
                             <div className={styles.pilici}>
                                 <input className={styles.tick} type="checkbox" />
@@ -67,7 +158,7 @@ function Payment() {
                         <div className={styles.boxFinal}>
                             <div className={styles.finalInfor}>
                                 <div className={styles.totalAmount}>Total Amount</div>
-                                <div className={styles.totalPrice + " " + styles.font3}>725.050.000 VND</div>
+                                <div className={styles.totalPrice + " " + styles.font3}>{formatCurrency(product.startingPrice + shippingFee)} VND</div>
                             </div>
                             <div className={styles.btn}>
                                 <button className={styles.agreeBtn}>Agree to ship</button>
@@ -77,6 +168,7 @@ function Payment() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }

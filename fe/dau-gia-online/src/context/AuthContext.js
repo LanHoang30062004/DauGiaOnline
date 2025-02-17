@@ -1,14 +1,19 @@
 import React, { createContext, useContext, useState } from 'react';
-import { setToken ,getToken ,removeToken } from '../service/AuthService';
+import { setToken, getToken, removeToken, setEmail } from '../service/AuthService';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(getToken());
 
+
   const login = (token) => {
+    const decodeToken = jwtDecode(token)
+    const {sub} = decodeToken ; 
     setToken(token);
     setAuthToken(token);
+    setEmail(sub)
   };
 
   const logout = () => {

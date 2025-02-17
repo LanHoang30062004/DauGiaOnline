@@ -98,7 +98,7 @@ function UpdateProduct() {
     const handleToPayHistory = () => {
         navigate("/transaction-history");
     };
-    const handleToLogOut = () => {   
+    const handleToLogOut = () => {
         navigate("/");
     };
 
@@ -107,9 +107,15 @@ function UpdateProduct() {
             <div className={styles.sidebar}>
                 <div className={styles.logo}><h1>ADMIN</h1></div>
                 <ul className={styles.menu}>
-                    <li className={styles.menuItem} onClick={handleToUsers}><FaUsers /><span>Users</span></li>
-                    <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}><FaBoxArchive /><span>Products</span></li>
-                    <li className={styles.menuItem} onClick={handleToPayHistory}><FaMoneyCheckDollar /><span>Payment History</span></li>
+                    <li className={styles.menuItem} onClick={handleToUsers}>
+                        <span className={styles.icon}><FaUsers /></span>
+                        <span>Users</span></li>
+                    <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}>
+                        <span className={styles.icon}><FaBoxArchive /></span>
+                        <span>Products</span></li>
+                    <li className={styles.menuItem} onClick={handleToPayHistory}>
+                        <span className={styles.icon}><FaMoneyCheckDollar /></span>
+                        <span>Payment History</span></li>
                 </ul>
                 <div className={styles.sidebarUser} onClick={handleToLogOut}>
                     <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />

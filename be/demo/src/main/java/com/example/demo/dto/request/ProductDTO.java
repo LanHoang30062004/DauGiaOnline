@@ -12,6 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class ProductDTO {
+public class ProductDTO implements Serializable {
     private Long id;
 
     @NotBlank(message = "name must be not blank")
@@ -27,9 +28,9 @@ public class ProductDTO {
 
     private Long startingPrice;
 
-    @NotBlank(message = "startingPrice must be not blank")
-    @ValidTimeFormat(message = "Auction time is incorrect format")
-    private String auctionTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDateTime auctionTime;
 
     @NotBlank(message = "category must be not blank")
     private String category;

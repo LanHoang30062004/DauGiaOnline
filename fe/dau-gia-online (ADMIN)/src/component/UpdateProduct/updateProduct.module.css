@@ -13,7 +13,6 @@ a {
 .ui {
     display: flex;
     height: 100%;
-    font-family: 'Times New Roman', Times, serif;
     background-color: #FCFAFA;
 
 }
@@ -21,6 +20,7 @@ a {
 .mainBox {
     background-color: #FCFAFA;
     width: 80%;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .title {
@@ -60,12 +60,7 @@ a {
     border: 1px solid white;
 }
 
-.icon {
-    font-size: 30px;
-    margin-right: 30px;
-    display: inline;
-    color: black;
-}
+
 
 
 .inforBox {
@@ -220,7 +215,7 @@ justify-content: center;
 .menuItem {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -234,8 +229,7 @@ justify-content: center;
 
 .icon {
     margin-right: 10px;
-    font-size: 20px;
-    color: white;
+    
 }
 
 .sidebarUser {

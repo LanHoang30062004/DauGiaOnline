@@ -40,6 +40,7 @@
     cursor: pointer;
 }
 
+
 .searchButton:hover {
     background-color: rgb(178, 7, 7);
 }
