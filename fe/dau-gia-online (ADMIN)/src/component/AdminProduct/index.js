@@ -7,8 +7,10 @@ import { IoMdAdd } from "react-icons/io";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 function AdminProduct() {
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         axios.get("http://localhost:2000/products")
             .then((res) => {
@@ -17,6 +19,19 @@ function AdminProduct() {
             })
             .catch((err) => console.log(err))
     }, [])
+
+    const handleToUsers = () => {
+        navigate("/admin-user");
+    };
+    const handleToProducts = () => {
+        navigate("/admin-product");
+    };
+    const handleToPayHistory = () => {
+        navigate("/transaction-history");
+    };
+    const handleToAddProduct = () => {
+        navigate("/add-product");
+    };
     return (
         <>
             <div>
@@ -26,15 +41,15 @@ function AdminProduct() {
                             <h1>ADMIN</h1>
                         </div>
                         <ul className={styles.menu}>
-                            <li className={styles.menuItem}>
+                            <li className={styles.menuItem} onClick={handleToUsers}>
                                 <span className={styles.icon}><FaUsers /></span>
                                 <span className={styles.text}>Users</span>
                             </li>
-                            <li className={styles.menuItem + " " + styles.active} >
+                            <li className={styles.menuItem + " " + styles.active}  onClick={handleToProducts}>
                                 <span className={styles.icon}><FaBoxArchive /></span>
                                 <span className={styles.text}>Products</span>
                             </li>
-                            <li className={styles.menuItem}>
+                            <li className={styles.menuItem} onClick={handleToPayHistory}>
                                 <span className={styles.icon}><FaMoneyCheckDollar /></span>
                                 <span className={styles.text}>Payment History</span>
                             </li>
@@ -57,7 +72,7 @@ function AdminProduct() {
 
                         <div class={styles.searchBar}>
                             <input type="text" placeholder="Search Products" />
-                            <button className={styles.addProductIcon}><IoMdAdd /></button>
+                            <button className={styles.addProductIcon} onClick={handleToAddProduct}><IoMdAdd /></button>
                         </div>
 
                         <div className={styles.scrollableDiv}>
@@ -81,7 +96,7 @@ function AdminProduct() {
                                         <td>{p.price}</td>
                                         <td>{p.time}</td>
                                         <td>
-                                            <button className={styles.edit}><BiSolidInbox /></button>
+                                            <button onClick={() => navigate(`/update-product/${p.id}`)} className={styles.edit}><BiSolidInbox /></button>
                                             <button className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>

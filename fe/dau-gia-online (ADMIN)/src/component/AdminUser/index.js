@@ -19,6 +19,16 @@ function AdminUser() {
             .catch((err) => console.log(err))
     }, [])
 
+    const handleToUsers = () => {   
+        navigate("/admin-user");
+    };
+    const handleToProducts = () => {   
+        navigate("/admin-product");
+    };
+    const handleToPayHistory = () => {   
+        navigate("/transaction-history");
+    };
+
     return (
         <>
             <div>
@@ -27,16 +37,16 @@ function AdminUser() {
                         <div className={styles.logo}>
                             <h1>ADMIN</h1>
                         </div>
-                        <ul className={styles.menu}>
-                            <li className={styles.menuItem + " " + styles.active}>
+                        <ul  className={styles.menu}>
+                            <li onClick={handleToUsers} className={styles.menuItem + " " + styles.active}>
                                 <span className={styles.icon}><FaUsers /></span>
                                 <span className={styles.text}>Users</span>
                             </li>
-                            <li className={styles.menuItem}>
+                            <li onClick={handleToProducts} className={styles.menuItem}>
                                 <span className={styles.icon}><FaBoxArchive /></span>
                                 <span className={styles.text}>Products</span>
                             </li>
-                            <li className={styles.menuItem}>
+                            <li onClick={handleToPayHistory} className={styles.menuItem}>
                                 <span className={styles.icon}><FaMoneyCheckDollar /></span>
                                 <span className={styles.text}>Payment History</span>
                             </li>

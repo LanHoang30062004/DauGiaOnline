@@ -23,6 +23,11 @@ function App() {
 
           <Route path="/transaction-history" element={<TransactionHistory />} />
           <Route path="transaction-history" element={<TransactionHistory />} />
+          <Route path='admin-user' element={<AdminUser />} />
+          <Route path='add-product' element={<AddProduct />} />
+          <Route path='admin-product' element={<AdminProduct />} />
+          <Route path='update-product' element={<UpdateProduct />} />
+          <Route path='update-user' element={<UpdateUser />} />
           <Route
             path="/"
             element={

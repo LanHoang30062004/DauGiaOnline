@@ -80,14 +80,24 @@ function UpdateProduct() {
         });
     };
 
+    const handleToUsers = () => {
+        navigate("/admin-user");
+    };
+    const handleToProducts = () => {
+        navigate("/admin-product");
+    };
+    const handleToPayHistory = () => {
+        navigate("/transaction-history");
+    };
+
     return (
         <div className={styles.ui}>
             <div className={styles.sidebar}>
                 <div className={styles.logo}><h1>ADMIN</h1></div>
                 <ul className={styles.menu}>
-                    <li className={styles.menuItem}><FaUsers /><span>Users</span></li>
-                    <li className={`${styles.menuItem} ${styles.active}`}><FaBoxArchive /><span>Products</span></li>
-                    <li className={styles.menuItem}><FaMoneyCheckDollar /><span>Payment History</span></li>
+                    <li className={styles.menuItem} onClick={handleToUsers}><FaUsers /><span>Users</span></li>
+                    <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}><FaBoxArchive /><span>Products</span></li>
+                    <li className={styles.menuItem} onClick={handleToPayHistory}><FaMoneyCheckDollar /><span>Payment History</span></li>
                 </ul>
                 <div className={styles.sidebarUser}>
                     <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />

@@ -37,7 +37,7 @@ const UpdateUser = () => {
   const handleUpdate = () => {
     e.preventDefault();
     axios
-      .put(`http://localhost:2000/users/${id}`,user)
+      .put(`http://localhost:2000/users/${id}`, user)
       .then(() => {
         alert("User information updated");
         navigate("/admin-users");
@@ -52,6 +52,16 @@ const UpdateUser = () => {
     navigate("/admin-users");
   };
 
+  const handleToUsers = () => {
+    navigate("/admin-user");
+  };
+  const handleToProducts = () => {
+    navigate("/admin-product");
+  };
+  const handleToPayHistory = () => {
+    navigate("/transaction-history");
+  };
+
   return (
     <div className={styles.app}>
       <div className={styles.sidebar}>
@@ -59,19 +69,19 @@ const UpdateUser = () => {
           <h1>ADMIN</h1>
         </div>
         <ul className={styles.menu}>
-          <li className={styles.menuItem + " " + styles.active}>
+          <li className={styles.menuItem + " " + styles.active} onClick={handleToUsers}>
             <span className={styles.icon}>
               <FaUsers />
             </span>
             <span className={styles.text}>Users</span>
           </li>
-          <li className={styles.menuItem}>
+          <li className={styles.menuItem} onClick={handleToProducts}>
             <span className={styles.icon}>
               <FaBoxArchive />
             </span>
             <span className={styles.text}>Products</span>
           </li>
-          <li className={styles.menuItem}>
+          <li className={styles.menuItem} onClick={handleToPayHistory}>
             <span className={styles.icon}>
               <FaMoneyCheckDollar />
             </span>
