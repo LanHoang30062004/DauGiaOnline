@@ -9,7 +9,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function AdminUser() {
     const [data, setData] =useState([]);
-    const [deleteUserId, setDeleteUserId] = useState(null);
     const navigate = useNavigate() ; 
     useEffect(() => {
         axios.get("http://localhost:2000/users")
@@ -19,18 +18,13 @@ function AdminUser() {
             })
             .catch((err) => console.log(err))
     }, [])
-    useEffect(() => {
-        if (deleteUserId !== null) {
-            axios.delete(`http://localhost:2000/users/${deleteUserId}`)
-                .then(() => {
-                    setData(data.filter(user => user.id !== deleteUserId));
-                })
-                .catch((err) => console.error(err));
-        }
-    }, [deleteUserId]);
 
-    const handleDelete = (id) => {
-        setDeleteUserId(id);
+    const handleDeleteUser = (id) => {
+        axios.delete(`http://localhost:2000/users/${id}`)
+            .then(() => {
+                setData(data.filter(user => user.id !== id));
+            })
+            .catch((err) => console.log(err));
     };
     const handleToUsers = () => {   
         navigate("/admin-user");
@@ -44,7 +38,6 @@ function AdminUser() {
     const handleToLogOut = () => {   
         navigate("/");
     };
-
     return (
         <>
             <div>
@@ -109,9 +102,8 @@ function AdminUser() {
                                         <td>{user.balance}</td>  
                                         <td>
                                             <button onClick={() => navigate(`/update-user/${user.id}`)} className={styles.edit}><BiSolidInbox /></button> 
-                                            <button onClick={() => handleDelete(user.id)} className={styles.delete}>
-                                                <FaTrash />
-                                            </button>
+                                            
+                                            <button onClick={() => handleDeleteUser(user.id)} className={styles.delete}><FaTrash /></button>
                                         </td>
                                     </tr>
                                 )}                                   
