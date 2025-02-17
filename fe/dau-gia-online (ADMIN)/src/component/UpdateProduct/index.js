@@ -38,6 +38,13 @@ function UpdateProduct() {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        if (!product.name || !product.price || !product.time || !product.category) {
+            toast.error('All fields must be filled out!', {
+                position: 'bottom-right',
+                autoClose: 1500
+            });
+            return;
+        }
         setShowModal(true);
     };
 
