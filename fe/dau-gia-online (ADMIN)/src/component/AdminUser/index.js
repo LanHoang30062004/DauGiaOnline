@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 function AdminUser() {
     const [data, setData] =useState([]);
     const navigate = useNavigate() ; 
-
     useEffect(() => {
         axios.get("http://localhost:2000/users")
             .then((res) => {
@@ -39,7 +38,6 @@ function AdminUser() {
     const handleToLogOut = () => {   
         navigate("/");
     };
-
     return (
         <>
             <div>
