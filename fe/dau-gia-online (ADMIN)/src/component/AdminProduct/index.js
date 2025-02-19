@@ -8,10 +8,12 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; 
+import { ToastContainer, toast } from "react-toastify";
 
 function AdminProduct() {
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +26,15 @@ function AdminProduct() {
   }, []);
 
   const handleDeleteProduct = (id) => {
-    axios.delete(`http://localhost:2000/products/${id}`)
+    setProductToDelete(id);
+    setShowModal(true);
+};
+
+  const confirmChange = (id) => {
+    axios.delete(`http://localhost:2000/products/${productToDelete}`)
       .then(() => {
-        setData(data.filter((product) => product.id !== id));
+        setData(data.filter((product) => product.id !== productToDelete));
+        setShowModal(false);
         toast.success("Product has been successfully deleted!", {
           position: "bottom-right",
           autoClose: 1500,
@@ -35,6 +43,11 @@ function AdminProduct() {
       .catch((err) => console.log(err));
   };
 
+
+  const cancelChange = () => {
+    setShowModal(false);
+};
+  
   const handleToUsers = () => {
     navigate("/admin-user");
   };
@@ -52,6 +65,7 @@ function AdminProduct() {
   };
 
   return (
+    <>
     <div className={styles.app}>
       <div className={styles.sidebar}>
         <div className={styles.logo}>
@@ -123,6 +137,19 @@ function AdminProduct() {
         </div>
       </div>
     </div>
+    {showModal && (
+                <div className={styles.notificationAlert}>
+                    <div className={styles.notification}>
+                        <p>Are you sure you want to delete this product?</p>
+                        <div className={styles.notificationButton}>
+                            <button className={styles.btnConfirm} onClick={confirmChange}>Confirm</button>
+                            <button className={styles.btnCancel} onClick={cancelChange}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <ToastContainer />
+  </>
   );
 }
 
