@@ -38,8 +38,10 @@ public class WebSecurityConfig {
 
 
                 .requestMatchers(HttpMethod.GET, "/api/v1/products/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/cart/**").hasRole("USER")
-                .requestMatchers(HttpMethod.GET, "/api/v1/cart/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST, "/api/v1/auction/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/auction/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/cart/**").hasAnyRole("USER","ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/cart/**").hasAnyRole("USER","ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/payment/**").hasRole("USER")
                 .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")

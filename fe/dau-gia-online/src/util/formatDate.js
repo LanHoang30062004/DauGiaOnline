@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import CountdownTimer from "../component/CountDown";
 export const convertDateTime = (dateString) => {
     return format(new Date(dateString), "HH:mm:ss dd-MM-yyyy");
 };
@@ -12,3 +13,15 @@ export const compareTime = (inputTime) => {
 
     return inputDate < currentDate;
 };
+export const compareNewTime = (time) => {
+    const newTime = new Date(time.replace(" ", "T")); // Thời gian đấu giá kết thúc
+    const currentTime = new Date(); // Thời gian hiện tại
+
+    // So sánh thời gian một cách chặt chẽ hơn
+    if (newTime > currentTime) {
+        return 0; // Đang trong thời gian đấu giá (chạy countdown)
+    } else {
+        return 2; // Hết thời gian đấu giá
+    }
+};
+

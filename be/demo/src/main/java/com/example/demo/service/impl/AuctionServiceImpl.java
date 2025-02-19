@@ -35,10 +35,17 @@ public class AuctionServiceImpl implements AuctionService {
                 throw new Exception("Your bid is not enough");
             }
         } else {
-            auction.setUser(user);
-            auction.setCurrentBid(auctionDTO.getBid());
-            auction.setProduct(product);
-            auctionRepository.save(auction);
+            if (product.getStartingPrice() < auctionDTO.getBid()) {
+                auction = new Auction() ;
+                auction.setCurrentBid(auctionDTO.getBid());
+                product.addAuctions(auction);
+                user.addAuctions(auction) ;
+                auctionRepository.save(auction);
+            }
+            else {
+                throw new Exception("Your bid is not enough");
+            }
+
         }
 
         return AuctionDTO.builder()
@@ -46,5 +53,18 @@ public class AuctionServiceImpl implements AuctionService {
                 .bid(auction.getCurrentBid())
                 .email(auction.getUser().getEmail())
                 .build();
+    }
+
+    @Override
+    public AuctionDTO getAuctionByProductId(Long productId) throws Exception {
+        Auction auction = this.auctionRepository.findByProductId(productId).orElse(null);
+        if (auction != null) {
+            return AuctionDTO.builder()
+                    .productId(auction.getProduct().getId())
+                    .bid(auction.getCurrentBid())
+                    .email(auction.getUser().getEmail())
+                    .build();
+        }
+        return null ;
     }
 }

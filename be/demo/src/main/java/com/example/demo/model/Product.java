@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.request.AuctionDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -55,6 +56,12 @@ public class Product extends BaseEntity {
 
     @Column(name = "auctioned", columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean auctioned;
+
+    public void addAuctions (Auction auction) {
+        if (auctions == null) auctions = new ArrayList<>();
+        this.auctions.add(auction);
+        auction.setProduct(this);
+    }
 
     public void addUser(ProductImage productImage) {
         if (productImages == null) {

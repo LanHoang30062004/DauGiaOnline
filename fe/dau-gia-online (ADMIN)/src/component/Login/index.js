@@ -5,10 +5,13 @@ import { url } from "../../util/Url";
 import axios from 'axios';
 import { useAuth } from "../../context/AuthContext";
 import { ToastContainer, toast } from 'react-toastify';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import 'react-toastify/dist/ReactToastify.css';
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -48,6 +51,10 @@ function Login() {
             });
     }
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <div>
@@ -70,17 +77,24 @@ function Login() {
                                 <label>Email</label>
                             </div>
                             <div className={styles.khung}>
-                                <input type="password" required
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    className={styles.passwordInput}
                                 />
+                                <button
+                                    type="button"
+                                    onClick={toggleShowPassword}
+                                    className={styles.eyeButton}
+                                >
+                                    {showPassword ? <FaEye /> :<FaEyeSlash />}
+                                </button>
                                 <span></span>
                                 <label>Password</label>
                             </div>
                             <input type="submit" value="Login" />
-                            <div className={styles.signupLink}>
-                                Not a member? <Link to="/register">Signup</Link>
-                            </div>
                         </form>
                     </div>
                     <ToastContainer />

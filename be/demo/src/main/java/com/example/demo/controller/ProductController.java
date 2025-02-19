@@ -180,7 +180,7 @@ public class ProductController {
     }
 
     @PostMapping("/cart/{user}/{product}")
-    public ResponseData<?> addProductToCart(@PathVariable("user") Long user, @PathVariable("product") Long product) {
+    public ResponseData<?> addProductToCart(@PathVariable("user") String user, @PathVariable("product") Long product) {
         try {
             this.productService.addProductToCart(user, product);
             log.info("Add product to cart successful with user id :" + user);

@@ -12,6 +12,7 @@ function HomePage() {
     const navigate = useNavigate();
     const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([]);
+    const [checkDate , setCheckDate] = useState() ; 
     const { filter, search } = useOutletContext();
     var { category, type, sort } = filter;
     sort = sort ?? "";
@@ -28,6 +29,9 @@ function HomePage() {
             setCurrentPage(page);
         }
     };
+    const handleAuctioning = (time) => {
+        
+    }
     useEffect(() => {
         console.log(search);
         if (search) {

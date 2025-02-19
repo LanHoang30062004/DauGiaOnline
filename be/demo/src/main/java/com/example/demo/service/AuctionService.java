@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AuctionService {
     AuctionDTO placeBid (AuctionDTO auctionDTO) throws Exception;
+    AuctionDTO getAuctionByProductId (Long productId) throws Exception;
 }

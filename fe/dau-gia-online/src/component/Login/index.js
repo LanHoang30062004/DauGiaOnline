@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../util/Url";
 import axios from 'axios';
 import { useAuth } from "../../context/AuthContext";
-import { ToastContainer, toast } from 'react-toastify';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Login() {
     const [email, setEmail] = useState("");

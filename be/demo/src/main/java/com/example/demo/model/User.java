@@ -48,6 +48,14 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Auction> auctions ;
 
+    public void addAuctions (Auction auction) {
+        if (this.auctions == null) {
+            this.auctions = new ArrayList<>();
+        }
+        this.auctions.add(auction);
+        auction.setUser(this);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

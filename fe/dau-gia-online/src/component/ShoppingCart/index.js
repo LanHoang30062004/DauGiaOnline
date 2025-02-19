@@ -10,7 +10,7 @@ import { url } from "../../util/Url";
 function ShoppingCart() {
     const [cart, setCart] = useState([]);
     const tokenDecode = jwtDecode(getToken());
-    const email = tokenDecode.sub;
+    const email = localStorage.getItem("email");
     const navigate = useNavigate();
     useEffect(() => {
         axiosInstance.get(url + `users/cart/${email}`)
