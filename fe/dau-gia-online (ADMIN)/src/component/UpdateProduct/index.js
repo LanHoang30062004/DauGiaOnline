@@ -30,6 +30,11 @@ function UpdateProduct() {
         setProduct(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setProduct(prev => ({ ...prev, image: file }));
+    };
+
     const handleUpdate = (e) => {
         e.preventDefault();
         if (!product.name || !product.price || !product.time || !product.category) {
@@ -48,7 +53,7 @@ function UpdateProduct() {
                 toast.success('Product information updated successfully!', {
                     position: 'bottom-right',
                     autoClose: 1000,
-                    onClose : () => navigate('/admin-products')
+                    onClose : () => navigate('/admin-product')
                 });
             })
             .catch(error => {
@@ -131,11 +136,23 @@ function UpdateProduct() {
                                 </select>
                             </div>
                         </div>
-                        <div className={styles.btn}>
-                            <button type="button" className={styles.cancelBtn} onClick={handleCancel}>Cancel</button>
-                            <button type="submit" className={styles.uploadBtn}>Update</button>
-                        </div>
                     </form>
+
+                    <div className={styles.imageBox}>
+                        <div className={styles.imgArea}>
+                            <form>
+                                <label className={styles.fileUpload}>
+                                    +
+                                    <input className={styles.uploadImg} type="file" onChange={handleFileChange} />
+                                </label>
+                            </form>
+                        </div>
+                        <div className={styles.refreBtn} onClick={() => setProduct({ ...product })}>Refresh</div>
+                    </div>
+                </div>
+                <div className={styles.btn}>
+                    <div className={styles.cancelBtn} onClick={handleCancel}>Cancel</div>
+                    <button type="button" className={styles.uploadBtn} onClick={handleUpdate}>Upload</button>
                 </div>
             </div>
             {showModal && (
