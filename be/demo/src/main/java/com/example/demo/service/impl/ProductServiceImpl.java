@@ -352,8 +352,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProductToCart(Long userId, Long productId) throws NotFoundException {
-        User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Can not find user with id :" + userId));
+    public void addProductToCart(String email , Long productId) throws NotFoundException {
+        User user = this.userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Can not find user with email :" + email));
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Can not find product with id :" + productId));
         if (user.getProducts() == null) user.setProducts(Arrays.asList(product));
         else user.getProducts().add(product);

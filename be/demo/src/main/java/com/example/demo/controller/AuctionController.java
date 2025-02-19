@@ -17,16 +17,29 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class AuctionController {
     private final AuctionService auctionService;
+
+    @GetMapping("/{productId}")
+    public ResponseData<?> getAuctionByProductId(@PathVariable("productId") Long productId) {
+        try {
+            AuctionDTO result = this.auctionService.getAuctionByProductId(productId);
+            log.info("Get auction successful with product id : {}" , productId);
+            return new ResponseData<>(HttpStatus.OK.value(),"Get auction successful with product id : " + productId  , result) ;
+        }
+        catch (Exception e) {
+            log.info("Get auction failed with product id : {} , message : {}" , productId , e.getMessage());
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Get auction failed with product id : " + productId);
+        }
+    }
+
     @PostMapping("/place-bid")
-    public ResponseData<?> placeBid(@Valid  @RequestBody AuctionDTO auctionDTO) {
-         try {
-             this.auctionService.placeBid(auctionDTO);
-            log.info(" {} auctioned successful " , auctionDTO.getEmail());
-            return new ResponseData<>(HttpStatus.OK.value() , auctionDTO.email + "auctioned successful") ;
-         }
-         catch (Exception e) {
-             log.error("Error in place bid", e);
-             return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Have error in place bid :" + e.getMessage());
-         }
+    public ResponseData<?> placeBid(@Valid @RequestBody AuctionDTO auctionDTO) {
+        try {
+            AuctionDTO result =  this.auctionService.placeBid(auctionDTO);
+            log.info(" {} auctioned successful ", auctionDTO.getEmail());
+            return new ResponseData<>(HttpStatus.OK.value(),auctionDTO.email + " auctioned successful" , result);
+        } catch (Exception e) {
+            log.error("Error in place bid", e);
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Have error in place bid :" + e.getMessage());
+        }
     }
 }
