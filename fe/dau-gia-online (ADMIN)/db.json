@@ -302,11 +302,26 @@
       "category": "bag"
     },
     {
+<<<<<<< HEAD
       "id": "22",
       "name": "seok kyu cheol",
       "price": "300000",
       "time": "12:90",
       "category": "watch"
+=======
+      "id": "21",
+      "name": "12",
+      "price": "123",
+      "time": "123",
+      "category": "bag"
+    },
+    {
+      "id": "23",
+      "name": "Mai Hoang Lan",
+      "price": "1",
+      "time": "12/12/2025",
+      "category": "antique"
+>>>>>>> 558ea8e94ad45598180edddbee9d636e0b243e45
     }
   ]
 }
