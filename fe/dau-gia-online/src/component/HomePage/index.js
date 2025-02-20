@@ -19,11 +19,10 @@ function HomePage() {
     category = category ?? "";
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Xác định phạm vi hiển thị từ đâu đến đâu
+
     const startPage = Math.max(1, Math.min(currentPage - 2, totalPage - 4));
     const endPage = Math.min(totalPage, startPage + 4);
 
-    // Chuyển trang
     const handlePageClick = (page) => {
         if (page >= 1 && page <= totalPage) {
             setCurrentPage(page);
