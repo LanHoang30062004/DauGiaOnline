@@ -117,13 +117,13 @@ function UpdateProduct() {
                     <form className={styles.form__updateProduct} onSubmit={handleUpdate}>
                         <div className={styles.inforBox}>
                             <div className={styles.field}>
-                                <input type="text" id="name" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" />
+                                <input type="text" id="name" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" autoComplete="off"/>
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="price" name="price" value={product.price} onChange={handleChange} placeholder="Price" />
+                                <input type="text" id="price" name="price" value={product.price} onChange={handleChange} placeholder="Price" autoComplete="off"/>
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="time" name="time" value={product.time} onChange={handleChange} placeholder="Auction Time" />
+                                <input type="text" id="time" name="time" value={product.time} onChange={handleChange} placeholder="Auction Time" autoComplete="off"/>
                             </div>
                             <div className={styles.cateField}>
                                 <label htmlFor="cate">Category:</label>

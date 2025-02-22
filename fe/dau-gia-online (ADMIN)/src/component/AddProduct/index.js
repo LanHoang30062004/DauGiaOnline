@@ -33,6 +33,19 @@ function UpdateProduct() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        clearTimeout(window.priceValidationTimeout);
+
+        if (name === "price") {
+            window.priceValidationTimeout = setTimeout(() => {
+                if (!/^\d*\.?\d*$/.test(value) || Number(value) < 0) {
+                    toast.error('Please enter a valid number !', {
+                        position: 'bottom-right',
+                        autoClose: 1000
+                    });
+                }
+            }, 700);
+        }
+
         setProd((prevProd) => ({
             ...prevProd,
             [name]: value,
@@ -52,11 +65,18 @@ function UpdateProduct() {
     const confirmChange = async () => {
         const newId = Number(products[products.length - 1]?.id || 0) + 1;
 
+        if (!prod.name || !prod.price || !prod.time || !prod.category) {
+            toast.error('Please enter complete information', {
+                position: 'bottom-right',
+                autoClose: 1000
+            }); 
+            return;}
+
         const formData = new FormData();
         formData.append("id", newId);
         formData.append("name", prod.name);
         formData.append("price", Number(prod.price));
-        formData.append("time", prod.time);
+        formData.append("time", prod.time.replace("T", " "));
         formData.append("category", prod.category);
 
         try {
@@ -85,11 +105,11 @@ function UpdateProduct() {
     };
 
     const handleCancel = () => {
-        toast.error('Update Canceled', {
+        toast.error('Add Product Canceled', {
             position: 'bottom-right',
-            autoClose: 1500
+            autoClose: 1500,
+            onClose : () => navigate('/admin-product')
         });
-        onClose: () => window.location.reload();
     };
 
     const handleToUsers = () => navigate("/admin-user");
@@ -136,7 +156,7 @@ function UpdateProduct() {
                                     <input type="text" name="price" placeholder="Starting price" onChange={handleChange} autoComplete="off" />
                                 </div>
                                 <div className={styles.field}>
-                                    <input type="text" name="time" placeholder="Auction time" onChange={handleChange} autoComplete="off" />
+                                    <input type="datetime-local" name="time" onChange={handleChange} autoComplete="off" />
                                 </div>
                                 <div className={styles.cateField}>
                                     <label htmlFor="category">Category:</label>
