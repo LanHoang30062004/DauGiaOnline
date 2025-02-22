@@ -43,7 +43,7 @@ function Payment() {
             })
             return;
         }
-        const province = match[5]; // Lấy tỉnh/thành phố từ địa chỉ
+        const province = match[5]; 
         if (provinces.some((p) => p.name === province)) {
             setAddress(provinces.find((p) => p.name === province));
         }
@@ -105,7 +105,9 @@ function Payment() {
                             <div className={styles.boxName}>
                                 ORDER INFORMATION
                             </div>
-                            <input onBlur={handleAdress} className={styles.inputAddr} type="text" placeholder="Address" />
+                            <input onBlur={handleAdress} className={styles.inputName} type="text" placeholder="Name" />
+                            <input className={styles.inputPhone} type="text" placeholder="Phone number" />
+                            <input className={styles.inputAddr} type="text" placeholder="Address" />
                         </div>
                         <div className={styles.space}></div>
                         <div className={styles.formBox}>
