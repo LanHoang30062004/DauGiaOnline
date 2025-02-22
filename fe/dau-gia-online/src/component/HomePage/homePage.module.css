@@ -7,7 +7,6 @@
 .headerBox {
     border-bottom: 1px solid #C9C8C8;
     width: 75%;
-    height: 320px;
     margin: auto;
 }
 
@@ -15,15 +14,37 @@ a {
     display: block;
 }
 
-.imageHeader {
+.headerBox .slick-slider {
+    width: 100%;
+}
+
+.headerBox .slick-slide {
     display: flex;
-    margin: auto;
-    margin-top: 25px;
-    background-image: url('/public/ima2.jpg');
-    background-size: cover;
-    max-width: 100%;
-    height: 300px;
-    border-radius: 55px;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerBox img {
+    width: 900px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+.headerBox .slick-prev:before,
+.headerBox .slick-next:before {
+  color: #000;
+  font-size: 30px;
+}
+
+.headerBox .slick-dots li button:before {
+  color: #bbb; 
+  font-size: 12px;
+}
+
+.headerBox .slick-dots li.slick-active button:before {
+  color: #bbb;
 }
 
 .cateBox {
