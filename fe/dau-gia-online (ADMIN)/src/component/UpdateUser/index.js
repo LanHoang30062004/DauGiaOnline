@@ -42,9 +42,7 @@ const UpdateUser = () => {
     try {
       const response = await axios.get('http://localhost:2000/users');
       const users = response.data;
-      // Loại bỏ người dùng hiện tại khỏi danh sách
       const otherUsers = users.filter((user) => user.id !== parseInt(id));
-      // Kiểm tra xem email có tồn tại trong số các người dùng khác không
       const emailExists = otherUsers.some((user) => user.email === email);
       setEmailExists(emailExists);
     } catch (error) {
