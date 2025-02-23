@@ -103,7 +103,7 @@ function Header({ setFilter, setSearch }) {
 
     return (
         <>
-
+        
             <div className="header">
                 <div className="header__above">
                     <div className="above__content">
@@ -221,7 +221,7 @@ function Header({ setFilter, setSearch }) {
                                 </div>
                             )}
                         </div>
-                        <div className="below__button">Tìm kiếm</div>
+                        
                         <div className="s"></div>
                     </div>
                 </div>

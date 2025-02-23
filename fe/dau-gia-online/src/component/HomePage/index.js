@@ -8,23 +8,26 @@ import { formatCurrency } from "../../util/format";
 import { compareTime, convertDateTime } from "../../util/formatDate";
 import { format, addMinutes, isBefore, isAfter, isWithinInterval, addSeconds } from "date-fns";
 import { eventEmitter } from "../../util/eventMitter";
-
+import { format } from "date-fns";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 function HomePage() {
     const size = 12;
     const navigate = useNavigate();
     const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([]);
+    const [checkDate, setCheckDate] = useState();
     const { filter, search } = useOutletContext();
     var { category, type, sort } = filter;
     sort = sort ?? "";
     category = category ?? "";
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Xác định phạm vi hiển thị từ đâu đến đâu
+
     const startPage = Math.max(1, Math.min(currentPage - 2, totalPage - 4));
     const endPage = Math.min(totalPage, startPage + 4);
 
-    // Chuyển trang
     const handlePageClick = (page) => {
         if (page >= 1 && page <= totalPage) {
             setCurrentPage(page);
@@ -44,6 +47,20 @@ function HomePage() {
         } else {
             return "Auction Ended !";
         }
+    }
+    const handleAuctioning = (time) => {
+
+    }
+
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true,
     };
 
     useEffect(() => {
@@ -70,10 +87,25 @@ function HomePage() {
 
     return (
         <>
+
             <div className={styles.ui}>
                 <div className={styles.headerBox}>
-                    <div className={styles.imageHeader}></div>
+                    <Slider {...sliderSettings}>
+                        <div>
+                            <img src="/slider1.jpg" alt="Hình 1" />
+                        </div>
+                        <div>
+                            <img src="/slider2.jpg" alt="Hình 2" />
+                        </div>
+                        <div>
+                            <img src="/slider3.jpg" alt="Hình 3" />
+                        </div>
+                        <div>
+                            <img src="/slider4.jpg" alt="Hình 4" />
+                        </div>
+                    </Slider>
                 </div>
+
                 <div className={styles.cateBox}>
                     <div className={styles.cateTitle}>Explore Popular Categories</div>
                     <div className={styles.catePro}>

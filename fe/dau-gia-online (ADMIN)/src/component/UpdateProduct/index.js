@@ -4,9 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './updateProduct.module.css';
-import { FaUsers } from 'react-icons/fa';
-import { FaBoxArchive } from 'react-icons/fa6';
-import { FaMoneyCheckDollar } from 'react-icons/fa6';
+import { FaUsers, FaBoxArchive, FaMoneyCheckDollar } from 'react-icons/fa6';
 
 function UpdateProduct() {
     const { id } = useParams();
@@ -15,7 +13,8 @@ function UpdateProduct() {
         name: '',
         price: '',
         time: '',
-        category: ''
+        category: '',
+        image: null
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -27,6 +26,24 @@ function UpdateProduct() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === "price") {
+            // Xóa timeout trước đó để tránh kiểm tra nhiều lần khi nhập nhanh
+            clearTimeout(window.priceValidationTimeout);
+
+            window.priceValidationTimeout = setTimeout(() => {
+                if (!/^\d*\.?\d*$/.test(value) || Number(value) < 0) {
+                    toast.error('Please enter a valid positive number!', {
+                        position: 'bottom-right',
+                        autoClose: 1000
+                    });
+                }
+            }, 700);
+
+            // Nếu giá trị không hợp lệ, không cập nhật state
+            if (!/^\d*\.?\d*$/.test(value) || Number(value) < 0) return;
+        }
+
         setProduct(prev => ({ ...prev, [name]: value }));
     };
 
@@ -48,32 +65,38 @@ function UpdateProduct() {
     };
 
     const confirmChange = () => {
+        if (!/^\d*\.?\d*$/.test(product.price) || Number(product.price) < 0) {
+            toast.error('Price must be a valid positive number!', {
+                position: 'bottom-right',
+                autoClose: 1100
+            });
+            return;
+        }
+
         axios.put(`http://localhost:2000/products/${id}`, product)
             .then(() => {
                 toast.success('Product information updated successfully!', {
                     position: 'bottom-right',
                     autoClose: 1000,
-                    onClose : () => navigate('/admin-product')
+                    onClose: () => navigate('/admin-product')
                 });
             })
             .catch(error => {
                 console.error('Error updating product', error);
                 toast.error('Failed to update product.', {
                     position: 'bottom-right',
-                    autoClose: 1500
+                    autoClose: 1100
                 });
             });
         setShowModal(false);
     };
 
-    const cancelChange = () => {
-        setShowModal(false);
-    };
-
+    const cancelChange = () => setShowModal(false);
     const handleCancel = () => {
         toast.error('Update Canceled', {
             position: 'bottom-right',
-            autoClose: 1500
+            autoClose: 1100,
+            onClose: () => navigate("/admin-product")
         });
         navigate("/admin-product");
     };
@@ -89,6 +112,7 @@ function UpdateProduct() {
     };
     const handleToLogOut = () => {
         navigate("/");
+
     };
 
     return (
@@ -96,38 +120,39 @@ function UpdateProduct() {
             <div className={styles.sidebar}>
                 <div className={styles.logo}><h1>ADMIN</h1></div>
                 <ul className={styles.menu}>
-                    <li className={styles.menuItem} onClick={handleToUsers}>
-                        <span className={styles.icon}><FaUsers /></span>
-                        <span>Users</span></li>
-                    <li className={`${styles.menuItem} ${styles.active}`} onClick={handleToProducts}>
-                        <span className={styles.icon}><FaBoxArchive /></span>
-                        <span>Products</span></li>
-                    <li className={styles.menuItem} onClick={handleToPayHistory}>
-                        <span className={styles.icon}><FaMoneyCheckDollar /></span>
-                        <span>Payment History</span></li>
+                    <li className={styles.menuItem} onClick={() => navigate("/admin-user")}>
+                        <FaUsers className={styles.icon} /><span>Users</span>
+                    </li>
+                    <li className={`${styles.menuItem} ${styles.active}`} onClick={() => navigate("/admin-product")}>
+                        <FaBoxArchive className={styles.icon} /><span>Products</span>
+                    </li>
+                    <li className={styles.menuItem} onClick={() => navigate("/transaction-history")}>
+                        <FaMoneyCheckDollar className={styles.icon} /><span>Payment History</span>
+                    </li>
                 </ul>
-                <div className={styles.sidebarUser} onClick={handleToLogOut}>
+                <div className={styles.sidebarUser} onClick={() => navigate("/")}>
                     <img src="/Megan Fox-avatar.jpg" alt="User Avatar" className={styles.avatar} />
                     <div className={styles.username}>Megan Fox</div>
                 </div>
             </div>
+
             <div className={styles.mainBox}>
                 <div className={styles.title}>UPDATE PRODUCTS</div>
                 <div className={styles.contentBox}>
                     <form className={styles.form__updateProduct} onSubmit={handleUpdate}>
                         <div className={styles.inforBox}>
                             <div className={styles.field}>
-                                <input type="text" id="name" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" />
+                                <input type="text" name="name" value={product.name} onChange={handleChange} placeholder="Product Name" autoComplete="off" />
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="price" name="price" value={product.price} onChange={handleChange} placeholder="Price" />
+                                <input type="text" name="price" value={product.price} onChange={handleChange} placeholder="Price" autoComplete="off" />
                             </div>
                             <div className={styles.field}>
-                                <input type="text" id="time" name="time" value={product.time} onChange={handleChange} placeholder="Auction Time" />
+                                <input type="datetime-local" name="time" value={product.time} onChange={handleChange} />
                             </div>
                             <div className={styles.cateField}>
-                                <label htmlFor="cate">Category:</label>
-                                <select className={styles.cateSelect} id="cate" name="category" value={product.category} onChange={handleChange}>
+                                <label>Category:</label>
+                                <select name="category" value={product.category} onChange={handleChange}>
                                     <option value="">Select</option>
                                     <option value="bag">Bag</option>
                                     <option value="watch">Watch</option>
@@ -140,21 +165,20 @@ function UpdateProduct() {
 
                     <div className={styles.imageBox}>
                         <div className={styles.imgArea}>
-                            <form>
-                                <label className={styles.fileUpload}>
-                                    +
-                                    <input className={styles.uploadImg} type="file" onChange={handleFileChange} />
-                                </label>
-                            </form>
+                            <label className={styles.fileUpload}>
+                                +
+                                <input type="file" onChange={handleFileChange} />
+                            </label>
                         </div>
-                        <div className={styles.refreBtn} onClick={() => setProduct({ ...product })}>Refresh</div>
                     </div>
                 </div>
+
                 <div className={styles.btn}>
                     <div className={styles.cancelBtn} onClick={handleCancel}>Cancel</div>
                     <button type="button" className={styles.uploadBtn} onClick={handleUpdate}>Upload</button>
                 </div>
             </div>
+
             {showModal && (
                 <div className={styles.notificationAlert}>
                     <div className={styles.notification}>
@@ -166,6 +190,7 @@ function UpdateProduct() {
                     </div>
                 </div>
             )}
+
             <ToastContainer />
         </div>
     );
