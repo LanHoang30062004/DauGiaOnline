@@ -14,7 +14,7 @@ function Payment() {
     const [shippingFee, setShippingFee] = useState(0);
     const [speed, setSpeed] = useState(0);
     const [address, setAddress] = useState({});
-    const [date, setDate] = useState();
+    const [date, setDate] = useState("dd/MM/yyyy");
     const { id } = useParams();
     const [selectedShipping, setSelectedShipping] = useState(null);
 
@@ -84,6 +84,7 @@ function Payment() {
     const handleAdress = (e) => {
         const result = e.target.value;
         if (result) validAddress(result);
+        else setDate("dd/MM/yyyy")
     }
     const calculateDate = (distance, speed, shippingFee) => {
         console.log(distance, speed, shippingFee);

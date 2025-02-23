@@ -14,9 +14,9 @@ const UpdateUser = () => {
     name: "",
     email: "",
     date: "",
-    address: "",
-    balance: ""
+    address: ""
   });
+  const [emailExists, setEmailExists] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -38,26 +38,47 @@ const UpdateUser = () => {
     }));
   };
 
-  const handleUpdate = (e) => {
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await axios.get('http://localhost:2000/users');
+      const users = response.data;
+      const otherUsers = users.filter((user) => user.id !== parseInt(id));
+      const emailExists = otherUsers.some((user) => user.email === email);
+      setEmailExists(emailExists);
+    } catch (error) {
+      console.error('Error checking email:', error);
+    }
+  };
+
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
+    await checkEmailExists(user.email);
     setShowModal(true);
   };
 
   const confirmChange = () => {
-    axios
-      .put(`http://localhost:2000/users/${id}`, user)
-      .then(() => {
-        toast.success("Your information has been successfully updated!", {
-          position: "bottom-right",
-          autoClose: 1000,
-          onClose : () => navigate("/admin-user")
+    if (!emailExists) {
+      axios
+        .put(`http://localhost:2000/users/${id}`, user)
+        .then(() => {
+          toast.success("Your information has been successfully updated!", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => navigate("/admin-user")
+          });
+
+        })
+        .catch((error) => {
+          console.error("error updating user", error);
         });
-        
-      })
-      .catch((error) => {
-        console.error("error updating user", error);
+    } else {
+      toast.error("Email Exist.", {
+        position: "bottom-right",
+        autoClose: 1000,
       });
-    setShowModal(false);
+    }
+      setShowModal(false);
   };
 
   const cancelChange = () => {
@@ -66,7 +87,7 @@ const UpdateUser = () => {
 
   const handleCancel = () => {
     alert("Update canceled");
-    navigate("/admin-users");
+    navigate("/admin-user");
   };
 
   const handleToUsers = () => {
@@ -145,16 +166,6 @@ const UpdateUser = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="date">Date of Birth</label>
-                  <input
-                    type="text"
-                    id="date"
-                    name="date"
-                    value={user.date}
-                    onChange={handleChange}
-                  />
-                </div>
               </div>
               <div className={styles.userColumn}>
                 <div className={styles.formGroup}>
@@ -168,12 +179,12 @@ const UpdateUser = () => {
                   />
                 </div>
                 <div className={styles.formGroup}>
-                  <label htmlFor="balance">Balance</label>
+                  <label htmlFor="date">Date of Birth</label>
                   <input
                     type="text"
-                    id="balance"
-                    name="balance"
-                    value={user.balance}
+                    id="date"
+                    name="date"
+                    value={user.date}
                     onChange={handleChange}
                   />
                 </div>

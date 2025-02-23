@@ -114,7 +114,8 @@ function AdminUser() {
                                         <th>ID</th>
                                         <th>NAME</th>
                                         <th>EMAIL</th>
-                                        <th>ACCOUNT BALANCE</th>
+                                        <th>ADDRESS</th>
+                                        <th>DATE OF BIRTH</th>
                                         <th>ACTIONS</th>
                                     </tr>
                                 </thead>
@@ -124,7 +125,8 @@ function AdminUser() {
                                             <td>{user.id}</td>                              
                                             <td>{user.name}</td>                                        
                                             <td>{user.email}</td>                                        
-                                            <td>{user.balance}</td>  
+                                            <td>{user.address}</td>  
+                                            <td>{user.date}</td>  
                                             <td>
                                                 <button onClick={() => navigate(`/update-user/${user.id}`)} className={styles.edit}><BiSolidInbox /></button> 
                                                 <button onClick={() => handleDeleteUser(user.id)} className={styles.delete}><FaTrash /></button>

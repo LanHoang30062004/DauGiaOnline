@@ -30,7 +30,6 @@ function ShoppingCart() {
                             <div>Products</div>
                             <div>Amount</div>
                             <div>Quantity</div>
-                            <div>Delete</div>
                         </div>
                         <div className={styles.backgroundProduct}>
                             {
@@ -46,9 +45,7 @@ function ShoppingCart() {
                                             </div>
                                             <div className={styles.price}>{p.startingPrice}</div>
                                             <div className={styles.quantity}>1</div>
-                                            <div className={styles.delete}>
-                                                <button>&#128465;</button>
-                                            </div>
+
                                         </div>
 
 

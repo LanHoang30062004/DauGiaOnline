@@ -5,6 +5,7 @@ import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.ResponseData;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Product;
+import com.example.demo.util.TypeProduct;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service
 public interface ProductService {
     List<ProductDTO> findAll() ;
-    PageResponse<?> findAllByFilter(int page , int size , String sort , String category , Boolean type) ;
+    PageResponse<?> findAllByFilter(int page , int size , String sort , String category , TypeProduct type) ;
     PageResponse<?> findAllBySearch(int page , int size , String sort , String search);
     PageResponse<?> findProductByCategory(int page , int size , String sort , String name) throws Exception;
     ProductDTO addNewProduct(ProductDTO productDTO) throws Exception;
@@ -29,7 +30,6 @@ public interface ProductService {
     void addProductToCart(String email , Long productId) throws NotFoundException;
     void payment (Long userId , Long productId , String amount) throws Exception;
 
-    List<ProductDTO> findAllByAuction();
-    List<ProductDTO> findAllByInventory();
+
 
 }

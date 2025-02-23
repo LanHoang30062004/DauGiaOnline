@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.request.AuctionDTO;
+import com.example.demo.util.TypeProduct;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -54,8 +55,8 @@ public class Product extends BaseEntity {
     @OneToOne(mappedBy = "product")
     private Inventory inventory  ;
 
-    @Column(name = "auctioned", columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean auctioned;
+    @Enumerated(EnumType.STRING)
+    private TypeProduct type ;
 
     public void addAuctions (Auction auction) {
         if (auctions == null) auctions = new ArrayList<>();
