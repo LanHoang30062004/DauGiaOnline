@@ -14,34 +14,32 @@ function UpdateProduct() {
         price: '',
         time: '',
         category: '',
-        image: null
     });
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:2000/products/${id}`)
-            .then(response => setProduct(response.data))
+            .then(response => {
+                const productData = response.data;
+                if (productData.time) {
+                    productData.time = productData.time.replace("T", " ");
+                }
+                setProduct(productData);
+            })
             .catch(error => console.error('Error fetching product data', error));
     }, [id]);
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "price") {
-            // Xóa timeout trước đó để tránh kiểm tra nhiều lần khi nhập nhanh
-            clearTimeout(window.priceValidationTimeout);
-
-            window.priceValidationTimeout = setTimeout(() => {
-                if (!/^\d*\.?\d*$/.test(value) || Number(value) < 0) {
-                    toast.error('Please enter a valid positive number!', {
-                        position: 'bottom-right',
-                        autoClose: 1000
-                    });
-                }
-            }, 700);
-
-            // Nếu giá trị không hợp lệ, không cập nhật state
-            if (!/^\d*\.?\d*$/.test(value) || Number(value) < 0) return;
+            if (value === "." || !/^\d*\.?\d*$/.test(value) || Number(value) < 0) {
+                toast.error('Please enter a valid positive number!', {
+                    position: 'bottom-right',
+                    autoClose: 1000
+                });
+                return;
+            }
         }
 
         setProduct(prev => ({ ...prev, [name]: value }));
@@ -63,7 +61,7 @@ function UpdateProduct() {
         }
         setShowModal(true);
     };
-
+    
     const confirmChange = () => {
         if (!/^\d*\.?\d*$/.test(product.price) || Number(product.price) < 0) {
             toast.error('Price must be a valid positive number!', {
@@ -72,8 +70,13 @@ function UpdateProduct() {
             });
             return;
         }
-
-        axios.put(`http://localhost:2000/products/${id}`, product)
+    
+        const updatedProduct = { 
+            ...product, 
+            time: product.time.replace(" ", "T")
+        };
+    
+        axios.put(`http://localhost:2000/products/${id}`, updatedProduct)
             .then(() => {
                 toast.success('Product information updated successfully!', {
                     position: 'bottom-right',
@@ -88,31 +91,18 @@ function UpdateProduct() {
                     autoClose: 1100
                 });
             });
+    
         setShowModal(false);
-    };
+    };       
 
     const cancelChange = () => setShowModal(false);
+
     const handleCancel = () => {
         toast.error('Update Canceled', {
             position: 'bottom-right',
             autoClose: 1100,
             onClose: () => navigate("/admin-product")
         });
-        navigate("/admin-product");
-    };
-
-    const handleToUsers = () => {
-        navigate("/admin-user");
-    };
-    const handleToProducts = () => {
-        navigate("/admin-product");
-    };
-    const handleToPayHistory = () => {
-        navigate("/transaction-history");
-    };
-    const handleToLogOut = () => {
-        navigate("/");
-
     };
 
     return (
@@ -148,7 +138,13 @@ function UpdateProduct() {
                                 <input type="text" name="price" value={product.price} onChange={handleChange} placeholder="Price" autoComplete="off" />
                             </div>
                             <div className={styles.field}>
-                                <input type="datetime-local" name="time" value={product.time} onChange={handleChange} />
+                            <input 
+                                type="datetime-local" 
+                                name="time" 
+                                value={product.time ? product.time.replace("T", " ") : ""}  
+                                onChange={handleChange} 
+                            />
+
                             </div>
                             <div className={styles.cateField}>
                                 <label>Category:</label>
