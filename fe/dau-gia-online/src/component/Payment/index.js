@@ -121,6 +121,7 @@ function Payment() {
     }, [])
     return (
         <>
+        
             <div className={styles.ui}>
                 <div className={styles.textCenter}>
                     <div className={styles.title}>PAYMENT</div>

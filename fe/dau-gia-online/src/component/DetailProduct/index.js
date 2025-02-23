@@ -192,6 +192,8 @@ function DetailProduct() {
         if (data) setCurrentBid(data);
     }
     return (
+       <>
+      
         <div className={styles.container}>
             <div className={styles.imageSection}>
                 <div className={styles.thumbnailContainer}>
@@ -275,6 +277,7 @@ function DetailProduct() {
             </div>
             <ToastContainer />
         </div>
+       </>
     );
 }
 

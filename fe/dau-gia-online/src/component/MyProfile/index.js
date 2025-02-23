@@ -24,6 +24,7 @@ function MyProfile() {
 
     return (
         <>
+            
             <div className={styles.myProfileContainer}>
                 <h1 className={styles.h1}>My Profile</h1>
                 <p className={styles.p}>Manage profile information to keep your account secure</p>

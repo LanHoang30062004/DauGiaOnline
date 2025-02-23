@@ -17,10 +17,10 @@ function HomePage() {
     const [totalPage, setTotalPage] = useState(0);
     const [products, setProducts] = useState([]);
     const [checkDate, setCheckDate] = useState();
-    const { filter, search } = useOutletContext();
-    var { category, type, sort } = filter;
-    sort = sort ?? "";
-    category = category ?? "";
+    // const { filter, search } = useOutletContext();
+    // var { category, type, sort } = filter;
+    // sort = sort ?? "";
+    // category = category ?? "";
     const [currentPage, setCurrentPage] = useState(1);
 
 
@@ -62,31 +62,31 @@ function HomePage() {
         arrows: true,
     };
 
-    useEffect(() => {
-        if (search) {
-            axiosInstance.get(`products/by-search?page=${currentPage}&size=${size}&search=${search}`)
-                .then((res) => {
-                    setProducts(res.data.data.items);
-                    setTotalPage(res.data.data.totalPages);
-                })
-                .catch((err) => console.log(err));
-        } else {
-            const filterUrl = type == null
-                ? `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`
-                : `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=${type}`;
+    // useEffect(() => {
+    //     if (search) {
+    //         axiosInstance.get(`products/by-search?page=${currentPage}&size=${size}&search=${search}`)
+    //             .then((res) => {
+    //                 setProducts(res.data.data.items);
+    //                 setTotalPage(res.data.data.totalPages);
+    //             })
+    //             .catch((err) => console.log(err));
+    //     } else {
+    //         const filterUrl = type == null
+    //             ? `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`
+    //             : `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=${type}`;
 
-            axiosInstance.get(filterUrl)
-                .then((res) => {
-                    setProducts(res.data.data.items);
-                    setTotalPage(res.data.data.totalPages);
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [currentPage, sort, type, category, search]);
+    //         axiosInstance.get(filterUrl)
+    //             .then((res) => {
+    //                 setProducts(res.data.data.items);
+    //                 setTotalPage(res.data.data.totalPages);
+    //             })
+    //             .catch((err) => console.log(err));
+    //     }
+    // }, [currentPage, sort, type, category, search]);
 
     return (
         <>
-
+            <Header/>
             <div className={styles.ui}>
                 <div className={styles.headerBox}>
                     <Slider {...sliderSettings}>
