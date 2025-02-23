@@ -22,6 +22,7 @@ function ShoppingCart() {
     console.log(cart)
     return (
         <>
+            
             <div className={styles.container}>
                 <div className={styles.backgroundCart}>
                     <div className={styles.shoppingCart}>

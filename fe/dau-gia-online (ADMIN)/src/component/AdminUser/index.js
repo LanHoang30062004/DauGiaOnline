@@ -31,7 +31,7 @@ function AdminUser() {
     };
 
     const confirmChange = () => {
-        axios.delete(`http://localhost:2000/users/${userToDelete}`)
+        axios.delete(`http://localhost:8081/api/v1/users/${userToDelete}`)
             .then(() => {
                 setData(data.filter(user => user.id !== userToDelete));
                 setShowModal(false);
