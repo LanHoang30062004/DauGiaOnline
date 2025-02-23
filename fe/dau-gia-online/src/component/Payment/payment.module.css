@@ -56,7 +56,7 @@
 .inputAddr, 
 .inputName, 
 .inputPhone {
-    width: 80%;
+    width: 92%;
     height: 40px;
     margin-left:var(--mar-left);
     margin-top: 15px;

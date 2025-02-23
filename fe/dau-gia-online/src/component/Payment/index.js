@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./payment.module.css"
-
 import { FaTruck } from "react-icons/fa";
 import { useAsyncError, useParams } from "react-router-dom";
 import axiosInstance from './../../interceptor/index';
@@ -17,21 +16,30 @@ function Payment() {
     const [address, setAddress] = useState({});
     const [date, setDate] = useState();
     const { id } = useParams();
-    const handleShippingFee = (index) => {
-        if (index == 1) {
-            setShippingFee(50000);
-            setSpeed(60);
-        }
-        else if (index == 2) {
-            setShippingFee(1000000)
-            setSpeed(120);
-        }
-        else {
-            setShippingFee(2000000);
-            setSpeed(900);
-        }
+    const [selectedShipping, setSelectedShipping] = useState(null);
 
-    }
+    const handleShippingFee = (index) => {
+        setSelectedShipping((prev) => {
+            if (prev === index) {
+                setShippingFee(0);
+                setSpeed(0);
+                return null;
+            } else {
+                if (index === 1) {
+                    setShippingFee(50000);
+                    setSpeed(60);
+                } else if (index === 2) {
+                    setShippingFee(1000000);
+                    setSpeed(120);
+                } else {
+                    setShippingFee(2000000);
+                    setSpeed(900);
+                }
+                return index;
+            }
+        });
+    };
+
     const validAddress = (address) => {
         const regex = /(.+?),\s*(Đường .+?),\s*(Phường .+?),\s*(Quận \d+|Huyện .+?),\s*(?:Tỉnh|Thành phố|TP\.?)\s*(.+)/;
         const match = address.match(regex);
@@ -43,7 +51,7 @@ function Payment() {
             })
             return;
         }
-        const province = match[5]; 
+        const province = match[5];
         if (provinces.some((p) => p.name === province)) {
             setAddress(provinces.find((p) => p.name === province));
         }
@@ -56,17 +64,34 @@ function Payment() {
         }
     }
 
+    const validPhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^(0[2-9]{1}\d{8})$/;
+        if (!phoneRegex.test(phoneNumber)) {
+            toast.error("Số điện thoại không hợp lệ", {
+                position: "bottom-right",
+                autoClose: 1000,
+            });
+            return false;
+        }
+        return true;
+    }
+
+    const handlePhoneNumber = (e) => {
+        const result = e.target.value;
+        if (result) validPhoneNumber(result);
+    }
+
     const handleAdress = (e) => {
         const result = e.target.value;
-        if (result)   validAddress(result);
+        if (result) validAddress(result);
     }
     const calculateDate = (distance, speed, shippingFee) => {
         console.log(distance, speed, shippingFee);
         if (!distance || speed <= 0 || !shippingFee) return "Dữ liệu không hợp lệ";
 
-        const hours = distance / speed; 
+        const hours = distance / speed;
         console.log(hours)
-        const now = new Date(); 
+        const now = new Date();
         let additionalDays = 0;
         if (shippingFee === 50000) additionalDays = 4;
         else if (shippingFee === 1000000) additionalDays = 3;
@@ -74,9 +99,9 @@ function Payment() {
 
         now.setDate(now.getDate() + additionalDays);
         now.setHours(now.getHours() + Math.floor(hours));
-        now.setMinutes(now.getMinutes() + Math.round((hours % 1) * 60)); 
+        now.setMinutes(now.getMinutes() + Math.round((hours % 1) * 60));
 
-        return now.toLocaleDateString("vi-VN"); 
+        return now.toLocaleDateString("vi-VN");
     };
 
     useEffect(() => {
@@ -105,9 +130,9 @@ function Payment() {
                             <div className={styles.boxName}>
                                 ORDER INFORMATION
                             </div>
-                            <input onBlur={handleAdress} className={styles.inputName} type="text" placeholder="Name" />
-                            <input className={styles.inputPhone} type="text" placeholder="Phone number" />
-                            <input className={styles.inputAddr} type="text" placeholder="Address" />
+                            <input className={styles.inputName} type="text" placeholder="Name" />
+                            <input onBlur={handlePhoneNumber} className={styles.inputPhone} type="text" placeholder="Phone number" />
+                            <input onBlur={handleAdress} className={styles.inputAddr} type="text" placeholder="Address" />
                         </div>
                         <div className={styles.space}></div>
                         <div className={styles.formBox}>
@@ -117,17 +142,34 @@ function Payment() {
                             </div>
                             <div className={styles.shipBox}>
                                 <div className={styles.formTitle}>Shipping by</div>
-                                <div className={styles.btnGroup + " " + styles.dFlex + " " + styles.justifyContentCenter} role="group">
-                                    <input type="radio" className={styles.btnCheck} name="shipping" id="motorbike" />
-                                    <label onClick={() => handleShippingFee(1)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="motorbike">Motorbike</label>
+                                <div className={`${styles.btnGroup} ${styles.dFlex} ${styles.justifyContentCenter}`} role="group">
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="motorbike" checked={selectedShipping === 1} readOnly />
+                                    <label
+                                        onClick={() => handleShippingFee(1)}
+                                        className={`${styles.btn} ${selectedShipping === 1 ? styles.btnPrimary : styles.btnOutlineSecondary} ${styles.mx2}`}
+                                        htmlFor="motorbike"
+                                    >
+                                        Motorbike
+                                    </label>
 
-                                    <input type="radio" className={styles.btnCheck} name="shipping" id="plane" />
-                                    <label onClick={() => handleShippingFee(2)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="plane">Van</label>
-
-                                    <input type="radio" className={styles.btnCheck} name="shipping" id="van" />
-                                    <label onClick={() => handleShippingFee(3)} className={styles.btn + " " + styles.btnOutlineSecondary + " " + styles.mx2} for="van">Plane</label>
-
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="plane" checked={selectedShipping === 2} readOnly />
+                                    <label
+                                        onClick={() => handleShippingFee(2)}
+                                        className={`${styles.btn} ${selectedShipping === 2 ? styles.btnPrimary : styles.btnOutlineSecondary} ${styles.mx2}`}
+                                        htmlFor="plane"
+                                    >
+                                        Van
+                                    </label>
+                                    <input type="radio" className={styles.btnCheck} name="shipping" id="van" checked={selectedShipping === 3} readOnly />
+                                    <label
+                                        onClick={() => handleShippingFee(3)}
+                                        className={`${styles.btn} ${selectedShipping === 3 ? styles.btnPrimary : styles.btnOutlineSecondary} ${styles.mx2}`}
+                                        htmlFor="van"
+                                    >
+                                        Plane
+                                    </label>
                                 </div>
+
 
                             </div>
                             <div className={styles.dateBox}>
