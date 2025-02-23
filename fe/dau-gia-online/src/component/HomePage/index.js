@@ -8,7 +8,6 @@ import { formatCurrency } from "../../util/format";
 import { compareTime, convertDateTime } from "../../util/formatDate";
 import { format, addMinutes, isBefore, isAfter, isWithinInterval, addSeconds } from "date-fns";
 import { eventEmitter } from "../../util/eventMitter";
-import { format } from "date-fns";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
