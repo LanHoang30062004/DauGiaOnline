@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CountdownTimer from "../CountDown";
 import { formatCurrency } from './../../util/format';
 import { da } from "date-fns/locale";
+import { eventEmitter } from "../../util/eventMitter";
 /*
  - Auctioning and end time => dang dau gia 
  - Auctionging => Dau gia xong
@@ -22,30 +23,44 @@ function DetailProduct() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentBid, setCurrentBid] = useState(0);
+    const [checkTime, setCheckTime] = useState(false);
     const email = localStorage.getItem("email");
+    const [currentName, setCurrentName] = useState("");
 
     // handle when end time auction
     useEffect(() => {
-        if (!endTime) {
-            console.log("Cart");
-            axiosInstance.post(`products/cart/${email}/${product.id}`)
-                .then((res) => console(res))
-                .catch((err) => console.log(err))
+
+        if (checkTime) {
+            if (endTime && new Date() >= endTime) {
+                console.log("Cart")
+                axiosInstance.post(`products/cart/${email}/${id}`)
+                    .then((res) => console.log("Added to cart:", res))
+                    .catch((err) => console.log("Error adding to cart:", err));
+                setEndTime(null)
+                setCurrentName("")
+            }
         }
-    }, [endTime])
+
+    }, [checkTime])
 
 
     useEffect(() => {
-        axiosInstance.get(`auction/${product.id}`)
-            .then((res) => {
-                const data = res.data.data;
-                if (data) {
-                    setCurrentPrice(data.bid);
-                }
+        const interval = setInterval(() => {
+            axiosInstance.get(`auction/${product.id}`)
+                .then((res) => {
+                    const data = res.data.data;
+                    if (data && data.bid !== currentPrice) {
+                        setCurrentPrice(data.bid);
+                        setCurrentName(data.email);
+                    }
+                })
+                .catch((err) => console.log(err));
+        }, 500); // Gửi request mỗi 2 giây
 
-            })
-            .catch((err) => console.log(err));
-    }, [currentPrice])
+        return () => clearInterval(interval); // Dọn dẹp khi component unmount
+    }, [product.id, currentPrice]);
+
+
 
     useEffect(() => {
         axiosInstance.get(`${url}products/${id}`)
@@ -58,6 +73,7 @@ function DetailProduct() {
                 const auctionStart = new Date(data.auctionTime);
                 const auctionEnd = new Date(auctionStart.getTime() + 90 * 1000);
                 setEndTime(auctionEnd);
+                setCheckTime(false)
 
                 if (new Date() >= auctionStart) {
                     setAuctioning(true);
@@ -84,16 +100,38 @@ function DetailProduct() {
 
     const handlePlaceBid = () => {
         if (currentBid > currentPrice) {
-            setCurrentPrice(currentBid);
-            axiosInstance.post("auction/place-bid", {
-                "email": email,
-                "bid": currentBid,
-                "productId": product.id
-            })
-                .then((res) => {
-                    const data = res.data.data;
+            if (currentName === email) {
+                const isConfirmed = window.confirm("Bạn có chắc chắn muốn đấu giá không?");
+                if (isConfirmed) {
+                    setCurrentPrice(currentBid);
+                    axiosInstance.post("auction/place-bid", {
+                        "email": email,
+                        "bid": currentBid,
+                        "productId": product.id
+                    })
+                        .then((res) => {
+                            const data = res.data.data;
+                        })
+                        .catch((err) => console.log(err))
+                    console.log("Đấu giá thành công!");
+                } else {
+                    console.log("Đấu giá bị hủy!");
+                }
+
+            }
+            else {
+                setCurrentPrice(currentBid);
+                axiosInstance.post("auction/place-bid", {
+                    "email": email,
+                    "bid": currentBid,
+                    "productId": product.id
                 })
-                .catch((err) => console.log(err))
+                    .then((res) => {
+                        const data = res.data.data;
+                    })
+                    .catch((err) => console.log(err))
+            }
+
         }
         else {
             toast.info("Tiền cược hiện tại đang thấp hơn giá trị cược", {
@@ -106,16 +144,37 @@ function DetailProduct() {
 
     const handlePlaceBidForButton = (price) => {
         if (price > currentPrice) {
-            setCurrentPrice(price);
-            axiosInstance.post("auction/place-bid", {
-                "email": email,
-                "bid": price,
-                "productId": product.id
-            })
-                .then((res) => {
-                    const data = res.data.data;
+            if (currentName === email) {
+                const isConfirmed = window.confirm("Bạn có chắc chắn muốn đấu giá không?");
+                if (isConfirmed) {
+                    setCurrentPrice(price);
+                    axiosInstance.post("auction/place-bid", {
+                        "email": email,
+                        "bid": price,
+                        "productId": product.id
+                    })
+                        .then((res) => {
+                            const data = res.data.data;
+                        })
+                        .catch((err) => console.log(err))
+                    console.log("Đấu giá thành công!");
+                } else {
+                    console.log("Đấu giá bị hủy!");
+                }
+
+            }
+            else {
+                setCurrentPrice(price);
+                axiosInstance.post("auction/place-bid", {
+                    "email": email,
+                    "bid": price,
+                    "productId": product.id
                 })
-                .catch((err) => console.log(err))
+                    .then((res) => {
+                        const data = res.data.data;
+                    })
+                    .catch((err) => console.log(err))
+            }
         }
         else {
             toast.info("Tiền cược hiện tại đang thấp hơn giá trị cược hiện tại", {
@@ -172,38 +231,22 @@ function DetailProduct() {
 
                 <div className={styles.timer}>
                     {auctioning && endTime ? (
-                        <CountdownTimer initialTime={Math.max(0, Math.floor((endTime - new Date()) / 1000))} setEndTime={setEndTime} />
+                        <CountdownTimer initialTime={Math.max(0, Math.floor((endTime - new Date()) / 1000))} setCheckTime={setCheckTime} />
                     ) : (
                         <div>{auctioning ? "Time's up!" : "Waiting for auction to start..."}</div>
                     )}
                 </div>
-
-                {/* <div className={styles.bidOptions}>
-                    <button onClick={() => handlePlaceBidForButton(currentPrice * 1.2)} className={styles.bid}>
-                        <span className={styles.amount}>{formatCurrency(currentPrice * 1.2)}</span> <span>VND</span>
-                    </button>
-                    <button onClick={() => handlePlaceBidForButton(currentPrice * 1.5)} className={styles.bid}>
-                        <span className={styles.amount}>{formatCurrency(currentPrice * 1.5)}</span> <span>VND</span>
-                    </button>
-                </div>
-                <div>
-                    <input onBlur={handleCurrentBid}
-                        placeholder={`${formatCurrency(currentPrice * 1.2)} or up`}
-                        className={styles.bidInput}
-                    />
-                    <div className={styles.buttonGroup}>
-                        <button onClick={handlePlaceBid} className={styles.placeBid}>Place Bid</button>
-                        <button onClick={() => handlePlaceBidForButton(currentPrice * 1.5)} className={styles.setMaxBid}>Set Max Bid</button>
-                    </div>
-                </div> */}
-
                 {auctioning && endTime ? (
                     <div>
                         <div className={styles.bidOptions}>
-                            <button onClick={() => handlePlaceBidForButton(currentPrice * 1.2)} className={styles.bid}>
+                            <button onClick={() => {
+                                handlePlaceBidForButton(currentPrice * 1.2);
+                            }} className={styles.bid}>
                                 <span className={styles.amount}>{formatCurrency(currentPrice * 1.2)}</span> <span>VND</span>
                             </button>
-                            <button onClick={() => handlePlaceBidForButton(currentPrice * 1.5)} className={styles.bid}>
+                            <button onClick={() => {
+                                handlePlaceBidForButton(currentPrice * 1.5)
+                            }} className={styles.bid}>
                                 <span className={styles.amount}>{formatCurrency(currentPrice * 1.5)}</span> <span>VND</span>
                             </button>
                         </div>
@@ -213,8 +256,12 @@ function DetailProduct() {
                                 className={styles.bidInput}
                             />
                             <div className={styles.buttonGroup}>
-                                <button onClick={handlePlaceBid} className={styles.placeBid}>Place Bid</button>
-                                <button onClick={() => handlePlaceBidForButton(currentPrice * 1.5)} className={styles.setMaxBid}>Set Max Bid</button>
+                                <button onClick={() => {
+                                    handlePlaceBid();
+                                }} className={styles.placeBid}>Place Bid</button>
+                                <button onClick={() => {
+                                    handlePlaceBidForButton(currentPrice * 1.5);
+                                }} className={styles.setMaxBid}>Set Max Bid</button>
                             </div>
                         </div>
                     </div>

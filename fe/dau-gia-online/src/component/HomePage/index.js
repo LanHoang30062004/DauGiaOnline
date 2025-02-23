@@ -6,7 +6,8 @@ import axiosInstance from "../../interceptor";
 import { url } from './../../util/Url';
 import { formatCurrency } from "../../util/format";
 import { compareTime, convertDateTime } from "../../util/formatDate";
-import { format } from "date-fns";
+import { format, addMinutes, isBefore, isAfter, isWithinInterval, addSeconds } from "date-fns";
+import { eventEmitter } from "../../util/eventMitter";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -31,67 +32,61 @@ function HomePage() {
             setCurrentPage(page);
         }
     };
+
+    // Xác định trạng thái đấu giá
+    const getAuctionStatus = (auctionTime) => {
+        const auctionStartTime = new Date(auctionTime);
+        const auctionEndTime = addSeconds(auctionStartTime, 90);
+        const now = new Date();
+
+        if (isBefore(now, auctionStartTime)) {
+            return ` ${format(auctionStartTime, 'HH:mm dd/MM/yyyy')}`;
+        } else if (isWithinInterval(now, { start: auctionStartTime, end: auctionEndTime })) {
+            return "Auctioning...";
+        } else {
+            return "Auction Ended !";
+        }
+    }
     const handleAuctioning = (time) => {
 
     }
 
     const sliderSettings = {
-        dots: true,       
-        infinite: true,         
-        speed: 500,             
-        slidesToShow: 1,        
-        slidesToScroll: 1,      
-        autoplay: true,         
-        autoplaySpeed: 3000,    
-        arrows: true,           
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true,
     };
 
     useEffect(() => {
-        console.log(search);
         if (search) {
             axiosInstance.get(`products/by-search?page=${currentPage}&size=${size}&search=${search}`)
                 .then((res) => {
                     setProducts(res.data.data.items);
-                    setTotalPage(res.data.data.totalPages)
+                    setTotalPage(res.data.data.totalPages);
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => console.log(err));
+        } else {
+            const filterUrl = type == null
+                ? `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`
+                : `products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=${type}`;
+
+            axiosInstance.get(filterUrl)
+                .then((res) => {
+                    setProducts(res.data.data.items);
+                    setTotalPage(res.data.data.totalPages);
+                })
+                .catch((err) => console.log(err));
         }
-        else {
-            if (type == null) {
-                axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}`)
-                    .then((res) => {
-                        setProducts(res.data.data.items);
-                        setTotalPage(res.data.data.totalPages)
-                    })
-                    .catch((err) => console.log(err))
-            }
-            else {
-                if (type == 0) {
-                    axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=false`)
-                        .then((res) => {
-                            setProducts(res.data.data.items);
-                            setTotalPage(res.data.data.totalPages)
+    }, [currentPage, sort, type, category, search]);
 
-                        })
-                        .catch((err) => console.log(err))
-                }
-                else {
-                    axiosInstance.get(`products/by-filter?page=${currentPage}&size=${size}&sort=${sort}&category=${category}&type=true`)
-                        .then((res) => {
-                            setProducts(res.data.data.items);
-                            setTotalPage(res.data.data.totalPages)
-                        })
-                        .catch((err) => console.log(err))
-                }
-
-            }
-        }
-
-
-    }, [currentPage, sort, type, category, search])
-    console.log(products);
     return (
         <>
+
             <div className={styles.ui}>
                 <div className={styles.headerBox}>
                     <Slider {...sliderSettings}>
@@ -141,9 +136,7 @@ function HomePage() {
                                 </div>
                                 <div className={styles.proName}>{p.name}</div>
                                 <div className={styles.proPrice}>{formatCurrency(p.startingPrice)}VND</div>
-                                <div className={styles.time}>{
-                                    compareTime(convertDateTime(p.auctionTime)) ? "Auction Ended" : convertDateTime(p.auctionTime)
-                                }</div>
+                                <div className={styles.time}>{getAuctionStatus(p.auctionTime)}</div>
                             </div>
                         )}
                     </div>
@@ -175,6 +168,7 @@ function HomePage() {
                 </div>
             </div>
         </>
-    )
+    );
 }
+
 export default HomePage;

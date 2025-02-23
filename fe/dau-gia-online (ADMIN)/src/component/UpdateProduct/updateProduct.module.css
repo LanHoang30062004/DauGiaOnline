@@ -351,3 +351,7 @@ justify-content: center;
 .btnCancel:hover {
     background-color: #c82333;
 }
+
+.field input[type="datetime-local"] {
+    color: grey;
+}

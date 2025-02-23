@@ -61,8 +61,9 @@ function Register() {
         });
     }
   };
-
+  
   return (
+    <>
     <div className={styles.backgroundImage}>
       <header>
         <div className={styles.headerContent}>
@@ -196,6 +197,7 @@ function Register() {
       </div>
       <ToastContainer />
     </div>
+    </>
   );
 }
 

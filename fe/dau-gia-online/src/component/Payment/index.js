@@ -15,7 +15,7 @@ function Payment() {
     const [shippingFee, setShippingFee] = useState(0);
     const [speed, setSpeed] = useState(0);
     const [address, setAddress] = useState({});
-    const [date, setDate] = useState();
+    const [date, setDate] = useState("dd/MM/yyyy");
     const { id } = useParams();
     const handleShippingFee = (index) => {
         if (index == 1) {
@@ -43,7 +43,7 @@ function Payment() {
             })
             return;
         }
-        const province = match[5]; 
+        const province = match[5];
         if (provinces.some((p) => p.name === province)) {
             setAddress(provinces.find((p) => p.name === province));
         }
@@ -58,15 +58,16 @@ function Payment() {
 
     const handleAdress = (e) => {
         const result = e.target.value;
-        if (result)   validAddress(result);
+        if (result) validAddress(result);
+        else setDate("dd/MM/yyyy")
     }
     const calculateDate = (distance, speed, shippingFee) => {
         console.log(distance, speed, shippingFee);
         if (!distance || speed <= 0 || !shippingFee) return "Dữ liệu không hợp lệ";
 
-        const hours = distance / speed; 
+        const hours = distance / speed;
         console.log(hours)
-        const now = new Date(); 
+        const now = new Date();
         let additionalDays = 0;
         if (shippingFee === 50000) additionalDays = 4;
         else if (shippingFee === 1000000) additionalDays = 3;
@@ -74,9 +75,9 @@ function Payment() {
 
         now.setDate(now.getDate() + additionalDays);
         now.setHours(now.getHours() + Math.floor(hours));
-        now.setMinutes(now.getMinutes() + Math.round((hours % 1) * 60)); 
+        now.setMinutes(now.getMinutes() + Math.round((hours % 1) * 60));
 
-        return now.toLocaleDateString("vi-VN"); 
+        return now.toLocaleDateString("vi-VN");
     };
 
     useEffect(() => {
@@ -105,9 +106,9 @@ function Payment() {
                             <div className={styles.boxName}>
                                 ORDER INFORMATION
                             </div>
-                            <input onBlur={handleAdress} className={styles.inputName} type="text" placeholder="Name" />
+                            <input className={styles.inputName} type="text" placeholder="Name" />
                             <input className={styles.inputPhone} type="text" placeholder="Phone number" />
-                            <input className={styles.inputAddr} type="text" placeholder="Address" />
+                            <input onBlur={handleAdress} className={styles.inputAddr} type="text" placeholder="Address" />
                         </div>
                         <div className={styles.space}></div>
                         <div className={styles.formBox}>

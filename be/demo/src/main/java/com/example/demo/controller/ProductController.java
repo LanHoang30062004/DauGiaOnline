@@ -4,6 +4,7 @@ import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.ResponseData;
 import com.example.demo.service.ProductService;
+import com.example.demo.util.TypeProduct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +37,12 @@ public class ProductController {
                                                   @RequestParam(name = "size") int size,
                                                   @RequestParam(required = false) String sort,
                                                   @RequestParam(required = false) String category,
-                                                  @RequestParam(required = false) Boolean type
+                                                  @RequestParam(required = false) String type
     ) {
         try {
-            PageResponse pageResponse = this.productService.findAllByFilter(page, size, sort, category, type);
+            TypeProduct typeProduct = null ;
+            if (type != null) typeProduct = TypeProduct.valueOf(type);
+            PageResponse pageResponse = this.productService.findAllByFilter(page, size, sort, category, typeProduct);
             log.info("Get all products by filter successfully");
             return new ResponseData<>(HttpStatus.OK.value(), "Get all products by filter successfully", pageResponse);
         } catch (Exception e) {
@@ -80,29 +83,6 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/by-auction")
-    public ResponseData<?> getAllProductsByAuction() {
-        try {
-            List<ProductDTO> result = this.productService.findAllByAuction();
-            log.info("Get all products by auction successfully");
-            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by auction successfully", result);
-        } catch (Exception e) {
-            log.error("Get all products by auction failed : {}", e.getMessage());
-            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by auction failed :" + e.getMessage());
-        }
-    }
-
-    @GetMapping("/by-inventory")
-    public ResponseData<?> getAllProductsByAuctioned() {
-        try {
-            List<ProductDTO> result = this.productService.findAllByInventory();
-            log.info("Get all products by inventory successfully");
-            return new ResponseData<>(HttpStatus.OK.value(), "Get all products by inventory successfully", result);
-        } catch (Exception e) {
-            log.error("Get all products by inventory failed : {}", e.getMessage());
-            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Get all products by inventory failed :" + e.getMessage());
-        }
-    }
 
     @PostMapping("")
     public ResponseData<?> addNewProduct(@Valid @RequestBody ProductDTO productDTO) {
@@ -132,7 +112,6 @@ public class ProductController {
     public ResponseEntity<?> getImageByImageName(@PathVariable("imageName") String imageName) {
         try {
             UrlResource resource = this.productService.getImageByImageName(imageName);
-            log.info("Get image by image name successful");
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);

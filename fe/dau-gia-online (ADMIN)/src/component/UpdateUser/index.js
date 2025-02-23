@@ -87,7 +87,7 @@ const UpdateUser = () => {
 
   const handleCancel = () => {
     alert("Update canceled");
-    navigate("/admin-users");
+    navigate("/admin-user");
   };
 
   const handleToUsers = () => {
