@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import axiosInstance from "../../interceptor";
 
 function AdminUser() {
     const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ function AdminUser() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:2000/users")
+        axiosInstance.get("http://localhost:8081/api/v1/users")
             .then((res) => {
                 console.log(res.data);
                 setData(res.data);

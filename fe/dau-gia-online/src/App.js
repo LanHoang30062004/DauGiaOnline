@@ -12,6 +12,7 @@ import ShoppingCart from './component/ShoppingCart/index';
 import DetailProduct from './component/DetailProduct/index';
 import TransactionHistory from './component/TransactionHistory';
 import { getToken } from './service/AuthService';
+import TransactionSuccessful from './component/TransactionSuccessful';
 const PrivateRoute = ({ children }) => {
   const { authToken } = useAuth();
   return authToken ? children : <Navigate to="/" replace />;
@@ -22,6 +23,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/register" element={<Register />} />
+          <Route path="/transaction-successful" element={<TransactionSuccessful />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
 
           <Route path="/" element={getToken() ? <Navigate to="/home" replace /> : <Login />} />
@@ -40,6 +42,7 @@ function App() {
             <Route path="shopping-cart" element={<ShoppingCart />} />
             <Route path="detail-product/:id" element={<DetailProduct />} />
             <Route path="transaction-history/:id" element={<TransactionHistory />} />
+            <Route path="transaction-successful" element={<TransactionSuccessful />} />
           </Route>
         </Routes>
       </AuthProvider>
