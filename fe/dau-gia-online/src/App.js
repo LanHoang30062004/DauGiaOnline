@@ -22,7 +22,6 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/register" element={<Register />} />
-          <Route path="home" element={<HomePage />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
 
           <Route path="/" element={getToken() ? <Navigate to="/home" replace /> : <Login />} />
