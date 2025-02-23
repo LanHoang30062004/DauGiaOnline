@@ -10,8 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
-    @Query("select p from Product p where p.auctioned = false")
-    List<Product> findByAuction();
-    @Query("select p from Product p where p.auctioned = true ")
-    List<Product> findByInventory();
+
 }

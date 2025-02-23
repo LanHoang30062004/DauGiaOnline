@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownTimer = ({ initialTime , setEndTime }) => {
+const CountdownTimer = ({ initialTime , setCheckTime }) => {
   const [remainingTime, setRemainingTime] = useState(initialTime);
 
   // Hàm định dạng thời gian thành "HH:mm:ss"
@@ -12,7 +12,7 @@ const CountdownTimer = ({ initialTime , setEndTime }) => {
   };
 
   useEffect(() => {
-    if (remainingTime <= 0) setEndTime(null);
+    if (remainingTime <= 0) setCheckTime(true);
 
     const timer = setInterval(() => {
       setRemainingTime((prevTime) => {

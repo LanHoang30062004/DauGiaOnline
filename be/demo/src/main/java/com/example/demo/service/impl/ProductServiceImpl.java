@@ -3,15 +3,10 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.request.ProductDTO;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.Category;
-import com.example.demo.model.Product;
-import com.example.demo.model.ProductImage;
-import com.example.demo.model.User;
-import com.example.demo.repository.CategoryRepository;
-import com.example.demo.repository.ProductImageRepository;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.service.ProductService;
+import com.example.demo.util.TypeProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -30,8 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductImageRepository productImageRepository;
     private final UserRepository userRepository;
+    private final AuctionRepository auctionRepository;
 
     private List<String> handleUrlResource(List<ProductImage> productImages) {
         List<String> resources = new ArrayList<>();
@@ -72,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageResponse<?> findAllByFilter(int page, int size, String sort, String category, Boolean type) {
+    public PageResponse<?> findAllByFilter(int page, int size, String sort, String category, TypeProduct type) {
         if (page > 0) page = page - 1;
 
         // Xử lý sort
@@ -98,9 +92,23 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (type != null) {
-            spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("auctioned"), type)
-            );
+            spec = spec.and((root, query, criteriaBuilder) -> {
+                switch (type) {
+                    case AUCTION_PRODUCT:
+                        return criteriaBuilder.equal(root.get("type"), "AUCTION_PRODUCT");
+                    case AUCTIONED:
+                        return criteriaBuilder.equal(root.get("type"), "AUCTIONED");
+                    case INVENTORY:
+                        return criteriaBuilder.equal(root.get("type"), "INVENTORY");
+                    default:
+                        throw new IllegalArgumentException("Unknown type: " + type);
+                }
+            });
+        }
+        if (type == null) {
+            spec = spec.and((root, query, criteriaBuilder) -> {
+                return criteriaBuilder.notEqual(root.get("type"), "AUCTIONED");
+            });
         }
 
         // Truy vấn dữ liệu
@@ -223,7 +231,7 @@ public class ProductServiceImpl implements ProductService {
                 .startingPrice(productDTO.getStartingPrice())
                 .auctionTime(productDTO.getAuctionTime())
                 .category(category)
-                .auctioned(false)
+                .type(TypeProduct.AUCTION_PRODUCT)
                 .build();
         this.productRepository.save(product);
         return productDTO;
@@ -352,15 +360,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProductToCart(String email , Long productId) throws NotFoundException {
+    public void addProductToCart(String email, Long productId) throws NotFoundException {
         User user = this.userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Can not find user with email :" + email));
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new NotFoundException("Can not find product with id :" + productId));
-        if (user.getProducts() == null) user.setProducts(Arrays.asList(product));
-        else user.getProducts().add(product);
-        if (product.getUsers() == null) product.setUsers(Arrays.asList(user));
-        else product.getUsers().add(user);
-        this.productRepository.save(product);
-        this.userRepository.save(user);
+        Auction auction = this.auctionRepository.findByUserAndProductId(user.getId() , product.getId()).orElse(null);
+        Auction auction1 = this.auctionRepository.findByProductId(productId).orElse(null);
+        if (auction != null ) {
+            if (user.getProducts() == null) user.setProducts(Arrays.asList(product));
+            else user.getProducts().add(product);
+            if (product.getUsers() == null) product.setUsers(Arrays.asList(user));
+            else product.getUsers().add(user);
+            product.setType(TypeProduct.AUCTIONED);
+            this.productRepository.save(product);
+            this.userRepository.save(user);
+        }
+        else if (auction1 == null)  {
+            product.setType(TypeProduct.INVENTORY);
+        }
+
     }
 
     @Override
@@ -376,36 +393,6 @@ public class ProductServiceImpl implements ProductService {
                 this.deleteProduct(productId);
             } else throw new Exception("Not enough balance");
         } else throw new Exception("User don't have this product with id :" + productId);
-    }
-
-    @Override
-    public List<ProductDTO> findAllByAuction() {
-        List<ProductDTO> products = this.productRepository.findByAuction().stream().map(product -> {
-            return ProductDTO.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .startingPrice(product.getStartingPrice())
-                    .auctionTime(product.getAuctionTime())
-                    .category(product.getCategory().getName())
-                    .urlResources(this.handleUrlResource(product.getProductImages()))
-                    .build();
-        }).toList();
-        return products;
-    }
-
-    @Override
-    public List<ProductDTO> findAllByInventory() {
-        List<ProductDTO> products = this.productRepository.findByInventory().stream().map(product -> {
-            return ProductDTO.builder()
-                    .id(product.getId())
-                    .name(product.getName())
-                    .startingPrice(product.getStartingPrice())
-                    .auctionTime(product.getAuctionTime())
-                    .category(product.getCategory().getName())
-                    .urlResources(this.handleUrlResource(product.getProductImages()))
-                    .build();
-        }).toList();
-        return products;
     }
 
 }

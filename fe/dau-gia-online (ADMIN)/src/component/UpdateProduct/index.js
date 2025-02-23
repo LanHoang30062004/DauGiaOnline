@@ -75,7 +75,7 @@ function UpdateProduct() {
             position: 'bottom-right',
             autoClose: 1500
         });
-        navigate("/admin-products");
+        navigate("/admin-product");
     };
 
     const handleToUsers = () => {

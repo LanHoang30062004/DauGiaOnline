@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Megan Fox",
-      "email": "meganfox69@example.com",
+      "email": "kyrie@gmail.com",
       "balance": 8420030000,
       "address": "quangngai",
       "date": "16/01/2010"
@@ -296,24 +296,17 @@
     },
     {
       "id": "21",
-      "name": "123",
-      "price": "123",
-      "time": "123",
-      "category": "bag"
-    },
-    {
-      "id": "21",
       "name": "12",
       "price": "123",
       "time": "123",
       "category": "bag"
     },
     {
-      "id": "23",
-      "name": "Mai Hoang Lan",
-      "price": "1",
-      "time": "12/12/2025",
-      "category": "antique"
+      "id": "24",
+      "name": "jack",
+      "price": "12",
+      "time": "12",
+      "category": "bag"
     }
   ]
 }

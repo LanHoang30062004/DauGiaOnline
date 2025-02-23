@@ -34,6 +34,7 @@ function Header({ setFilter, setSearch }) {
     }
     const handleClickType = (e) => {
         const value = e.target.value;
+        console.log(value) ; 
         setFilter({
             category,
             type: value == "" ? null : value,
@@ -190,8 +191,8 @@ function Header({ setFilter, setSearch }) {
                                         <p>Loại hàng</p>
                                         <select onChange={handleClickType} value={type}>
                                             <option value="">Tất cả</option>
-                                            <option value="0">Hàng đấu giá</option>
-                                            <option value="1">Hàng tồn kho</option>
+                                            <option value="AUCTION_PRODUCT">Hàng đấu giá</option>
+                                            <option value="INVENTORY">Hàng tồn kho</option>
 
                                         </select>
                                     </div>
