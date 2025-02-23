@@ -92,6 +92,7 @@ function HomePage() {
     console.log(products);
     return (
         <>
+        
             <div className={styles.ui}>
                 <div className={styles.headerBox}>
                     <Slider {...sliderSettings}>

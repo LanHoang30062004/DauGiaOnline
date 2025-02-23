@@ -1,7 +1,14 @@
 .header {
-    &__above {
-        border: 1px solid #bcbbbb;
 
+    &__above {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid #bcbbbb;
+        
         .above {
             &__content {
                 display: flex;
@@ -46,9 +53,16 @@
     &__below {
         .below {
             &__content {
+                position: fixed;
+                top: 37px;
+                left: 0;
+                right: 0;
+                height: auto;
+                z-index: 1000;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                background-color: white;
                 border-bottom: 1px solid #bcbbbb;
             }
 
@@ -67,8 +81,9 @@
                 background-color: #ebeaea;
                 display: flex;
                 border-radius: 20px;
-                padding: 12px;
+                padding: 7px;
                 align-items: center;
+                margin-right: 75px;
 
                 input {
                     border: none;
@@ -94,23 +109,7 @@
                 cursor: pointer;
             }
 
-            &__button {
-                width: 100px;
-                height: 50px;
-                border-radius: 20px;
-                background-color: #a8a9af;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: background-color 0.3s ease-in, color 0.3s ease-in;
-            }
-
-            &__button:hover {
-                background-color: rgba(168, 169, 175, 0.6);
-                color: black;
-                cursor: pointer;
-            }
-
+            
         }
 
     }
@@ -224,10 +223,13 @@ nav a {
 .above__image--add {
     position: absolute ; 
     background-color: #f2f2f2;
-    right: 1%;
-    top: 98%;
+    right: 5%;
+    top: 100%;
     width:260px;
+    padding-top: 70px;
     border-radius: 5px;
+    z-index: 1000;
+
 }
 .add__button {
     display: flex;

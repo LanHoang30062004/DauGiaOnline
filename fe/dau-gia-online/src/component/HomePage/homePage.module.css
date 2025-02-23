@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap');
 
 .ui {
-    background-color: #F2F2F2;
+
+    background-color: white;
 }
 
 .headerBox {
     border-bottom: 1px solid #C9C8C8;
     width: 75%;
     margin: auto;
+    margin-top: 110px;
 }
 
 a {
